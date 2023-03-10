@@ -7,9 +7,9 @@
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
 <link href="https://lmodel.github.io/collections/Collection/" rel="canonical"/>
 <link href="../assets/images/favicon.png" rel="icon"/>
-<meta content="mkdocs-1.4.2, mkdocs-material-9.1.0" name="generator"/>
+<meta content="mkdocs-1.4.2, mkdocs-material-9.1.2" name="generator"/>
 <title>Class: Collection - collections</title>
-<link href="../assets/stylesheets/main.402914a4.min.css" rel="stylesheet"/>
+<link href="../assets/stylesheets/main.7bf56d0a.min.css" rel="stylesheet"/>
 <link href="../assets/stylesheets/palette.a0c5b2b5.min.css" rel="stylesheet"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
@@ -214,14 +214,18 @@
       Thing &lt;|-- Collection
 
       Collection : element
+        Collection &lt;.. Thing : element
       Collection : size
+        Collection &lt;.. positive integer : size
 
 
       Collection &lt;|-- Bag
       Collection &lt;|-- Set
 
       Collection : element
+        Collection &lt;.. Thing : element
       Collection : size
+        Collection &lt;.. positive integer : size
 
 </div>
 <h2 id="inheritance">Inheritance</h2>
@@ -381,20 +385,10 @@ slot_usage:
     multivalued: true
     domain_of:
     - Collection
-    - Collection
-    - Collection
-    - Collection
-    - Collection
-    - Collection
     range: Thing
   size:
     name: size
     domain_of:
-    - Collection
-    - Collection
-    - Collection
-    - Collection
-    - Collection
     - Collection
     maximum_cardinality: 1
 disjoint_with:
@@ -425,20 +419,10 @@ slot_usage:
     multivalued: true
     domain_of:
     - Collection
-    - Collection
-    - Collection
-    - Collection
-    - Collection
-    - Collection
     range: Thing
   size:
     name: size
     domain_of:
-    - Collection
-    - Collection
-    - Collection
-    - Collection
-    - Collection
     - Collection
     maximum_cardinality: 1
 attributes:
@@ -457,11 +441,6 @@ attributes:
     owner: Collection
     domain_of:
     - Collection
-    - Collection
-    - Collection
-    - Collection
-    - Collection
-    - Collection
     range: Thing
   size:
     name: size
@@ -472,11 +451,6 @@ attributes:
     alias: size
     owner: Collection
     domain_of:
-    - Collection
-    - Collection
-    - Collection
-    - Collection
-    - Collection
     - Collection
     range: positive integer
     maximum_cardinality: 1
@@ -509,6 +483,6 @@ disjoint_with:
 <div class="md-dialog__inner md-typeset"></div>
 </div>
 <script id="__config" type="application/json">{"base": "..", "features": ["content.tabs.link"], "search": "../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
-<script src="../assets/javascripts/bundle.ce72ebac.min.js"></script>
+<script src="../assets/javascripts/bundle.fc8c2696.min.js"></script>
 <script src="https://unpkg.com/mermaid@8.8.0/dist/mermaid.min.js"></script><script>mermaid.initialize({});</script></body>
 </html>
