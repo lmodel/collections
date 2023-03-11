@@ -211,7 +211,7 @@
 <p>URI: <a href="https://w3id.org/lmodel/collections/ListItem">collections:ListItem</a></p>
 <div class="mermaid"> classDiagram
     class ListItem
-      Item &lt;|-- ListItem
+      CoItem &lt;|-- ListItem
 
       ListItem : index
         ListItem &lt;.. positive integer : index
@@ -222,7 +222,7 @@
 <h2 id="inheritance">Inheritance</h2>
 <ul>
 <li><a href="../Thing/">Thing</a><ul>
-<li><a href="../Item/">Item</a><ul>
+<li><a href="../CoItem/">CoItem</a><ul>
 <li><strong>ListItem</strong></li>
 </ul>
 </li>
@@ -250,7 +250,7 @@
 <td><a href="../itemOf/">itemOf</a></td>
 <td>0..1 <br/> <a href="../Bag/">Bag</a></td>
 <td>The link to a bag in which the item is member</td>
-<td><a href="../Item/">Item</a></td>
+<td><a href="../CoItem/">CoItem</a></td>
 </tr>
 </tbody>
 </table>
@@ -336,7 +336,7 @@ exact_mappings:
 - co:ListItem
 - schema:ItemList
 rank: 1000
-is_a: Item
+is_a: CoItem
 slots:
 - index
 slot_usage:
@@ -361,7 +361,7 @@ exact_mappings:
 - co:ListItem
 - schema:ItemList
 rank: 1000
-is_a: Item
+is_a: CoItem
 slot_usage:
   index:
     name: index
@@ -395,11 +395,11 @@ attributes:
     exact_mappings:
     - co:itemOf
     rank: 1000
-    domain: Item
+    domain: CoItem
     alias: itemOf
     owner: ListItem
     domain_of:
-    - Item
+    - CoItem
     inverse: item
     range: Bag
 
