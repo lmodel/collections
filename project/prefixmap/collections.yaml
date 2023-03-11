@@ -1,0 +1,14 @@
+{
+   "AFC": "http://purl.allotrope.org/ontologies/common#AFC_",
+   "NCIT": "http://purl.obolibrary.org/obo/NCIT_",
+   "SIO": "http://identifiers.org/sio/",
+   "co": "http://purl.org/co/",
+   "collections": "https://w3id.org/lmodel/collections/",
+   "dcid": "https://datacommons.org/browser/",
+   "linkml": "https://w3id.org/linkml/",
+   "owl": "http://www.w3.org/2002/07/owl#",
+   "schema": "http://schema.org/",
+   "spar": "http://purl.org/spar/error",
+   "sumo": "http://example.org/UNKNOWN/sumo/",
+   "wikidata": "http://identifiers.org/wikidata/"
+}

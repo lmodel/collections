@@ -1,0 +1,6 @@
+name: collections
+author: Noel McLoughlin <noel.mcloughlin@gmail.com>
+description: The Collections Ontology (CO)
+source_schema_path: src/collections/schema/collections.yaml
+google_sheet_id: 1wVoaiFg47aT9YWNeRfTZ8tYHN8s8PAuDx5i2HUcDpvQ
+google_sheet_tabs: Item enums

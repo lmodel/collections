@@ -1,0 +1,42 @@
+type Bag
+  {
+    element: [Thing]
+    size: PositiveInteger
+  }
+
+type CoItem
+  {
+    itemOf: Bag
+  }
+
+type Collection
+  {
+    element: [Thing]
+    size: PositiveInteger
+  }
+
+type List
+  {
+    element: [Thing]
+    size: PositiveInteger
+    item: [ListItem]
+    lastItem: ListItem
+    firstItem: ListItem
+  }
+
+type ListItem
+  {
+    itemOf: Bag
+    index: PositiveInteger!
+  }
+
+type Set
+  {
+    element: [Thing]
+    size: PositiveInteger
+  }
+
+interface Thing
+  {
+  }
+
