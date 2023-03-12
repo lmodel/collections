@@ -104,6 +104,7 @@ slots:
       The link to the members of a collection
     domain: Collection
     range: Thing
+    mixin: true
     exact_mappings:
       - co:element
 
@@ -162,6 +163,7 @@ slots:
       The link to every item of the bag
     domain: Bag
     range: CoItem
+    mixin: true
     exact_mappings:
       - co:item
 
@@ -174,6 +176,7 @@ slots:
       The link to the actual resource to which the item refers.
     domain: CoItem
     range: CoItem
+    mixin: true
     exact_mappings:
       - co:itemContent
 
