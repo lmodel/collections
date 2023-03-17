@@ -1,0 +1,277 @@
+@prefix AFC: <http://purl.allotrope.org/ontologies/common#AFC_> .
+@prefix NCIT: <http://purl.obolibrary.org/obo/NCIT_> .
+@prefix SIO: <http://identifiers.org/sio/> .
+@prefix co: <http://purl.org/co/> .
+@prefix collections: <https://w3id.org/lmodel/collections/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix linkml: <https://w3id.org/linkml/> .
+@prefix ns1: <http://purl.obolibrary.org/obo/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix pav: <http://purl.org/pav/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://w3id.org/lmodel/collections.owl.ttl> a owl:Ontology ;
+    rdfs:label "collections" ;
+    ns1:IAO_0000700 collections:Thing ;
+    dcterms:license "https://www.apache.org/licenses/LICENSE-2.0" ;
+    dcterms:title "Collections" ;
+    pav:version "2.0.0" ;
+    rdfs:seeAlso "http://purl.org/co",
+        "https://github.com/collections-ontology/collections-ontology",
+        "https://lmodel.github.io/collections" ;
+    skos:note "The Collections Ontology (CO) defines unordered collections (Set and Bag) and ordered collections (or List).",
+        "This ontology has been inspired by the work \"Putting OWL in Order: Patterns for Sequences in OWL\" by Drummond et al. (OWL-ED 2006). Citation: Ciccarese P, Peroni S. The Collections Ontology: creating and handling collections in OWL 2 DL frameworks. Semantic Web Journal. 2013 (accepted on July 23rd, in press)",
+        "{'Authors': \"Paolo Ciccarese http://paolociccarese.info, Massachusetts General Hospital and Harvard Medical School, and Silvio Peroni, Universita' di Bologna\"}" ;
+    linkml:generation_date "2023-03-17T20:56:50" ;
+    linkml:metamodel_version "1.7.0" ;
+    linkml:source_file "collections.yaml" ;
+    linkml:source_file_date "2023-03-15T17:43:18" ;
+    linkml:source_file_size 10114 .
+
+collections:Set a owl:Class ;
+    rdfs:label "Set" ;
+    rdfs:comment "A collection that cannot contain duplicate elements." ;
+    rdfs:subClassOf collections:Collection ;
+    skos:altLabel "set" ;
+    skos:exactMatch <http://example.org/UNKNOWN/sumo/Set>,
+        <http://identifiers.org/wikidata/Q28813620>,
+        co:Set ;
+    skos:narrowMatch <http://identifiers.org/wikidata/Q36161> .
+
+collections:_index a owl:DatatypeProperty ;
+    rdfs:label "_index" ;
+    rdfs:comment "A number identifying the position, starting from 1, of a particular list item within a list." ;
+    rdfs:domain collections:ListItem ;
+    rdfs:range xsd:positiveInteger ;
+    skos:altLabel "has index" ;
+    skos:exactMatch co:index .
+
+collections:elementOf a owl:ObjectProperty ;
+    rdfs:label "elementOf" ;
+    rdfs:comment "The link to a collection in which the object is member." ;
+    rdfs:domain collections:Thing ;
+    rdfs:range collections:Collection ;
+    owl:inverseOf collections:element ;
+    skos:altLabel "is element of" ;
+    skos:exactMatch co:elementOf .
+
+collections:firstItemOf a owl:ObjectProperty ;
+    rdfs:label "firstItemOf" ;
+    rdfs:comment "The link to a list in which the item is first item." ;
+    rdfs:domain collections:ListItem ;
+    rdfs:range collections:List ;
+    owl:inverseOf collections:firstItem ;
+    skos:altLabel "is first item of" ;
+    skos:exactMatch co:firstItemOf .
+
+collections:followedBy a owl:ObjectProperty ;
+    rdfs:label "followedBy" ;
+    rdfs:comment "The link to the following item in a list." ;
+    rdfs:domain collections:ListItem ;
+    rdfs:range collections:ListItem ;
+    owl:inverseOf collections:precededBy ;
+    skos:altLabel "is followed by" ;
+    skos:exactMatch co:followedBy ;
+    skos:note "Given the list (I[1], I[2], ... , I[i-1], I[i], I[i+1], ... , I[n-1], I[n]), the item I[i] is followed by I[i+1], ... , I[n-1] and I[n]." ;
+    collections:owl "TransitiveProperty" .
+
+collections:itemContent a owl:ObjectProperty ;
+    rdfs:label "itemContent" ;
+    rdfs:comment "The link to the actual resource to which the item refers." ;
+    rdfs:domain collections:CoItem ;
+    rdfs:range collections:CoItem ;
+    owl:inverseOf collections:itemContentOf ;
+    skos:altLabel "has item content" ;
+    skos:exactMatch co:itemContent ;
+    collections:owl "FunctionalProperty" .
+
+collections:itemContentOf a owl:ObjectProperty ;
+    rdfs:label "itemContentOf" ;
+    rdfs:comment "The link to the item that refers to the resource." ;
+    rdfs:domain collections:CoItem ;
+    rdfs:range collections:CoItem ;
+    owl:inverseOf collections:itemContent ;
+    skos:altLabel "is item content of" ;
+    skos:exactMatch co:itemContentOf .
+
+collections:lastItemOf a owl:ObjectProperty ;
+    rdfs:label "lastItemOf" ;
+    rdfs:comment "The link to a list in which the item is last item." ;
+    rdfs:domain collections:ListItem ;
+    rdfs:range collections:List ;
+    owl:inverseOf collections:lastItem ;
+    skos:altLabel "is last item of" ;
+    skos:exactMatch co:lastItemOf .
+
+collections:nextItem a owl:ObjectProperty ;
+    rdfs:label "nextItem" ;
+    rdfs:comment "The link to the next item in a list." ;
+    rdfs:domain collections:Thing ;
+    rdfs:range collections:ListItem ;
+    owl:inverseOf collections:previousItem ;
+    skos:altLabel "has next item" ;
+    skos:exactMatch co:nextItem ;
+    skos:note "Given the list (I[1], I[2], ... , I[i-1], I[i], I[i+1], ... , I[n-1], I[n]), the next item of I[i] is I[i+1]." ;
+    collections:owl "FunctionalProperty" .
+
+collections:precededBy a owl:ObjectProperty ;
+    rdfs:label "precededBy" ;
+    rdfs:comment "The link to the preceding item in a list." ;
+    rdfs:domain collections:ListItem ;
+    rdfs:range collections:ListItem ;
+    owl:inverseOf collections:followedBy ;
+    skos:altLabel "is preceded by" ;
+    skos:exactMatch co:precededBy ;
+    skos:note "Given the list (I[1], I[2], ... , I[i-1], I[i], I[i+1], ... , I[n-1], I[n]), the item I[i] is preceded by I[i-1], ... , I[2] and I[1]." ;
+    collections:owl "TransitiveProperty" .
+
+collections:previousItem a owl:ObjectProperty ;
+    rdfs:label "previousItem" ;
+    rdfs:comment "The link to the previous item in a list." ;
+    rdfs:domain collections:ListItem ;
+    rdfs:range collections:Thing ;
+    owl:inverseOf collections:nextItem ;
+    skos:altLabel "has previous item" ;
+    skos:exactMatch co:previousItem ;
+    skos:note "Given the list (I[1], I[2], ... , I[i-1], I[i], I[i+1], ... , I[n-1], I[n]), the previous item of I[i] is I[i-1]." ;
+    collections:owl "FunctionalProperty" .
+
+collections:size a owl:DatatypeProperty ;
+    rdfs:label "size" ;
+    rdfs:comment "The number of item belonging to a collection." ;
+    rdfs:domain collections:Collection ;
+    rdfs:range xsd:positiveInteger ;
+    skos:altLabel "has size" ;
+    skos:exactMatch co:size ;
+    skos:note "CO defines the size of a collection as the sum of the number of times entities that are part of the collection appear in it. This means that co:size considers how much each entity is involved by a particular collection, i.e.",
+        "the size of the bag [a, a, b, b, b, c] is five",
+        "the size of the list (a, b, c, b, a, b, c, c) is seven</dc:description>",
+        "the size of the set {a, b, c} is three" .
+
+collections:element a owl:ObjectProperty ;
+    rdfs:label "element" ;
+    rdfs:comment "The link to the members of a collection" ;
+    rdfs:domain collections:Collection ;
+    rdfs:range collections:Thing ;
+    owl:inverseOf collections:elementOf ;
+    skos:altLabel "{'co': 'has element'}" ;
+    skos:exactMatch co:element .
+
+collections:firstItem a owl:ObjectProperty ;
+    rdfs:label "firstItem" ;
+    rdfs:comment "The link to the first item of the list." ;
+    rdfs:domain collections:List ;
+    rdfs:range collections:ListItem ;
+    owl:inverseOf collections:firstItemOf ;
+    skos:altLabel "has first item" ;
+    skos:exactMatch co:firstItem ;
+    collections:owl "FunctionalProperty" .
+
+collections:item a owl:ObjectProperty ;
+    rdfs:label "item" ;
+    rdfs:comment "The link to every item of the bag" ;
+    rdfs:domain collections:Bag ;
+    rdfs:range collections:CoItem ;
+    owl:inverseOf collections:itemOf ;
+    skos:altLabel "has item" ;
+    skos:exactMatch co:item .
+
+collections:itemOf a owl:ObjectProperty ;
+    rdfs:label "itemOf" ;
+    rdfs:comment "The link to a bag in which the item is member." ;
+    rdfs:domain collections:CoItem ;
+    rdfs:range collections:Bag ;
+    owl:inverseOf collections:item ;
+    skos:altLabel "is item of" ;
+    skos:exactMatch co:itemOf .
+
+collections:lastItem a owl:ObjectProperty ;
+    rdfs:label "lastItem" ;
+    rdfs:comment "The link to the last item of the list." ;
+    rdfs:domain collections:List ;
+    rdfs:range collections:ListItem ;
+    owl:inverseOf collections:lastItemOf ;
+    skos:altLabel "has last item" ;
+    skos:exactMatch co:lastItem ;
+    collections:owl "FunctionalProperty" .
+
+collections:Bag a owl:Class ;
+    rdfs:label "Bag" ;
+    rdfs:comment "Collection that can have a number of copies of each object" ;
+    rdfs:subClassOf collections:Collection ;
+    skos:altLabel "bag" ;
+    skos:exactMatch <http://identifiers.org/wikidata/Q864377>,
+        NCIT:C95628,
+        co:Bag .
+
+collections:List a owl:Class ;
+    rdfs:label "List" ;
+    rdfs:comment "An ordered array of items, that can be present in multiple copies" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom collections:ListItem ;
+            owl:onProperty collections:item ],
+        [ a owl:Restriction ;
+            owl:maxQualifiedCardinality 1 ;
+            owl:onClass collections:ListItem ;
+            owl:onProperty collections:lastItem ],
+        [ a owl:Restriction ;
+            owl:maxQualifiedCardinality 1 ;
+            owl:onClass collections:ListItem ;
+            owl:onProperty collections:firstItem ],
+        collections:Bag ;
+    skos:altLabel "list" ;
+    skos:exactMatch <http://example.org/UNKNOWN/sumo/List>,
+        <http://identifiers.org/wikidata/Q12139612>,
+        <http://identifiers.org/wikidata/Q2704791>,
+        co:List ;
+    skos:narrowMatch <http://identifiers.org/wikidata/Q27948> .
+
+collections:Collection a owl:Class ;
+    rdfs:label "Collection" ;
+    rdfs:comment "A group of objects that can be considered as a whole." ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom collections:Thing ;
+            owl:onProperty collections:element ],
+        [ a owl:Restriction ;
+            owl:maxQualifiedCardinality 1 ;
+            owl:onDataRange xsd:positiveInteger ;
+            owl:onProperty collections:size ],
+        collections:Thing ;
+    skos:altLabel "collection" ;
+    skos:exactMatch <http://identifiers.org/wikidata/Q59294700>,
+        NCIT:C45261,
+        co:Collection .
+
+collections:CoItem a owl:Class ;
+    rdfs:label "CoItem" ;
+    rdfs:comment "Element belonging to a bag" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxQualifiedCardinality 1 ;
+            owl:onClass collections:Bag ;
+            owl:onProperty collections:itemOf ],
+        collections:Thing ;
+    skos:altLabel "item" ;
+    skos:exactMatch SIO:001259,
+        <http://identifiers.org/wikidata/Q11723795>,
+        co:Item ;
+    skos:narrowMatch AFC:0000167,
+        NCIT:C51070 .
+
+collections:Thing a owl:Class ;
+    rdfs:label "Thing" ;
+    skos:exactMatch owl:Thing .
+
+collections:ListItem a owl:Class ;
+    rdfs:label "ListItem" ;
+    rdfs:comment "element belonging to a list" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onDataRange xsd:positiveInteger ;
+            owl:onProperty collections:_index ;
+            owl:qualifiedCardinality 1 ],
+        collections:CoItem ;
+    skos:altLabel "list item" ;
+    skos:exactMatch co:ListItem,
+        <http://schema.org/ItemList> .
+

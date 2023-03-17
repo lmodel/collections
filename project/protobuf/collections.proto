@@ -1,0 +1,38 @@
+// Collection that can have a number of copies of each object
+message Bag
+ {
+ repeated  thing element = 0
+  positiveInteger size = 0
+ }
+// Element belonging to a bag
+message CoItem
+ {
+  bag itemOf = 0
+ }
+// A group of objects that can be considered as a whole.
+message Collection
+ {
+ repeated  thing element = 0
+  positiveInteger size = 0
+ }
+// An ordered array of items, that can be present in multiple copies
+message List
+ {
+ repeated  thing element = 0
+  positiveInteger size = 0
+ repeated  listItem item = 0
+  listItem lastItem = 0
+  listItem firstItem = 0
+ }
+// element belonging to a list
+message ListItem
+ {
+  bag itemOf = 0
+  positiveInteger index = 0
+ }
+// A collection that cannot contain duplicate elements.
+message Set
+ {
+ repeated  thing element = 0
+  positiveInteger size = 0
+ }

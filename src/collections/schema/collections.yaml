@@ -1,0 +1,419 @@
+---
+id: https://w3id.org/lmodel/collections
+name: collections
+title: Collections
+description: "The Collections Ontology (CO) in Linkml"
+license: https://www.apache.org/licenses/LICENSE-2.0
+see_also:
+  - https://lmodel.github.io/collections
+  - http://purl.org/co
+  - https://github.com/collections-ontology/collections-ontology
+
+version: 2.0.0  # sync with primary git repo release tag
+
+comments:
+  - The Collections Ontology (CO) defines unordered collections (Set and Bag) and ordered collections (or List).
+  - 'This ontology has been inspired by the work "Putting OWL in Order: Patterns for Sequences in OWL" by Drummond et al. (OWL-ED 2006). Citation: Ciccarese P, Peroni S. The Collections Ontology: creating and handling collections in OWL 2 DL frameworks. Semantic Web Journal. 2013 (accepted on July 23rd, in press)'
+  - Authors: Paolo Ciccarese http://paolociccarese.info, Massachusetts General Hospital and Harvard Medical School, and Silvio Peroni, Universita' di Bologna
+
+
+## ------------
+## PREFIXES
+## ------------
+# CURIE namespaces (prefixes/base URI's) mappings of prefixes used in the body of
+# the collections Model specification are resolved using a specific precedence order,
+# for use in the generation of the collections Model context.jsonld mappings to
+# namespaces. Any prefixes encountered in the collections Model but not resolved by
+# the following precedence sources, are anonymously declared by linkml as
+# http://example.org/UNKNOWN/ rooted base URI's which should ideally be repaired
+# in one of the precedence lists.
+#
+# 1. The following 'prefixes:' delimited list has first precedence in resolution.
+
+prefixes:
+  AFC: 'http://purl.allotrope.org/ontologies/common#AFC_'
+  co: 'http://purl.org/co/'
+  dcid: 'https://datacommons.org/browser/'
+  linkml: 'https://w3id.org/linkml/'
+  NCIT: 'http://purl.obolibrary.org/obo/NCIT_'
+  SIO: 'http://identifiers.org/sio/'
+  spar: 'http://purl.org/spar/error'  # error ontology
+
+  collections: 'https://w3id.org/lmodel/collections/'
+
+default_prefix: collections
+default_range: string
+
+## ------------
+## TYPES
+## ------------
+imports:
+  - linkml:types
+
+## ------------
+## ENUMS
+## ------------
+enums: {}
+
+## ------------
+## SUBSETS
+## ------------
+subsets: {}
+
+# The following prefix maps are retrieved from the specified
+# contexts defined at https://prefixcommons.org/. The ordered
+
+default_curi_maps:
+  - obo_context
+  - idot_context
+  - monarch_context
+  - semweb_context
+
+types:
+
+  positive integer:
+    typeof: integer
+    uri: xsd:positiveInteger
+    description: >-
+      integer greater than zero; natural number explicitly excluding zero
+    exact_mappings:
+      - wikidata:Q28920044
+
+annotations:
+  datalog: |-
+    elementOf(i, j) :-
+      itemOf(j, k),
+      itemContentOf(k, l).
+
+    element(i, j) :-
+      item(j, k),
+      itemContent(k, l).
+
+    item(i, j) :-
+      nextitem(j, k).
+
+## ------------
+## SLOTS
+## ------------
+slots:
+
+  element:
+    aliases:
+      - co: has element
+    description: >-
+      The link to the members of a collection
+    domain: Collection
+    range: Thing
+    mixin: true
+    exact_mappings:
+      - co:element
+
+  elementOf:
+    aliases:
+      - is element of
+    description: >-
+      The link to a collection in which the object is member.
+    inverse: element
+    range: Collection
+    exact_mappings:
+      - co:elementOf
+
+  firstItem:
+    annotations:
+      owl: FunctionalProperty
+    aliases:
+      - has first item
+    description: >-
+      The link to the first item of the list.
+    domain: List
+    range: ListItem
+    subproperty_of: item
+    exact_mappings:
+      - co:firstItem
+
+  firstItemOf:
+    aliases:
+      - is first item of
+    description: >-
+      The link to a list in which the item is first item.
+    inverse: firstItem
+    subproperty_of: itemOf
+    exact_mappings:
+      - co:firstItemOf
+
+  followedBy:
+    annotations:
+      owl: TransitiveProperty
+    transitive: true
+    aliases:
+      - is followed by
+    comments:
+      - Given the list (I[1], I[2], ... , I[i-1], I[i], I[i+1], ... , I[n-1], I[n]), the item I[i] is followed by I[i+1], ... , I[n-1] and I[n].
+    description: >-
+      The link to the following item in a list.
+    domain: ListItem
+    range: ListItem
+    exact_mappings:
+      - co:followedBy
+
+  item:
+    aliases:
+      - has item
+    description: >-
+      The link to every item of the bag
+    domain: Bag
+    range: CoItem
+    mixin: true
+    exact_mappings:
+      - co:item
+
+  itemContent:
+    annotations:
+      owl: FunctionalProperty
+    aliases:
+      - has item content
+    description: >-
+      The link to the actual resource to which the item refers.
+    domain: CoItem
+    range: CoItem
+    mixin: true
+    exact_mappings:
+      - co:itemContent
+
+  itemContentOf:
+    aliases:
+      - is item content of
+    description: >-
+      The link to the item that refers to the resource.
+    inverse: itemContent
+    exact_mappings:
+      - co:itemContentOf
+
+  itemOf:
+    aliases:
+      - is item of
+    description: >-
+      The link to a bag in which the item is member.
+    inverse: item
+    domain: CoItem
+    range: Bag
+    exact_mappings:
+      - co:itemOf
+
+  lastItem:
+    annotations:
+      owl: FunctionalProperty
+    aliases:
+      - has last item
+    description: >-
+      The link to the last item of the list.
+    domain: List
+    subproperty_of: item
+    range: ListItem
+    exact_mappings:
+      - co:lastItem
+
+  lastItemOf:
+    aliases:
+      - is last item of
+    description: >-
+      The link to a list in which the item is last item.
+    subproperty_of: itemOf
+    inverse: lastItem
+    exact_mappings:
+      - co:lastItemOf
+
+  nextItem:
+    annotations:
+      owl: FunctionalProperty
+    aliases:
+      - has next item
+    comments:
+      - Given the list (I[1], I[2], ... , I[i-1], I[i], I[i+1], ... , I[n-1], I[n]), the next item of I[i] is I[i+1].
+    description: >-
+      The link to the next item in a list.
+    subproperty_of: followedBy
+    range: ListItem
+    domain: Thing
+    exact_mappings:
+      - co:nextItem
+
+  precededBy:
+    annotations:
+      owl: TransitiveProperty
+    aliases:
+      - is preceded by
+    comments:
+      - Given the list (I[1], I[2], ... , I[i-1], I[i], I[i+1], ... , I[n-1], I[n]), the item I[i] is preceded by I[i-1], ... , I[2] and I[1].
+    description: >-
+      The link to the preceding item in a list.
+    inverse: followedBy
+    range: ListItem
+    exact_mappings:
+      - co:precededBy
+
+  previousItem:
+    annotations:
+      owl: FunctionalProperty
+    aliases:
+      - has previous item
+    comments:
+      - Given the list (I[1], I[2], ... , I[i-1], I[i], I[i+1], ... , I[n-1], I[n]), the previous item of I[i] is I[i-1].
+    description: >-
+      The link to the previous item in a list.
+    inverse: nextItem
+    subproperty_of: precededBy
+    range: Thing
+    domain: ListItem
+    exact_mappings:
+      - co:previousItem
+
+  # /////////////////////////
+  #  Data properties
+  # /////////////////////////
+
+  _index:
+    aliases:
+      - has index
+    description: >-
+      A number identifying the position, starting from 1, of a particular list item within a list.
+    domain: ListItem
+    range: positive integer
+    exact_mappings:
+      - co:index
+
+  size:
+    aliases:
+      - has size
+    comments:
+      - CO defines the size of a collection as the sum of the number of times entities that are part of the collection appear in it. This means that co:size considers how much each entity is involved by a particular collection, i.e.
+      - the size of the set {a, b, c} is three
+      - the size of the bag [a, a, b, b, b, c] is five
+      - the size of the list (a, b, c, b, a, b, c, c) is seven</dc:description>
+    description: >-
+      The number of item belonging to a collection.
+    domain: Collection
+    range: positive integer
+    exact_mappings:
+      - co:size
+
+
+## ------------
+## CLASSES
+## ------------
+classes:
+
+  Bag:
+    aliases:
+      - bag
+    is_a: Collection
+    disjoint_with: Set
+    description: >-
+      Collection that can have a number of copies of each object
+    exact_mappings:
+      - co:Bag
+      - NCIT:C95628
+      - wikidata:Q864377  # multiset
+
+  Collection:
+    aliases:
+      - collection
+    is_a: Thing
+    slots:
+      - element
+      - size
+    slot_usage:
+      element:
+        multivalued: true
+        annotations:
+          owl: allValuesFrom
+        range: Thing
+      size:
+        maximum_cardinality: 1
+    disjoint_with:
+      - CoItem
+    description: >-
+      A group of objects that can be considered as a whole.
+    exact_mappings:
+      - co:Collection
+      - NCIT:C45261
+      - wikidata:Q59294700  # record group
+
+  CoItem:
+    aliases:
+      - item
+    is_a: Thing
+    slots:
+      - itemOf
+    description: >-
+      Element belonging to a bag
+    exact_mappings:
+      - co:Item
+      - wikidata:Q11723795
+      - SIO:001259
+    narrow_mappings:
+      - AFC:0000167
+      - NCIT:C51070
+
+  List:
+    aliases:
+      - list
+    is_a: Bag
+    slots:
+      - item
+      - lastItem
+      - firstItem
+    slot_usage:
+      lastItem:
+        maximum_cardinality: 1
+      firstItem:
+        maximum_cardinality: 1
+      item:
+        range: ListItem
+        multivalued: true
+    description: >-
+      An ordered array of items, that can be present in multiple copies
+    exact_mappings:
+      - co:List
+      - sumo:List
+      - wikidata:Q12139612
+      - wikidata:Q2704791  # enumeration
+    narrow_mappings:
+      - wikidata:Q27948
+
+  ListItem:
+    aliases:
+      - list item
+    is_a: CoItem
+    slots:
+      - _index
+    slot_usage:
+      _index:
+        required: true
+        maximum_cardinality: 1
+        minimum_cardinality: 1
+    description: >-
+      element belonging to a list
+    exact_mappings:
+      - co:ListItem
+      - schema:ItemList
+
+  Set:
+    aliases:
+      - set
+    is_a: Collection
+    description: >-
+      A collection that cannot contain duplicate elements.
+    exact_mappings:
+      - co:Set
+      - sumo:Set
+      - wikidata:Q28813620
+    narrow_mappings:
+      - wikidata:Q36161  # mathematical set
+
+  Thing:
+    abstract: true
+    exact_mappings:
+      - owl:Thing
+
+...

@@ -1,0 +1,133 @@
+{
+    "$defs": {
+        "Bag": {
+            "additionalProperties": false,
+            "description": "Collection that can have a number of copies of each object",
+            "properties": {
+                "element": {
+                    "description": "The link to the members of a collection",
+                    "items": {
+                        "$ref": "#/$defs/Thing"
+                    },
+                    "type": "array"
+                },
+                "size": {
+                    "description": "The number of item belonging to a collection.",
+                    "type": "integer"
+                }
+            },
+            "title": "Bag",
+            "type": "object"
+        },
+        "CoItem": {
+            "additionalProperties": false,
+            "description": "Element belonging to a bag",
+            "properties": {
+                "itemOf": {
+                    "$ref": "#/$defs/Bag",
+                    "description": "The link to a bag in which the item is member."
+                }
+            },
+            "title": "CoItem",
+            "type": "object"
+        },
+        "Collection": {
+            "additionalProperties": false,
+            "description": "A group of objects that can be considered as a whole.",
+            "properties": {
+                "element": {
+                    "description": "The link to the members of a collection",
+                    "items": {
+                        "$ref": "#/$defs/Thing"
+                    },
+                    "type": "array"
+                },
+                "size": {
+                    "description": "The number of item belonging to a collection.",
+                    "type": "integer"
+                }
+            },
+            "title": "Collection",
+            "type": "object"
+        },
+        "List": {
+            "additionalProperties": false,
+            "description": "An ordered array of items, that can be present in multiple copies",
+            "properties": {
+                "element": {
+                    "description": "The link to the members of a collection",
+                    "items": {
+                        "$ref": "#/$defs/Thing"
+                    },
+                    "type": "array"
+                },
+                "firstItem": {
+                    "$ref": "#/$defs/ListItem",
+                    "description": "The link to the first item of the list."
+                },
+                "item": {
+                    "description": "The link to every item of the bag",
+                    "items": {
+                        "$ref": "#/$defs/ListItem"
+                    },
+                    "type": "array"
+                },
+                "lastItem": {
+                    "$ref": "#/$defs/ListItem",
+                    "description": "The link to the last item of the list."
+                },
+                "size": {
+                    "description": "The number of item belonging to a collection.",
+                    "type": "integer"
+                }
+            },
+            "title": "List",
+            "type": "object"
+        },
+        "ListItem": {
+            "additionalProperties": false,
+            "description": "element belonging to a list",
+            "properties": {
+                "_index": {
+                    "description": "A number identifying the position, starting from 1, of a particular list item within a list.",
+                    "type": "integer"
+                },
+                "itemOf": {
+                    "$ref": "#/$defs/Bag",
+                    "description": "The link to a bag in which the item is member."
+                }
+            },
+            "required": [
+                "_index"
+            ],
+            "title": "ListItem",
+            "type": "object"
+        },
+        "Set": {
+            "additionalProperties": false,
+            "description": "A collection that cannot contain duplicate elements.",
+            "properties": {
+                "element": {
+                    "description": "The link to the members of a collection",
+                    "items": {
+                        "$ref": "#/$defs/Thing"
+                    },
+                    "type": "array"
+                },
+                "size": {
+                    "description": "The number of item belonging to a collection.",
+                    "type": "integer"
+                }
+            },
+            "title": "Set",
+            "type": "object"
+        }
+    },
+    "$id": "https://w3id.org/lmodel/collections",
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "additionalProperties": true,
+    "metamodel_version": "1.7.0",
+    "title": "collections",
+    "type": "object",
+    "version": "2.0.0"
+}

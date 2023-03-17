@@ -1,0 +1,1061 @@
+{
+  "name": "collections",
+  "annotations": [
+    {
+      "tag": "datalog",
+      "value": "elementOf(i, j) :-\n  itemOf(j, k),\n  itemContentOf(k, l).\n\nelement(i, j) :-\n  item(j, k),\n  itemContent(k, l).\n\nitem(i, j) :-\n  nextitem(j, k)."
+    }
+  ],
+  "description": "The Collections Ontology (CO) in Linkml",
+  "title": "Collections",
+  "comments": [
+    "The Collections Ontology (CO) defines unordered collections (Set and Bag) and ordered collections (or List).",
+    "This ontology has been inspired by the work \"Putting OWL in Order: Patterns for Sequences in OWL\" by Drummond et al. (OWL-ED 2006). Citation: Ciccarese P, Peroni S. The Collections Ontology: creating and handling collections in OWL 2 DL frameworks. Semantic Web Journal. 2013 (accepted on July 23rd, in press)",
+    "{'Authors': \"Paolo Ciccarese http://paolociccarese.info, Massachusetts General Hospital and Harvard Medical School, and Silvio Peroni, Universita' di Bologna\"}"
+  ],
+  "see_also": [
+    "https://lmodel.github.io/collections",
+    "http://purl.org/co",
+    "https://github.com/collections-ontology/collections-ontology"
+  ],
+  "id": "https://w3id.org/lmodel/collections",
+  "version": "2.0.0",
+  "imports": [
+    "linkml:types"
+  ],
+  "license": "https://www.apache.org/licenses/LICENSE-2.0",
+  "prefixes": [
+    {
+      "prefix_prefix": "AFC",
+      "prefix_reference": "http://purl.allotrope.org/ontologies/common#AFC_"
+    },
+    {
+      "prefix_prefix": "co",
+      "prefix_reference": "http://purl.org/co/"
+    },
+    {
+      "prefix_prefix": "dcid",
+      "prefix_reference": "https://datacommons.org/browser/"
+    },
+    {
+      "prefix_prefix": "linkml",
+      "prefix_reference": "https://w3id.org/linkml/"
+    },
+    {
+      "prefix_prefix": "NCIT",
+      "prefix_reference": "http://purl.obolibrary.org/obo/NCIT_"
+    },
+    {
+      "prefix_prefix": "SIO",
+      "prefix_reference": "http://identifiers.org/sio/"
+    },
+    {
+      "prefix_prefix": "spar",
+      "prefix_reference": "http://purl.org/spar/error"
+    },
+    {
+      "prefix_prefix": "collections",
+      "prefix_reference": "https://w3id.org/lmodel/collections/"
+    }
+  ],
+  "default_curi_maps": [
+    "obo_context",
+    "idot_context",
+    "monarch_context",
+    "semweb_context"
+  ],
+  "default_prefix": "collections",
+  "default_range": "string",
+  "types": [
+    {
+      "name": "positive_integer",
+      "definition_uri": "https://w3id.org/lmodel/collections/PositiveInteger",
+      "description": "integer greater than zero; natural number explicitly excluding zero",
+      "from_schema": "https://w3id.org/lmodel/collections",
+      "exact_mappings": [
+        "wikidata:Q28920044"
+      ],
+      "typeof": "integer",
+      "base": "int",
+      "uri": "http://www.w3.org/2001/XMLSchema#positiveInteger",
+      "@type": "TypeDefinition"
+    },
+    {
+      "name": "string",
+      "definition_uri": "https://w3id.org/linkml/String",
+      "description": "A character string",
+      "from_schema": "https://w3id.org/linkml/types",
+      "imported_from": "linkml:types",
+      "exact_mappings": [
+        "schema:Text"
+      ],
+      "base": "str",
+      "uri": "http://www.w3.org/2001/XMLSchema#string",
+      "@type": "TypeDefinition"
+    },
+    {
+      "name": "integer",
+      "definition_uri": "https://w3id.org/linkml/Integer",
+      "description": "An integer",
+      "from_schema": "https://w3id.org/linkml/types",
+      "imported_from": "linkml:types",
+      "exact_mappings": [
+        "schema:Integer"
+      ],
+      "base": "int",
+      "uri": "http://www.w3.org/2001/XMLSchema#integer",
+      "@type": "TypeDefinition"
+    },
+    {
+      "name": "boolean",
+      "definition_uri": "https://w3id.org/linkml/Boolean",
+      "description": "A binary (true or false) value",
+      "from_schema": "https://w3id.org/linkml/types",
+      "imported_from": "linkml:types",
+      "exact_mappings": [
+        "schema:Boolean"
+      ],
+      "base": "Bool",
+      "uri": "http://www.w3.org/2001/XMLSchema#boolean",
+      "repr": "bool",
+      "@type": "TypeDefinition"
+    },
+    {
+      "name": "float",
+      "definition_uri": "https://w3id.org/linkml/Float",
+      "description": "A real number that conforms to the xsd:float specification",
+      "from_schema": "https://w3id.org/linkml/types",
+      "imported_from": "linkml:types",
+      "exact_mappings": [
+        "schema:Float"
+      ],
+      "base": "float",
+      "uri": "http://www.w3.org/2001/XMLSchema#float",
+      "@type": "TypeDefinition"
+    },
+    {
+      "name": "double",
+      "definition_uri": "https://w3id.org/linkml/Double",
+      "description": "A real number that conforms to the xsd:double specification",
+      "from_schema": "https://w3id.org/linkml/types",
+      "imported_from": "linkml:types",
+      "close_mappings": [
+        "schema:Float"
+      ],
+      "base": "float",
+      "uri": "http://www.w3.org/2001/XMLSchema#double",
+      "@type": "TypeDefinition"
+    },
+    {
+      "name": "decimal",
+      "definition_uri": "https://w3id.org/linkml/Decimal",
+      "description": "A real number with arbitrary precision that conforms to the xsd:decimal specification",
+      "from_schema": "https://w3id.org/linkml/types",
+      "imported_from": "linkml:types",
+      "broad_mappings": [
+        "schema:Number"
+      ],
+      "base": "Decimal",
+      "uri": "http://www.w3.org/2001/XMLSchema#decimal",
+      "@type": "TypeDefinition"
+    },
+    {
+      "name": "time",
+      "definition_uri": "https://w3id.org/linkml/Time",
+      "description": "A time object represents a (local) time of day, independent of any particular day",
+      "notes": [
+        "URI is dateTime because OWL reasoners do not work with straight date or time"
+      ],
+      "from_schema": "https://w3id.org/linkml/types",
+      "imported_from": "linkml:types",
+      "exact_mappings": [
+        "schema:Time"
+      ],
+      "base": "XSDTime",
+      "uri": "http://www.w3.org/2001/XMLSchema#dateTime",
+      "repr": "str",
+      "@type": "TypeDefinition"
+    },
+    {
+      "name": "date",
+      "definition_uri": "https://w3id.org/linkml/Date",
+      "description": "a date (year, month and day) in an idealized calendar",
+      "notes": [
+        "URI is dateTime because OWL reasoners don't work with straight date or time"
+      ],
+      "from_schema": "https://w3id.org/linkml/types",
+      "imported_from": "linkml:types",
+      "exact_mappings": [
+        "schema:Date"
+      ],
+      "base": "XSDDate",
+      "uri": "http://www.w3.org/2001/XMLSchema#date",
+      "repr": "str",
+      "@type": "TypeDefinition"
+    },
+    {
+      "name": "datetime",
+      "definition_uri": "https://w3id.org/linkml/Datetime",
+      "description": "The combination of a date and time",
+      "from_schema": "https://w3id.org/linkml/types",
+      "imported_from": "linkml:types",
+      "exact_mappings": [
+        "schema:DateTime"
+      ],
+      "base": "XSDDateTime",
+      "uri": "http://www.w3.org/2001/XMLSchema#dateTime",
+      "repr": "str",
+      "@type": "TypeDefinition"
+    },
+    {
+      "name": "date_or_datetime",
+      "definition_uri": "https://w3id.org/linkml/DateOrDatetime",
+      "description": "Either a date or a datetime",
+      "from_schema": "https://w3id.org/linkml/types",
+      "imported_from": "linkml:types",
+      "base": "str",
+      "uri": "https://w3id.org/linkml/DateOrDatetime",
+      "repr": "str",
+      "@type": "TypeDefinition"
+    },
+    {
+      "name": "uriorcurie",
+      "definition_uri": "https://w3id.org/linkml/Uriorcurie",
+      "description": "a URI or a CURIE",
+      "from_schema": "https://w3id.org/linkml/types",
+      "imported_from": "linkml:types",
+      "base": "URIorCURIE",
+      "uri": "http://www.w3.org/2001/XMLSchema#anyURI",
+      "repr": "str",
+      "@type": "TypeDefinition"
+    },
+    {
+      "name": "curie",
+      "definition_uri": "https://w3id.org/linkml/Curie",
+      "conforms_to": "https://www.w3.org/TR/curie/",
+      "description": "a compact URI",
+      "comments": [
+        "in RDF serializations this MUST be expanded to a URI",
+        "in non-RDF serializations MAY be serialized as the compact representation"
+      ],
+      "from_schema": "https://w3id.org/linkml/types",
+      "imported_from": "linkml:types",
+      "base": "Curie",
+      "uri": "http://www.w3.org/2001/XMLSchema#string",
+      "repr": "str",
+      "@type": "TypeDefinition"
+    },
+    {
+      "name": "uri",
+      "definition_uri": "https://w3id.org/linkml/Uri",
+      "conforms_to": "https://www.ietf.org/rfc/rfc3987.txt",
+      "description": "a complete URI",
+      "comments": [
+        "in RDF serializations a slot with range of uri is treated as a literal or type xsd:anyURI unless it is an identifier or a reference to an identifier, in which case it is translated directly to a node"
+      ],
+      "from_schema": "https://w3id.org/linkml/types",
+      "imported_from": "linkml:types",
+      "close_mappings": [
+        "schema:URL"
+      ],
+      "base": "URI",
+      "uri": "http://www.w3.org/2001/XMLSchema#anyURI",
+      "repr": "str",
+      "@type": "TypeDefinition"
+    },
+    {
+      "name": "ncname",
+      "definition_uri": "https://w3id.org/linkml/Ncname",
+      "description": "Prefix part of CURIE",
+      "from_schema": "https://w3id.org/linkml/types",
+      "imported_from": "linkml:types",
+      "base": "NCName",
+      "uri": "http://www.w3.org/2001/XMLSchema#string",
+      "repr": "str",
+      "@type": "TypeDefinition"
+    },
+    {
+      "name": "objectidentifier",
+      "definition_uri": "https://w3id.org/linkml/Objectidentifier",
+      "description": "A URI or CURIE that represents an object in the model.",
+      "comments": [
+        "Used for inheritence and type checking"
+      ],
+      "from_schema": "https://w3id.org/linkml/types",
+      "imported_from": "linkml:types",
+      "base": "ElementIdentifier",
+      "uri": "http://www.w3.org/ns/shex#iri",
+      "repr": "str",
+      "@type": "TypeDefinition"
+    },
+    {
+      "name": "nodeidentifier",
+      "definition_uri": "https://w3id.org/linkml/Nodeidentifier",
+      "description": "A URI, CURIE or BNODE that represents a node in a model.",
+      "from_schema": "https://w3id.org/linkml/types",
+      "imported_from": "linkml:types",
+      "base": "NodeIdentifier",
+      "uri": "http://www.w3.org/ns/shex#nonLiteral",
+      "repr": "str",
+      "@type": "TypeDefinition"
+    }
+  ],
+  "slots": [
+    {
+      "name": "element",
+      "definition_uri": "https://w3id.org/lmodel/collections/element",
+      "description": "The link to the members of a collection",
+      "from_schema": "https://w3id.org/lmodel/collections",
+      "aliases": [
+        "{'co': 'has element'}"
+      ],
+      "exact_mappings": [
+        "http://purl.org/co/element"
+      ],
+      "mixin": true,
+      "domain": "Collection",
+      "slot_uri": "https://w3id.org/lmodel/collections/element",
+      "owner": "Collection",
+      "domain_of": [
+        "Collection"
+      ],
+      "inverse": "elementOf",
+      "range": "Thing",
+      "inlined": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "elementOf",
+      "definition_uri": "https://w3id.org/lmodel/collections/elementOf",
+      "description": "The link to a collection in which the object is member.",
+      "from_schema": "https://w3id.org/lmodel/collections",
+      "aliases": [
+        "is element of"
+      ],
+      "exact_mappings": [
+        "http://purl.org/co/elementOf"
+      ],
+      "domain": "Thing",
+      "slot_uri": "https://w3id.org/lmodel/collections/elementOf",
+      "inverse": "element",
+      "range": "Collection",
+      "inlined": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "firstItem",
+      "definition_uri": "https://w3id.org/lmodel/collections/firstItem",
+      "annotations": [
+        {
+          "tag": "owl",
+          "value": "FunctionalProperty",
+          "@type": "Annotation"
+        }
+      ],
+      "description": "The link to the first item of the list.",
+      "from_schema": "https://w3id.org/lmodel/collections",
+      "aliases": [
+        "has first item"
+      ],
+      "exact_mappings": [
+        "http://purl.org/co/firstItem"
+      ],
+      "domain": "List",
+      "slot_uri": "https://w3id.org/lmodel/collections/firstItem",
+      "owner": "List",
+      "domain_of": [
+        "List"
+      ],
+      "subproperty_of": "item",
+      "inverse": "firstItemOf",
+      "range": "ListItem",
+      "inlined": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "firstItemOf",
+      "definition_uri": "https://w3id.org/lmodel/collections/firstItemOf",
+      "description": "The link to a list in which the item is first item.",
+      "from_schema": "https://w3id.org/lmodel/collections",
+      "aliases": [
+        "is first item of"
+      ],
+      "exact_mappings": [
+        "http://purl.org/co/firstItemOf"
+      ],
+      "domain": "ListItem",
+      "slot_uri": "https://w3id.org/lmodel/collections/firstItemOf",
+      "subproperty_of": "itemOf",
+      "inverse": "firstItem",
+      "range": "List",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "followedBy",
+      "definition_uri": "https://w3id.org/lmodel/collections/followedBy",
+      "annotations": [
+        {
+          "tag": "owl",
+          "value": "TransitiveProperty",
+          "@type": "Annotation"
+        }
+      ],
+      "description": "The link to the following item in a list.",
+      "comments": [
+        "Given the list (I[1], I[2], ... , I[i-1], I[i], I[i+1], ... , I[n-1], I[n]), the item I[i] is followed by I[i+1], ... , I[n-1] and I[n]."
+      ],
+      "from_schema": "https://w3id.org/lmodel/collections",
+      "aliases": [
+        "is followed by"
+      ],
+      "exact_mappings": [
+        "http://purl.org/co/followedBy"
+      ],
+      "domain": "ListItem",
+      "slot_uri": "https://w3id.org/lmodel/collections/followedBy",
+      "owner": "followedBy",
+      "transitive": true,
+      "inverse": "precededBy",
+      "range": "ListItem",
+      "inlined": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "item",
+      "definition_uri": "https://w3id.org/lmodel/collections/item",
+      "description": "The link to every item of the bag",
+      "from_schema": "https://w3id.org/lmodel/collections",
+      "aliases": [
+        "has item"
+      ],
+      "exact_mappings": [
+        "http://purl.org/co/item"
+      ],
+      "mixin": true,
+      "domain": "Bag",
+      "slot_uri": "https://w3id.org/lmodel/collections/item",
+      "owner": "item",
+      "domain_of": [
+        "List"
+      ],
+      "inverse": "itemOf",
+      "range": "CoItem",
+      "inlined": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "itemContent",
+      "definition_uri": "https://w3id.org/lmodel/collections/itemContent",
+      "annotations": [
+        {
+          "tag": "owl",
+          "value": "FunctionalProperty",
+          "@type": "Annotation"
+        }
+      ],
+      "description": "The link to the actual resource to which the item refers.",
+      "from_schema": "https://w3id.org/lmodel/collections",
+      "aliases": [
+        "has item content"
+      ],
+      "exact_mappings": [
+        "http://purl.org/co/itemContent"
+      ],
+      "mixin": true,
+      "domain": "CoItem",
+      "slot_uri": "https://w3id.org/lmodel/collections/itemContent",
+      "owner": "itemContent",
+      "inverse": "itemContentOf",
+      "range": "CoItem",
+      "inlined": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "itemContentOf",
+      "definition_uri": "https://w3id.org/lmodel/collections/itemContentOf",
+      "description": "The link to the item that refers to the resource.",
+      "from_schema": "https://w3id.org/lmodel/collections",
+      "aliases": [
+        "is item content of"
+      ],
+      "exact_mappings": [
+        "http://purl.org/co/itemContentOf"
+      ],
+      "domain": "CoItem",
+      "slot_uri": "https://w3id.org/lmodel/collections/itemContentOf",
+      "inverse": "itemContent",
+      "range": "CoItem",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "itemOf",
+      "definition_uri": "https://w3id.org/lmodel/collections/itemOf",
+      "description": "The link to a bag in which the item is member.",
+      "from_schema": "https://w3id.org/lmodel/collections",
+      "aliases": [
+        "is item of"
+      ],
+      "exact_mappings": [
+        "http://purl.org/co/itemOf"
+      ],
+      "domain": "CoItem",
+      "slot_uri": "https://w3id.org/lmodel/collections/itemOf",
+      "owner": "CoItem",
+      "domain_of": [
+        "CoItem"
+      ],
+      "inverse": "item",
+      "range": "Bag",
+      "inlined": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "lastItem",
+      "definition_uri": "https://w3id.org/lmodel/collections/lastItem",
+      "annotations": [
+        {
+          "tag": "owl",
+          "value": "FunctionalProperty",
+          "@type": "Annotation"
+        }
+      ],
+      "description": "The link to the last item of the list.",
+      "from_schema": "https://w3id.org/lmodel/collections",
+      "aliases": [
+        "has last item"
+      ],
+      "exact_mappings": [
+        "http://purl.org/co/lastItem"
+      ],
+      "domain": "List",
+      "slot_uri": "https://w3id.org/lmodel/collections/lastItem",
+      "owner": "List",
+      "domain_of": [
+        "List"
+      ],
+      "subproperty_of": "item",
+      "inverse": "lastItemOf",
+      "range": "ListItem",
+      "inlined": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "lastItemOf",
+      "definition_uri": "https://w3id.org/lmodel/collections/lastItemOf",
+      "description": "The link to a list in which the item is last item.",
+      "from_schema": "https://w3id.org/lmodel/collections",
+      "aliases": [
+        "is last item of"
+      ],
+      "exact_mappings": [
+        "http://purl.org/co/lastItemOf"
+      ],
+      "domain": "ListItem",
+      "slot_uri": "https://w3id.org/lmodel/collections/lastItemOf",
+      "subproperty_of": "itemOf",
+      "inverse": "lastItem",
+      "range": "List",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "nextItem",
+      "definition_uri": "https://w3id.org/lmodel/collections/nextItem",
+      "annotations": [
+        {
+          "tag": "owl",
+          "value": "FunctionalProperty",
+          "@type": "Annotation"
+        }
+      ],
+      "description": "The link to the next item in a list.",
+      "comments": [
+        "Given the list (I[1], I[2], ... , I[i-1], I[i], I[i+1], ... , I[n-1], I[n]), the next item of I[i] is I[i+1]."
+      ],
+      "from_schema": "https://w3id.org/lmodel/collections",
+      "aliases": [
+        "has next item"
+      ],
+      "exact_mappings": [
+        "http://purl.org/co/nextItem"
+      ],
+      "domain": "Thing",
+      "slot_uri": "https://w3id.org/lmodel/collections/nextItem",
+      "owner": "nextItem",
+      "subproperty_of": "followedBy",
+      "inverse": "previousItem",
+      "range": "ListItem",
+      "inlined": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "precededBy",
+      "definition_uri": "https://w3id.org/lmodel/collections/precededBy",
+      "annotations": [
+        {
+          "tag": "owl",
+          "value": "TransitiveProperty",
+          "@type": "Annotation"
+        }
+      ],
+      "description": "The link to the preceding item in a list.",
+      "comments": [
+        "Given the list (I[1], I[2], ... , I[i-1], I[i], I[i+1], ... , I[n-1], I[n]), the item I[i] is preceded by I[i-1], ... , I[2] and I[1]."
+      ],
+      "from_schema": "https://w3id.org/lmodel/collections",
+      "aliases": [
+        "is preceded by"
+      ],
+      "exact_mappings": [
+        "http://purl.org/co/precededBy"
+      ],
+      "domain": "ListItem",
+      "slot_uri": "https://w3id.org/lmodel/collections/precededBy",
+      "inverse": "followedBy",
+      "range": "ListItem",
+      "inlined": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "previousItem",
+      "definition_uri": "https://w3id.org/lmodel/collections/previousItem",
+      "annotations": [
+        {
+          "tag": "owl",
+          "value": "FunctionalProperty",
+          "@type": "Annotation"
+        }
+      ],
+      "description": "The link to the previous item in a list.",
+      "comments": [
+        "Given the list (I[1], I[2], ... , I[i-1], I[i], I[i+1], ... , I[n-1], I[n]), the previous item of I[i] is I[i-1]."
+      ],
+      "from_schema": "https://w3id.org/lmodel/collections",
+      "aliases": [
+        "has previous item"
+      ],
+      "exact_mappings": [
+        "http://purl.org/co/previousItem"
+      ],
+      "domain": "ListItem",
+      "slot_uri": "https://w3id.org/lmodel/collections/previousItem",
+      "owner": "previousItem",
+      "subproperty_of": "precededBy",
+      "inverse": "nextItem",
+      "range": "Thing",
+      "inlined": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "_index",
+      "definition_uri": "https://w3id.org/lmodel/collections/_index",
+      "description": "A number identifying the position, starting from 1, of a particular list item within a list.",
+      "from_schema": "https://w3id.org/lmodel/collections",
+      "aliases": [
+        "has index"
+      ],
+      "exact_mappings": [
+        "http://purl.org/co/index"
+      ],
+      "domain": "ListItem",
+      "slot_uri": "https://w3id.org/lmodel/collections/_index",
+      "owner": "ListItem",
+      "domain_of": [
+        "ListItem"
+      ],
+      "range": "positive_integer",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "size",
+      "definition_uri": "https://w3id.org/lmodel/collections/size",
+      "description": "The number of item belonging to a collection.",
+      "comments": [
+        "CO defines the size of a collection as the sum of the number of times entities that are part of the collection appear in it. This means that co:size considers how much each entity is involved by a particular collection, i.e.",
+        "the size of the set {a, b, c} is three",
+        "the size of the bag [a, a, b, b, b, c] is five",
+        "the size of the list (a, b, c, b, a, b, c, c) is seven</dc:description>"
+      ],
+      "from_schema": "https://w3id.org/lmodel/collections",
+      "aliases": [
+        "has size"
+      ],
+      "exact_mappings": [
+        "http://purl.org/co/size"
+      ],
+      "domain": "Collection",
+      "slot_uri": "https://w3id.org/lmodel/collections/size",
+      "owner": "Collection",
+      "domain_of": [
+        "Collection"
+      ],
+      "range": "positive_integer",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "Collection_element",
+      "definition_uri": "https://w3id.org/lmodel/collections/element",
+      "annotations": [
+        {
+          "tag": "owl",
+          "value": "allValuesFrom",
+          "@type": "Annotation"
+        }
+      ],
+      "description": "The link to the members of a collection",
+      "from_schema": "https://w3id.org/lmodel/collections",
+      "aliases": [
+        "{'co': 'has element'}"
+      ],
+      "exact_mappings": [
+        "http://purl.org/co/element"
+      ],
+      "is_a": "element",
+      "mixin": true,
+      "domain": "Collection",
+      "slot_uri": "https://w3id.org/lmodel/collections/element",
+      "multivalued": true,
+      "alias": "element",
+      "owner": "Collection",
+      "domain_of": [
+        "Collection"
+      ],
+      "is_usage_slot": true,
+      "usage_slot_name": "element",
+      "range": "Thing",
+      "inlined": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "Collection_size",
+      "definition_uri": "https://w3id.org/lmodel/collections/size",
+      "description": "The number of item belonging to a collection.",
+      "comments": [
+        "CO defines the size of a collection as the sum of the number of times entities that are part of the collection appear in it. This means that co:size considers how much each entity is involved by a particular collection, i.e.",
+        "the size of the set {a, b, c} is three",
+        "the size of the bag [a, a, b, b, b, c] is five",
+        "the size of the list (a, b, c, b, a, b, c, c) is seven</dc:description>"
+      ],
+      "from_schema": "https://w3id.org/lmodel/collections",
+      "aliases": [
+        "has size"
+      ],
+      "exact_mappings": [
+        "http://purl.org/co/size"
+      ],
+      "is_a": "size",
+      "domain": "Collection",
+      "slot_uri": "https://w3id.org/lmodel/collections/size",
+      "alias": "size",
+      "owner": "Collection",
+      "domain_of": [
+        "Collection"
+      ],
+      "is_usage_slot": true,
+      "usage_slot_name": "size",
+      "range": "positive_integer",
+      "maximum_cardinality": 1,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "List_lastItem",
+      "definition_uri": "https://w3id.org/lmodel/collections/lastItem",
+      "annotations": {
+        "owl": {
+          "tag": "owl",
+          "value": "FunctionalProperty",
+          "extensions": {},
+          "annotations": {}
+        }
+      },
+      "description": "The link to the last item of the list.",
+      "from_schema": "https://w3id.org/lmodel/collections",
+      "aliases": [
+        "has last item"
+      ],
+      "exact_mappings": [
+        "http://purl.org/co/lastItem"
+      ],
+      "is_a": "lastItem",
+      "domain": "List",
+      "slot_uri": "https://w3id.org/lmodel/collections/lastItem",
+      "alias": "lastItem",
+      "owner": "List",
+      "domain_of": [
+        "List"
+      ],
+      "subproperty_of": "item",
+      "is_usage_slot": true,
+      "usage_slot_name": "lastItem",
+      "range": "ListItem",
+      "inlined": true,
+      "maximum_cardinality": 1,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "List_firstItem",
+      "definition_uri": "https://w3id.org/lmodel/collections/firstItem",
+      "annotations": {
+        "owl": {
+          "tag": "owl",
+          "value": "FunctionalProperty",
+          "extensions": {},
+          "annotations": {}
+        }
+      },
+      "description": "The link to the first item of the list.",
+      "from_schema": "https://w3id.org/lmodel/collections",
+      "aliases": [
+        "has first item"
+      ],
+      "exact_mappings": [
+        "http://purl.org/co/firstItem"
+      ],
+      "is_a": "firstItem",
+      "domain": "List",
+      "slot_uri": "https://w3id.org/lmodel/collections/firstItem",
+      "alias": "firstItem",
+      "owner": "List",
+      "domain_of": [
+        "List"
+      ],
+      "subproperty_of": "item",
+      "is_usage_slot": true,
+      "usage_slot_name": "firstItem",
+      "range": "ListItem",
+      "inlined": true,
+      "maximum_cardinality": 1,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "List_item",
+      "definition_uri": "https://w3id.org/lmodel/collections/item",
+      "description": "The link to every item of the bag",
+      "from_schema": "https://w3id.org/lmodel/collections",
+      "aliases": [
+        "has item"
+      ],
+      "exact_mappings": [
+        "http://purl.org/co/item"
+      ],
+      "is_a": "item",
+      "mixin": true,
+      "domain": "List",
+      "slot_uri": "https://w3id.org/lmodel/collections/item",
+      "multivalued": true,
+      "alias": "item",
+      "owner": "List",
+      "domain_of": [
+        "List"
+      ],
+      "is_usage_slot": true,
+      "usage_slot_name": "item",
+      "range": "ListItem",
+      "inlined": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "ListItem__index",
+      "definition_uri": "https://w3id.org/lmodel/collections/_index",
+      "description": "A number identifying the position, starting from 1, of a particular list item within a list.",
+      "from_schema": "https://w3id.org/lmodel/collections",
+      "aliases": [
+        "has index"
+      ],
+      "exact_mappings": [
+        "http://purl.org/co/index"
+      ],
+      "is_a": "_index",
+      "domain": "ListItem",
+      "slot_uri": "https://w3id.org/lmodel/collections/_index",
+      "alias": "_index",
+      "owner": "ListItem",
+      "domain_of": [
+        "ListItem"
+      ],
+      "is_usage_slot": true,
+      "usage_slot_name": "_index",
+      "range": "positive_integer",
+      "required": true,
+      "minimum_cardinality": 1,
+      "maximum_cardinality": 1,
+      "@type": "SlotDefinition"
+    }
+  ],
+  "classes": [
+    {
+      "name": "Bag",
+      "definition_uri": "https://w3id.org/lmodel/collections/Bag",
+      "description": "Collection that can have a number of copies of each object",
+      "from_schema": "https://w3id.org/lmodel/collections",
+      "aliases": [
+        "bag"
+      ],
+      "exact_mappings": [
+        "co:Bag",
+        "NCIT:C95628",
+        "wikidata:Q864377"
+      ],
+      "is_a": "Collection",
+      "slots": [
+        "Collection_element",
+        "Collection_size"
+      ],
+      "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/collections/Bag",
+      "disjoint_with": [
+        "Set"
+      ],
+      "@type": "ClassDefinition"
+    },
+    {
+      "name": "Collection",
+      "definition_uri": "https://w3id.org/lmodel/collections/Collection",
+      "description": "A group of objects that can be considered as a whole.",
+      "from_schema": "https://w3id.org/lmodel/collections",
+      "aliases": [
+        "collection"
+      ],
+      "exact_mappings": [
+        "co:Collection",
+        "NCIT:C45261",
+        "wikidata:Q59294700"
+      ],
+      "is_a": "Thing",
+      "slots": [
+        "Collection_element",
+        "Collection_size"
+      ],
+      "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/collections/Collection",
+      "disjoint_with": [
+        "CoItem"
+      ],
+      "@type": "ClassDefinition"
+    },
+    {
+      "name": "CoItem",
+      "definition_uri": "https://w3id.org/lmodel/collections/CoItem",
+      "description": "Element belonging to a bag",
+      "from_schema": "https://w3id.org/lmodel/collections",
+      "aliases": [
+        "item"
+      ],
+      "exact_mappings": [
+        "co:Item",
+        "wikidata:Q11723795",
+        "SIO:001259"
+      ],
+      "narrow_mappings": [
+        "AFC:0000167",
+        "NCIT:C51070"
+      ],
+      "is_a": "Thing",
+      "slots": [
+        "itemOf"
+      ],
+      "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/collections/CoItem",
+      "@type": "ClassDefinition"
+    },
+    {
+      "name": "List",
+      "definition_uri": "https://w3id.org/lmodel/collections/List",
+      "description": "An ordered array of items, that can be present in multiple copies",
+      "from_schema": "https://w3id.org/lmodel/collections",
+      "aliases": [
+        "list"
+      ],
+      "exact_mappings": [
+        "co:List",
+        "sumo:List",
+        "wikidata:Q12139612",
+        "wikidata:Q2704791"
+      ],
+      "narrow_mappings": [
+        "wikidata:Q27948"
+      ],
+      "is_a": "Bag",
+      "slots": [
+        "Collection_element",
+        "Collection_size",
+        "List_item",
+        "List_lastItem",
+        "List_firstItem"
+      ],
+      "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/collections/List",
+      "@type": "ClassDefinition"
+    },
+    {
+      "name": "ListItem",
+      "definition_uri": "https://w3id.org/lmodel/collections/ListItem",
+      "description": "element belonging to a list",
+      "from_schema": "https://w3id.org/lmodel/collections",
+      "aliases": [
+        "list item"
+      ],
+      "exact_mappings": [
+        "co:ListItem",
+        "schema:ItemList"
+      ],
+      "is_a": "CoItem",
+      "slots": [
+        "itemOf",
+        "ListItem__index"
+      ],
+      "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/collections/ListItem",
+      "@type": "ClassDefinition"
+    },
+    {
+      "name": "Set",
+      "definition_uri": "https://w3id.org/lmodel/collections/Set",
+      "description": "A collection that cannot contain duplicate elements.",
+      "from_schema": "https://w3id.org/lmodel/collections",
+      "aliases": [
+        "set"
+      ],
+      "exact_mappings": [
+        "co:Set",
+        "sumo:Set",
+        "wikidata:Q28813620"
+      ],
+      "narrow_mappings": [
+        "wikidata:Q36161"
+      ],
+      "is_a": "Collection",
+      "slots": [
+        "Collection_element",
+        "Collection_size"
+      ],
+      "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/collections/Set",
+      "@type": "ClassDefinition"
+    },
+    {
+      "name": "Thing",
+      "definition_uri": "https://w3id.org/lmodel/collections/Thing",
+      "from_schema": "https://w3id.org/lmodel/collections",
+      "exact_mappings": [
+        "owl:Thing"
+      ],
+      "abstract": true,
+      "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/collections/Thing",
+      "@type": "ClassDefinition"
+    }
+  ],
+  "metamodel_version": "1.7.0",
+  "source_file": "collections.yaml",
+  "source_file_date": "2023-03-15T17:43:18",
+  "source_file_size": 10114,
+  "generation_date": "2023-03-17T20:56:33",
+  "@type": "SchemaDefinition",
+  "@context": [
+    "project/jsonld/collections.context.jsonld",
+    "https://w3id.org/linkml/types.context.jsonld",
+    {
+      "@base": "https://w3id.org/lmodel/collections/"
+    }
+  ]
+}

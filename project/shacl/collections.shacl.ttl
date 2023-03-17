@@ -1,0 +1,116 @@
+@prefix collections: <https://w3id.org/lmodel/collections/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+collections:CoItem a sh:NodeShape ;
+    sh:closed true ;
+    sh:description "Element belonging to a bag" ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:class collections:Bag ;
+            sh:description "The link to a bag in which the item is member." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:BlankNode ;
+            sh:order 0 ;
+            sh:path collections:itemOf ] ;
+    sh:targetClass collections:CoItem .
+
+collections:Collection a sh:NodeShape ;
+    sh:closed true ;
+    sh:description "A group of objects that can be considered as a whole." ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:class collections:Thing ;
+            sh:description "The link to the members of a collection" ;
+            sh:nodeKind sh:BlankNode ;
+            sh:order 0 ;
+            sh:path collections:element ],
+        [ sh:description "The number of item belonging to a collection." ;
+            sh:maxCount 1 ;
+            sh:order 1 ;
+            sh:path collections:size ] ;
+    sh:targetClass collections:Collection .
+
+collections:List a sh:NodeShape ;
+    sh:closed true ;
+    sh:description "An ordered array of items, that can be present in multiple copies" ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:class collections:ListItem ;
+            sh:description "The link to the last item of the list." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:BlankNode ;
+            sh:order 1 ;
+            sh:path collections:lastItem ],
+        [ sh:class collections:Thing ;
+            sh:description "The link to the members of a collection" ;
+            sh:nodeKind sh:BlankNode ;
+            sh:order 3 ;
+            sh:path collections:element ],
+        [ sh:description "The number of item belonging to a collection." ;
+            sh:maxCount 1 ;
+            sh:order 4 ;
+            sh:path collections:size ],
+        [ sh:class collections:ListItem ;
+            sh:description "The link to every item of the bag" ;
+            sh:nodeKind sh:BlankNode ;
+            sh:order 0 ;
+            sh:path collections:item ],
+        [ sh:class collections:ListItem ;
+            sh:description "The link to the first item of the list." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:BlankNode ;
+            sh:order 2 ;
+            sh:path collections:firstItem ] ;
+    sh:targetClass collections:List .
+
+collections:Set a sh:NodeShape ;
+    sh:closed true ;
+    sh:description "A collection that cannot contain duplicate elements." ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:class collections:Thing ;
+            sh:description "The link to the members of a collection" ;
+            sh:nodeKind sh:BlankNode ;
+            sh:order 0 ;
+            sh:path collections:element ],
+        [ sh:description "The number of item belonging to a collection." ;
+            sh:maxCount 1 ;
+            sh:order 1 ;
+            sh:path collections:size ] ;
+    sh:targetClass collections:Set .
+
+collections:Bag a sh:NodeShape ;
+    sh:closed true ;
+    sh:description "Collection that can have a number of copies of each object" ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:class collections:Thing ;
+            sh:description "The link to the members of a collection" ;
+            sh:nodeKind sh:BlankNode ;
+            sh:order 0 ;
+            sh:path collections:element ],
+        [ sh:description "The number of item belonging to a collection." ;
+            sh:maxCount 1 ;
+            sh:order 1 ;
+            sh:path collections:size ] ;
+    sh:targetClass collections:Bag .
+
+collections:ListItem a sh:NodeShape ;
+    sh:closed true ;
+    sh:description "element belonging to a list" ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:class collections:Bag ;
+            sh:description "The link to a bag in which the item is member." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:BlankNode ;
+            sh:order 1 ;
+            sh:path collections:itemOf ],
+        [ sh:description "A number identifying the position, starting from 1, of a particular list item within a list." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 0 ;
+            sh:path collections:_index ] ;
+    sh:targetClass collections:ListItem .
+
+collections:Thing a sh:NodeShape ;
+    sh:closed false ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:targetClass collections:Thing .
+

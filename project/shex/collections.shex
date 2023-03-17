@@ -1,0 +1,110 @@
+BASE <https://w3id.org/lmodel/collections/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX linkml: <https://w3id.org/linkml/>
+
+
+<PositiveInteger> xsd:positiveInteger
+
+linkml:String xsd:string
+
+linkml:Integer xsd:integer
+
+linkml:Boolean xsd:boolean
+
+linkml:Float xsd:float
+
+linkml:Double xsd:double
+
+linkml:Decimal xsd:decimal
+
+linkml:Time xsd:dateTime
+
+linkml:Date xsd:date
+
+linkml:Datetime xsd:dateTime
+
+linkml:DateOrDatetime linkml:DateOrDatetime
+
+linkml:Uriorcurie IRI
+
+linkml:Curie xsd:string
+
+linkml:Uri IRI
+
+linkml:Ncname xsd:string
+
+linkml:Objectidentifier IRI
+
+linkml:Nodeidentifier NONLITERAL
+
+<Bag>  (
+    CLOSED {
+       (  $<Bag_tes> (  &<Collection_tes> ;
+             rdf:type [ <Collection> ] ?
+          ) ;
+          rdf:type [ <Bag> ] ?
+       )
+    } OR @<List>
+)
+
+<CoItem>  (
+    CLOSED {
+       (  $<CoItem_tes> (  &<Thing_tes> ;
+             rdf:type [ <Thing> ] ? ;
+             <itemOf> @<Bag> ?
+          ) ;
+          rdf:type [ <CoItem> ] ?
+       )
+    } OR @<ListItem>
+)
+
+<Collection>  (
+    CLOSED {
+       (  $<Collection_tes> (  &<Thing_tes> ;
+             rdf:type [ <Thing> ] ? ;
+             <size> @<PositiveInteger> ?
+          ) ;
+          rdf:type [ <Collection> ] ?
+       )
+    } OR @<Bag> OR @<Set>
+)
+
+<List> CLOSED {
+    (  $<List_tes> (  &<Bag_tes> ;
+          rdf:type [ <Bag> ] ? ;
+          <lastItem> @<ListItem> ? ;
+          <firstItem> @<ListItem> ?
+       ) ;
+       rdf:type [ <List> ] ?
+    )
+}
+
+<ListItem> CLOSED {
+    (  $<ListItem_tes> (  &<CoItem_tes> ;
+          rdf:type [ <CoItem> ] ? ;
+          <_index> @<PositiveInteger>
+       ) ;
+       rdf:type [ <ListItem> ] ?
+    )
+}
+
+<Set> CLOSED {
+    (  $<Set_tes> (  &<Collection_tes> ;
+          rdf:type [ <Collection> ] ?
+       ) ;
+       rdf:type [ <Set> ] ?
+    )
+}
+
+<Thing>  (
+    @<CoItem> OR @<Collection>
+)
+
+<Thing_struct> {
+    (  $<Thing_tes> rdf:type . * ;
+       rdf:type [ <Thing> ] ?
+    )
+}
+
+
