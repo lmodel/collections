@@ -2,202 +2,137 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://lmodel.github.io/collections/</loc>
-         <lastmod>2023-03-12</lastmod>
+         <lastmod>2023-03-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://lmodel.github.io/collections/Bag/</loc>
-         <lastmod>2023-03-12</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://lmodel.github.io/collections/Boolean/</loc>
-         <lastmod>2023-03-12</lastmod>
+         <lastmod>2023-03-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://lmodel.github.io/collections/CoItem/</loc>
-         <lastmod>2023-03-12</lastmod>
+         <lastmod>2023-03-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://lmodel.github.io/collections/Collection/</loc>
-         <lastmod>2023-03-12</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://lmodel.github.io/collections/Date/</loc>
-         <lastmod>2023-03-12</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://lmodel.github.io/collections/DateOrDatetime/</loc>
-         <lastmod>2023-03-12</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://lmodel.github.io/collections/Datetime/</loc>
-         <lastmod>2023-03-12</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://lmodel.github.io/collections/Decimal/</loc>
-         <lastmod>2023-03-12</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://lmodel.github.io/collections/Double/</loc>
-         <lastmod>2023-03-12</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://lmodel.github.io/collections/Float/</loc>
-         <lastmod>2023-03-12</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://lmodel.github.io/collections/Integer/</loc>
-         <lastmod>2023-03-12</lastmod>
+         <lastmod>2023-03-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://lmodel.github.io/collections/List/</loc>
-         <lastmod>2023-03-12</lastmod>
+         <lastmod>2023-03-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://lmodel.github.io/collections/ListItem/</loc>
-         <lastmod>2023-03-12</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://lmodel.github.io/collections/Ncname/</loc>
-         <lastmod>2023-03-12</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://lmodel.github.io/collections/Nodeidentifier/</loc>
-         <lastmod>2023-03-12</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://lmodel.github.io/collections/Objectidentifier/</loc>
-         <lastmod>2023-03-12</lastmod>
+         <lastmod>2023-03-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://lmodel.github.io/collections/PositiveInteger/</loc>
-         <lastmod>2023-03-12</lastmod>
+         <lastmod>2023-03-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://lmodel.github.io/collections/Set/</loc>
-         <lastmod>2023-03-12</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://lmodel.github.io/collections/String/</loc>
-         <lastmod>2023-03-12</lastmod>
+         <lastmod>2023-03-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://lmodel.github.io/collections/Thing/</loc>
-         <lastmod>2023-03-12</lastmod>
+         <lastmod>2023-03-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://lmodel.github.io/collections/Time/</loc>
-         <lastmod>2023-03-12</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://lmodel.github.io/collections/Uri/</loc>
-         <lastmod>2023-03-12</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://lmodel.github.io/collections/Uriorcurie/</loc>
-         <lastmod>2023-03-12</lastmod>
+         <loc>https://lmodel.github.io/collections/_index/</loc>
+         <lastmod>2023-03-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://lmodel.github.io/collections/collections/</loc>
-         <lastmod>2023-03-12</lastmod>
+         <lastmod>2023-03-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://lmodel.github.io/collections/element/</loc>
-         <lastmod>2023-03-12</lastmod>
+         <lastmod>2023-03-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://lmodel.github.io/collections/elementOf/</loc>
-         <lastmod>2023-03-12</lastmod>
+         <lastmod>2023-03-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://lmodel.github.io/collections/firstItem/</loc>
-         <lastmod>2023-03-12</lastmod>
+         <lastmod>2023-03-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://lmodel.github.io/collections/firstItemOf/</loc>
-         <lastmod>2023-03-12</lastmod>
+         <lastmod>2023-03-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://lmodel.github.io/collections/followedBy/</loc>
-         <lastmod>2023-03-12</lastmod>
+         <lastmod>2023-03-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://lmodel.github.io/collections/item/</loc>
-         <lastmod>2023-03-12</lastmod>
+         <lastmod>2023-03-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://lmodel.github.io/collections/itemContent/</loc>
-         <lastmod>2023-03-12</lastmod>
+         <lastmod>2023-03-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://lmodel.github.io/collections/itemContentOf/</loc>
-         <lastmod>2023-03-12</lastmod>
+         <lastmod>2023-03-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://lmodel.github.io/collections/itemOf/</loc>
-         <lastmod>2023-03-12</lastmod>
+         <lastmod>2023-03-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://lmodel.github.io/collections/lastItem/</loc>
-         <lastmod>2023-03-12</lastmod>
+         <lastmod>2023-03-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://lmodel.github.io/collections/lastItemOf/</loc>
-         <lastmod>2023-03-12</lastmod>
+         <lastmod>2023-03-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://lmodel.github.io/collections/nextItem/</loc>
-         <lastmod>2023-03-12</lastmod>
+         <lastmod>2023-03-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://lmodel.github.io/collections/precededBy/</loc>
-         <lastmod>2023-03-12</lastmod>
+         <lastmod>2023-03-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://lmodel.github.io/collections/previousItem/</loc>
-         <lastmod>2023-03-12</lastmod>
+         <lastmod>2023-03-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://lmodel.github.io/collections/size/</loc>
-         <lastmod>2023-03-12</lastmod>
+         <lastmod>2023-03-17</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://lmodel.github.io/collections/types/</loc>
+         <lastmod>2023-03-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>

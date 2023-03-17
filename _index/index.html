@@ -8,20 +8,20 @@
       
       
       
-        <link rel="canonical" href="https://lmodel.github.io/collections/Uri/">
+        <link rel="canonical" href="https://lmodel.github.io/collections/_index/">
       
       
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.2">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.3">
     
     
       
-        <title>Type: Uri - collections</title>
+        <title>Slot: _index - collections</title>
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.7bf56d0a.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.c4a75a56.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.a0c5b2b5.min.css">
@@ -65,7 +65,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#type-uri" class="md-skip">
+        <a href="#slot-_index" class="md-skip">
           Skip to content
         </a>
       
@@ -100,7 +100,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Type: Uri
+              Slot: _index
             
           </span>
         </div>
@@ -259,6 +259,27 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#applicable-classes" class="md-nav__link">
+    Applicable Classes
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#properties" class="md-nav__link">
+    Properties
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aliases" class="md-nav__link">
+    Aliases
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#identifier-and-mapping-information" class="md-nav__link">
     Identifier and Mapping Information
   </a>
@@ -275,6 +296,13 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#linkml-source" class="md-nav__link">
+    LinkML Source
+  </a>
   
 </li>
       
@@ -296,25 +324,60 @@
   
 
 
-<h1 id="type-uri">Type: Uri</h1>
-<p><em>a complete URI</em></p>
-<p>URI: <a href="http://www.w3.org/2001/XMLSchema#anyURI">xsd:anyURI</a></p>
+<h1 id="slot-_index">Slot: _index</h1>
+<p><em>A number identifying the position, starting from 1, of a particular list item within a list.</em></p>
+<p>URI: <a href="https://w3id.org/lmodel/collections/_index">collections:_index</a></p>
+<!-- no inheritance hierarchy -->
+
+<h2 id="applicable-classes">Applicable Classes</h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="../ListItem/">ListItem</a></td>
+<td>element belonging to a list</td>
+</tr>
+</tbody>
+</table>
+<h2 id="properties">Properties</h2>
 <ul>
-<li>
-<p><a href="https://w3id.org/linkml/base">base</a>: URI</p>
-</li>
-<li>
-<p><a href="https://w3id.org/linkml/uri">uri</a>: xsd:anyURI</p>
-</li>
-<li>
-<p><a href="https://w3id.org/linkml/repr">repr</a>: str</p>
-</li>
+<li>Range: <a href="../PositiveInteger/">PositiveInteger</a></li>
+</ul>
+<h2 id="aliases">Aliases</h2>
+<ul>
+<li>has index</li>
 </ul>
 <h2 id="identifier-and-mapping-information">Identifier and Mapping Information</h2>
 <h3 id="schema-source">Schema Source</h3>
 <ul>
 <li>from schema: https://w3id.org/lmodel/collections</li>
 </ul>
+<h2 id="linkml-source">LinkML Source</h2>
+<details>
+
+<pre><code class="language-yaml">name: _index
+description: A number identifying the position, starting from 1, of a particular list
+  item within a list.
+from_schema: https://w3id.org/lmodel/collections
+aliases:
+- has index
+exact_mappings:
+- co:index
+rank: 1000
+domain: ListItem
+alias: _index
+domain_of:
+- ListItem
+range: positive integer
+
+</code></pre>
+
+</details>
 
 
 
@@ -357,7 +420,7 @@
     <script id="__config" type="application/json">{"base": "..", "features": ["content.tabs.link"], "search": "../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.fc8c2696.min.js"></script>
+      <script src="../assets/javascripts/bundle.efa0ade1.min.js"></script>
       
     
   </body>
