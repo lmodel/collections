@@ -31,10 +31,10 @@ jobs:
         id: import-env
         shell: bash
         run: |
-          touch ${{ env.ENV_FILE }}  # incase missing
+          touch ${ENV_FILE}  # incase missing
           while read line; do
             echo "$line" >> $GITHUB_ENV
-          done < ${{ env.ENV_FILE }}
+          done < ${ENV_FILE}
 
       - name: Build documentation.
         shell: bash
