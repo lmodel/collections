@@ -1,5 +1,5 @@
 # collections
 
-Unofficial [https://linkml.io](Linkml schema), Classes and Properties characterizing [https://github.com/collections-ontology/collections-ontology](The Collections Ontology) (CO).
+Unofficial, [Linkml schema](https://linkml.io) Classes and Properties characterizing [The Collections Ontology (CO)](https://github.com/collections-ontology/collections-ontology)
 
 
