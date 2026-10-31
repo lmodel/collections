@@ -15,7 +15,7 @@
     },
     {
       "tag": "co_licence",
-      "value": "Apache-2.0 for code and CC-BY-3.0 for content, per the Google Code archive"
+      "value": "Apache-2.0 for code, collections.owl among it, and CC-BY-3.0 for other content, per the Google Code archive"
     }
   ],
   "description": "The Collections Ontology (CO) 2.0 in LinkML, with CO's own names and IRIs: collections that are sets, bags or lists, and the items through which a bag or a list holds its elements.",
@@ -25,7 +25,7 @@
   ],
   "comments": [
     "Renders CO 2.0 by Paolo Ciccarese and Silvio Peroni, whose ontology IRI is http://purl.org/co. The source is collections.owl at the commit the co_commit annotation names, copied unchanged to upstream/collections.owl.",
-    "The repository states no licence. The project's Google Code archive gives the Apache License 2.0 for its code and CC BY 3.0 for its content, as the co_licence annotation says. The descriptions here are this project's own words.",
+    "The repository states no licence. The project's Google Code archive gives the Apache License 2.0 for its code, collections.owl among it, and CC BY 3.0 for its other content, such as its wiki, as the co_licence annotation says. The descriptions here are this project's own words.",
     "Items have no IRI here, so a slot that links to an item, such as firstItem or nextItem, holds a copy of that item. docs/index.md lists the rules of CO that no validator checks and the tests check instead."
   ],
   "source": "https://github.com/collections-ontology/collections-ontology",
@@ -933,8 +933,8 @@
   ],
   "metamodel_version": "1.12.0",
   "source_file": "collections.yaml",
-  "source_file_date": "2026-10-31T18:02:09",
-  "source_file_size": 8825,
+  "source_file_date": "2026-10-31T18:08:14",
+  "source_file_size": 8920,
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/collections.context.jsonld",

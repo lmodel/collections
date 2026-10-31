@@ -71,8 +71,9 @@ linkml_meta = LinkMLMeta({'annotations': {'co_commit': {'tag': 'co_commit',
                      'co_git_object': {'tag': 'co_git_object',
                                        'value': '4e19e4892212de2b1805923a7a69fa4ba8c1b424'},
                      'co_licence': {'tag': 'co_licence',
-                                    'value': 'Apache-2.0 for code and CC-BY-3.0 '
-                                             'for content, per the Google Code '
+                                    'value': 'Apache-2.0 for code, collections.owl '
+                                             'among it, and CC-BY-3.0 for other '
+                                             'content, per the Google Code '
                                              'archive'},
                      'co_ontology_iri': {'tag': 'co_ontology_iri',
                                          'value': 'http://purl.org/co'}},
@@ -81,8 +82,9 @@ linkml_meta = LinkMLMeta({'annotations': {'co_commit': {'tag': 'co_commit',
                   'collections.owl at the commit the co_commit annotation names, '
                   'copied unchanged to upstream/collections.owl.',
                   "The repository states no licence. The project's Google Code "
-                  'archive gives the Apache License 2.0 for its code and CC BY 3.0 '
-                  'for its content, as the co_licence annotation says. The '
+                  'archive gives the Apache License 2.0 for its code, '
+                  'collections.owl among it, and CC BY 3.0 for its other content, '
+                  'such as its wiki, as the co_licence annotation says. The '
                   "descriptions here are this project's own words.",
                   'Items have no IRI here, so a slot that links to an item, such '
                   'as firstItem or nextItem, holds a copy of that item. '

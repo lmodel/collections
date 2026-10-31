@@ -19,9 +19,9 @@ comments:
     co_commit annotation names, copied unchanged to upstream/collections.owl.
   - >-
     The repository states no licence. The project's Google Code archive gives
-    the Apache License 2.0 for its code and CC BY 3.0 for its content, as the
-    co_licence annotation says. The descriptions here are this project's own
-    words.
+    the Apache License 2.0 for its code, collections.owl among it, and CC BY
+    3.0 for its other content, such as its wiki, as the co_licence annotation
+    says. The descriptions here are this project's own words.
   - >-
     Items have no IRI here, so a slot that links to an item, such as
     firstItem or nextItem, holds a copy of that item. docs/index.md lists the
@@ -36,7 +36,9 @@ annotations:
   co_ontology_iri: http://purl.org/co
   co_commit: 619e7b02646321174635fd04be658e338bf7d1d7
   co_git_object: 4e19e4892212de2b1805923a7a69fa4ba8c1b424
-  co_licence: Apache-2.0 for code and CC-BY-3.0 for content, per the Google Code archive
+  co_licence: >-
+    Apache-2.0 for code, collections.owl among it, and CC-BY-3.0 for other
+    content, per the Google Code archive
 
 prefixes:
   collections: https://w3id.org/lmodel/collections/

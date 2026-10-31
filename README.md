@@ -84,7 +84,7 @@ The schema and the code are under the Apache License 2.0 ([LICENSE](LICENSE)).
 
 The knowledge bundle in `.lokf/knowledge/` is under the Creative Commons Attribution 4.0 International licence (CC BY 4.0), as its `index.md` declares.
 
-CO's repository states no licence. The project's Google Code archive gives the Apache License 2.0 for its code and CC BY 3.0 for its content, and this repository copies CO's OWL file under those terms. [NOTICE](NOTICE) gives the credit. This is not an official CO project, and its use implies no endorsement by CO's authors.
+CO's repository states no licence. The project's Google Code archive gives the Apache License 2.0 for its code, which held CO's OWL file, and CC BY 3.0 for its other content, such as its wiki, so this repository copies the OWL file under the Apache License. [NOTICE](NOTICE) gives the credit. This is not an official CO project, and its use implies no endorsement by CO's authors.
 
 ## Contributing and security
 

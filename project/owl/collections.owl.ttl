@@ -16,10 +16,10 @@
 	rdfs:seeAlso <https://doi.org/10.3233/SW-130121> , <https://lmodel.github.io/collections> ;
 	skos:definition "The Collections Ontology (CO) 2.0 in LinkML, with CO's own names and IRIs: collections that are sets, bags or lists, and the items through which a bag or a list holds its elements." ;
 	skos:editorialNote "CO's Item and size are named CoItem and co_size, as in lmodel/uco's uco_co module, because UCO defines an Item and a size of its own. CO's index is named co_index, because gen-doc writes the page of a slot named index over the schema's index page. Their IRIs are CO's." ;
-	skos:note "Items have no IRI here, so a slot that links to an item, such as firstItem or nextItem, holds a copy of that item. docs/index.md lists the rules of CO that no validator checks and the tests check instead." , "Renders CO 2.0 by Paolo Ciccarese and Silvio Peroni, whose ontology IRI is http://purl.org/co. The source is collections.owl at the commit the co_commit annotation names, copied unchanged to upstream/collections.owl." , "The repository states no licence. The project's Google Code archive gives the Apache License 2.0 for its code and CC BY 3.0 for its content, as the co_licence annotation says. The descriptions here are this project's own words." ;
+	skos:note "Items have no IRI here, so a slot that links to an item, such as firstItem or nextItem, holds a copy of that item. docs/index.md lists the rules of CO that no validator checks and the tests check instead." , "Renders CO 2.0 by Paolo Ciccarese and Silvio Peroni, whose ontology IRI is http://purl.org/co. The source is collections.owl at the commit the co_commit annotation names, copied unchanged to upstream/collections.owl." , "The repository states no licence. The project's Google Code archive gives the Apache License 2.0 for its code, collections.owl among it, and CC BY 3.0 for its other content, such as its wiki, as the co_licence annotation says. The descriptions here are this project's own words." ;
 	collections:co_commit "619e7b02646321174635fd04be658e338bf7d1d7" ;
 	collections:co_git_object "4e19e4892212de2b1805923a7a69fa4ba8c1b424" ;
-	collections:co_licence "Apache-2.0 for code and CC-BY-3.0 for content, per the Google Code archive" ;
+	collections:co_licence "Apache-2.0 for code, collections.owl among it, and CC-BY-3.0 for other content, per the Google Code archive" ;
 	collections:co_ontology_iri "http://purl.org/co" .
 collections:Bag a owl:Class ;
 	rdfs:label "Bag" ;
