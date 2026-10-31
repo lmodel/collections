@@ -222,7 +222,13 @@ class CoItem(ConfiguredBaseModel):
          'from_schema': 'https://w3id.org/lmodel/collections',
          'slot_usage': {'itemContent': {'name': 'itemContent', 'required': True}}})
 
-    itemContent: str = Field(default=..., description="""The element that the item wraps.""", json_schema_extra = { "linkml_meta": {'domain': 'CoItem', 'domain_of': ['CoItem'], 'slot_uri': 'coll:itemContent'} })
+    itemContent: str = Field(default=..., description="""The element that the item wraps.""", json_schema_extra = { "linkml_meta": {'domain': 'CoItem',
+         'domain_of': ['CoItem'],
+         'notes': ["CoItem requires it. CO's OWL file makes itemContent functional, so "
+                   "an item wraps at most one element, and CO's wiki page StructureBag "
+                   'says that an item links exactly one resource.'],
+         'see_also': ['https://github.com/collections-ontology/collections-ontology/blob/58e55d956991878307d430eede7790d5e5da206f/StructureBag.md'],
+         'slot_uri': 'coll:itemContent'} })
 
 
 class ListItem(CoItem):
@@ -258,7 +264,13 @@ class ListItem(CoItem):
          'inverse': 'followedBy',
          'slot_uri': 'coll:precededBy',
          'transitive': True} })
-    itemContent: str = Field(default=..., description="""The element that the item wraps.""", json_schema_extra = { "linkml_meta": {'domain': 'CoItem', 'domain_of': ['CoItem'], 'slot_uri': 'coll:itemContent'} })
+    itemContent: str = Field(default=..., description="""The element that the item wraps.""", json_schema_extra = { "linkml_meta": {'domain': 'CoItem',
+         'domain_of': ['CoItem'],
+         'notes': ["CoItem requires it. CO's OWL file makes itemContent functional, so "
+                   "an item wraps at most one element, and CO's wiki page StructureBag "
+                   'says that an item links exactly one resource.'],
+         'see_also': ['https://github.com/collections-ontology/collections-ontology/blob/58e55d956991878307d430eede7790d5e5da206f/StructureBag.md'],
+         'slot_uri': 'coll:itemContent'} })
 
 
 # Model rebuild

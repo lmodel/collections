@@ -116,7 +116,9 @@ collections:itemContent a owl:DatatypeProperty ;
 	rdfs:domain collections:CoItem ;
 	rdfs:label "itemContent" ;
 	rdfs:range xsd:anyURI ;
+	rdfs:seeAlso <https://github.com/collections-ontology/collections-ontology/blob/58e55d956991878307d430eede7790d5e5da206f/StructureBag.md> ;
 	skos:definition "The element that the item wraps." ;
+	skos:editorialNote "CoItem requires it. CO's OWL file makes itemContent functional, so an item wraps at most one element, and CO's wiki page StructureBag says that an item links exactly one resource." ;
 	skos:inScheme <https://w3id.org/lmodel/collections> .
 collections:itemContentOf a owl:ObjectProperty ;
 	rdfs:label "itemContentOf" ;

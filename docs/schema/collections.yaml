@@ -406,7 +406,13 @@ slots:
     name: itemContent
     definition_uri: https://w3id.org/lmodel/collections/itemContent
     description: The element that the item wraps.
+    notes:
+    - CoItem requires it. CO's OWL file makes itemContent functional, so an item wraps
+      at most one element, and CO's wiki page StructureBag says that an item links
+      exactly one resource.
     from_schema: https://w3id.org/lmodel/collections
+    see_also:
+    - https://github.com/collections-ontology/collections-ontology/blob/58e55d956991878307d430eede7790d5e5da206f/StructureBag.md
     mappings:
     - coll:itemContent
     domain: CoItem
@@ -641,7 +647,13 @@ slots:
     name: CoItem_itemContent
     definition_uri: https://w3id.org/lmodel/collections/itemContent
     description: The element that the item wraps.
+    notes:
+    - CoItem requires it. CO's OWL file makes itemContent functional, so an item wraps
+      at most one element, and CO's wiki page StructureBag says that an item links
+      exactly one resource.
     from_schema: https://w3id.org/lmodel/collections
+    see_also:
+    - https://github.com/collections-ontology/collections-ontology/blob/58e55d956991878307d430eede7790d5e5da206f/StructureBag.md
     mappings:
     - coll:itemContent
     is_a: itemContent
@@ -781,6 +793,6 @@ classes:
     class_uri: coll:ListItem
 metamodel_version: 1.12.0
 source_file: collections.yaml
-source_file_date: '2026-10-31T18:00:48'
-source_file_size: 8454
+source_file_date: '2026-10-31T18:02:09'
+source_file_size: 8825
 

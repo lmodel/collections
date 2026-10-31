@@ -4,7 +4,8 @@ src/collections/schema/upstream/collections.owl is CO 2.0's OWL file, copied
 unchanged. These tests check that the copy is the pinned file, that the
 schema header and the upstream watch name the same edition, and that the
 schema renders every class and property of CO, by CO's name and IRI, with
-the domains, ranges, cardinalities and class axioms CO states.
+the domains, ranges, cardinalities, required slots and class axioms CO
+states.
 """
 
 import hashlib
@@ -28,6 +29,14 @@ CO = rdflib.Namespace("http://purl.org/co/")
 # of its own, and index, because gen-doc writes the page of a slot named index
 # over the schema's index page.
 RENAMED = {"Item": "CoItem", "size": "co_size", "index": "co_index"}
+
+# Where the schema's required slots depart from CO's class restrictions. CO
+# gives every collection exactly one size, which the schema leaves optional,
+# since a reader can count and the tests check a size where it is given. CO's
+# OWL file lets an item wrap at most one resource, and its wiki page
+# StructureBag says exactly one, so the schema requires an item's content.
+OPTIONAL_HERE = {CO.size}
+REQUIRED_BY_THE_WIKI = {CO.Item: {CO.itemContent}}
 
 
 @pytest.fixture(scope="module")
@@ -139,14 +148,63 @@ def test_domains_and_ranges_follow_co(view, co):
                 assert slot.range == "uriorcurie", name
 
 
+def _restrictions(co, cls):
+    """The named classes a CO class is, itself and its superclasses, and the
+    restrictions they state on a named property, each as the property with
+    the least and the most number of values it allows (None for no bound)."""
+    classes, found, todo, seen = set(), [], [cls], set()
+    while todo:
+        node = todo.pop()
+        if node in seen:
+            continue
+        seen.add(node)
+        if isinstance(node, rdflib.URIRef):
+            classes.add(node)
+        todo += co.objects(node, RDFS.subClassOf)
+        members = co.value(node, OWL.intersectionOf)
+        if members is not None:
+            todo += rdflib.collection.Collection(co, members)
+        prop = co.value(node, OWL.onProperty)
+        if not isinstance(prop, rdflib.URIRef):
+            continue
+        exact = co.value(node, OWL.cardinality)
+        least = exact if exact is not None else co.value(node, OWL.minCardinality)
+        most = exact if exact is not None else co.value(node, OWL.maxCardinality)
+        if co.value(node, OWL.someValuesFrom) is not None:
+            least = 1
+        found.append(
+            (
+                prop,
+                None if least is None else int(least),
+                None if most is None else int(most),
+            )
+        )
+    return classes, found
+
+
 def test_cardinality_follows_co(view, co):
-    """A functional object property, and a datatype property CO gives one value
-    per class, is single-valued; every other object property is multivalued."""
-    functional = set(co.subjects(RDF.type, OWL.FunctionalProperty))
-    datatype = set(co.subjects(RDF.type, OWL.DatatypeProperty))
+    """A slot is single-valued where CO makes its property functional or a
+    class restriction allows it one value at most, and multivalued
+    otherwise."""
+    single = set(co.subjects(RDF.type, OWL.FunctionalProperty))
+    for cls in view.all_classes().values():
+        _, restrictions = _restrictions(co, _uri(view, cls))
+        single |= {p for p, _, most in restrictions if most is not None and most <= 1}
     for name, slot in view.all_slots().items():
-        iri = _uri(view, slot)
-        assert bool(slot.multivalued) == (iri not in functional | datatype), name
+        assert bool(slot.multivalued) == (_uri(view, slot) not in single), name
+
+
+def test_required_slots_follow_co(view, co):
+    """A class requires the slots whose properties CO's restrictions give it at
+    least one value of, but for the departures listed above."""
+    for name, cls in view.all_classes().items():
+        classes, restrictions = _restrictions(co, _uri(view, cls))
+        expected = {p for p, least, _ in restrictions if least}
+        for owner, props in REQUIRED_BY_THE_WIKI.items():
+            if owner in classes:
+                expected |= props
+        required = {_uri(view, s) for s in view.class_induced_slots(name) if s.required}
+        assert required == expected - OPTIONAL_HERE, name
 
 
 def test_inverses_and_transitivity_follow_co(view, co):
