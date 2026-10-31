@@ -19,6 +19,10 @@ exclude = [
   # redirects to a SourceForge page that answers 404 (read 2026-10-31);
   # the ontology itself is on GitHub.
   '^https?://purl\.org/co(/|$)',
+  # The Collections Ontology paper's DOI, which doi.org redirects to SAGE's
+  # journal site; that site answers automated clients with 403 while the
+  # DOI resolves and Crossref holds its record (read 2026-10-31).
+  '^https://doi\.org/10\.3233/SW-130121$',
   # The documentation site, which answers once the knowledge-website
   # workflow first deploys it to Pages. Drop this then.
   '^https://lmodel\.github\.io/collections',
