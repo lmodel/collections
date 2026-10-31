@@ -320,3 +320,46 @@ def test_server_text_stays_on_one_line(watch, tmp_path):
     code, text = _run(watch, tmp_path)
     assert code == 1
     assert "**GitHub now detects the licence `MIT @someone 'x'` for" in text
+
+
+def test_a_refused_licence_check(watch, tmp_path):
+    """An error other than GitHub's 404 for no licence is a check that could
+    not finish."""
+    answers = _answers(watch)
+    answers[f"{watch.API}/license"] = urllib.error.HTTPError(
+        f"{watch.API}/license", 403, "Forbidden", None, None
+    )
+    _stub(watch, answers)
+    code, text = _run(watch, tmp_path)
+    assert code == 1
+    assert (
+        "**The licence check could not finish: `HTTP Error 403: Forbidden`.**" in text
+    )
+
+
+def test_a_truncated_tree(watch, tmp_path):
+    """A tree listing GitHub cut short stops the copy check."""
+    _stub(watch, _answers(watch, tree={"tree": [], "truncated": True}))
+    code, text = _run(watch, tmp_path)
+    assert code == 1
+    assert "**The copy check could not finish: `the tree at" in text
+    assert "- Edition: CO 2.0, as pinned." in text
+
+
+def test_a_file_without_an_ontology_header(watch, tmp_path):
+    """A file at the head with no owl:Ontology header, or with no edition in
+    it, needs attention."""
+    owl = COPY.read_bytes()
+    start, end = owl.index(b"<owl:Ontology"), owl.index(b"</owl:Ontology>")
+    _stub(watch, _answers(watch, owl=owl[:start] + owl[end + 15 :]))
+    code, text = _run(watch, tmp_path)
+    assert code == 1
+    assert "has no owl:Ontology header.**" in text
+
+    no_edition = owl.replace(
+        b'<owl:versionInfo rdf:datatype="&xsd;string">2.0</owl:versionInfo>', b""
+    )
+    _stub(watch, _answers(watch, owl=no_edition))
+    code, text = _run(watch, tmp_path)
+    assert code == 1
+    assert "**`collections.owl` names no edition in owl:versionInfo, not 2.0.**" in text
