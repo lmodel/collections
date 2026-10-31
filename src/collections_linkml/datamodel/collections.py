@@ -206,17 +206,17 @@ class ListItem(CoItem):
     class_model_uri: ClassVar[URIRef] = COLLECTIONS.ListItem
 
     itemContent: Union[str, URIorCURIE] = None
-    index: int = None
+    co_index: int = None
     nextItem: Optional[Union[dict, "ListItem"]] = None
     previousItem: Optional[Union[dict, "ListItem"]] = None
     followedBy: Optional[Union[Union[dict, "ListItem"], list[Union[dict, "ListItem"]]]] = empty_list()
     precededBy: Optional[Union[Union[dict, "ListItem"], list[Union[dict, "ListItem"]]]] = empty_list()
 
     def __post_init__(self, *_: str, **kwargs: Any):
-        if self._is_empty(self.index):
-            self.MissingRequiredField("index")
-        if not isinstance(self.index, int):
-            self.index = int(self.index)
+        if self._is_empty(self.co_index):
+            self.MissingRequiredField("co_index")
+        if not isinstance(self.co_index, int):
+            self.co_index = int(self.co_index)
 
         if self.nextItem is not None and not isinstance(self.nextItem, ListItem):
             self.nextItem = ListItem(**as_dict(self.nextItem))
@@ -259,8 +259,8 @@ slots.itemContent = Slot(uri=COLL.itemContent, name="itemContent", curie=COLL.cu
 slots.itemContentOf = Slot(uri=COLL.itemContentOf, name="itemContentOf", curie=COLL.curie('itemContentOf'),
                    model_uri=COLLECTIONS.itemContentOf, domain=None, range=Optional[Union[Union[dict, CoItem], list[Union[dict, CoItem]]]])
 
-slots.index = Slot(uri=COLL.index, name="index", curie=COLL.curie('index'),
-                   model_uri=COLLECTIONS.index, domain=ListItem, range=Optional[int])
+slots.co_index = Slot(uri=COLL.index, name="co_index", curie=COLL.curie('index'),
+                   model_uri=COLLECTIONS.co_index, domain=ListItem, range=Optional[int])
 
 slots.firstItem = Slot(uri=COLL.firstItem, name="firstItem", curie=COLL.curie('firstItem'),
                    model_uri=COLLECTIONS.firstItem, domain=List, range=Optional[Union[dict, "ListItem"]])
@@ -295,5 +295,5 @@ slots.List_item = Slot(uri=COLL.item, name="List_item", curie=COLL.curie('item')
 slots.CoItem_itemContent = Slot(uri=COLL.itemContent, name="CoItem_itemContent", curie=COLL.curie('itemContent'),
                    model_uri=COLLECTIONS.CoItem_itemContent, domain=CoItem, range=Union[str, URIorCURIE])
 
-slots.ListItem_index = Slot(uri=COLL.index, name="ListItem_index", curie=COLL.curie('index'),
-                   model_uri=COLLECTIONS.ListItem_index, domain=ListItem, range=int)
+slots.ListItem_co_index = Slot(uri=COLL.index, name="ListItem_co_index", curie=COLL.curie('index'),
+                   model_uri=COLLECTIONS.ListItem_co_index, domain=ListItem, range=int)

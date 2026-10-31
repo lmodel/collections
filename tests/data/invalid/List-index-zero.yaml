@@ -1,5 +1,5 @@
-# Fails at: /item/0/index
+# Fails at: /item/0/co_index
 # Invalid: the index counts from 1.
 item:
-  - index: 0
+  - co_index: 0
     itemContent: https://example.org/a

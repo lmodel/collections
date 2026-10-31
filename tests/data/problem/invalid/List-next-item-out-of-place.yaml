@@ -1,12 +1,12 @@
 # Fails at: /item/0/nextItem
 # Invalid: the next item is the one whose index is one higher.
 item:
-  - index: 1
+  - co_index: 1
     itemContent: https://example.org/a
     nextItem:
-      index: 3
+      co_index: 3
       itemContent: https://example.org/c
-  - index: 2
+  - co_index: 2
     itemContent: https://example.org/b
-  - index: 3
+  - co_index: 3
     itemContent: https://example.org/c

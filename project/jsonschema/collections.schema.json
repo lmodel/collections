@@ -146,6 +146,11 @@
             "additionalProperties": false,
             "description": "An item of a list, which has a place in the list's order.",
             "properties": {
+                "co_index": {
+                    "description": "The place of the item in its list, counting from 1.",
+                    "minimum": 1,
+                    "type": "integer"
+                },
                 "followedBy": {
                     "description": "An item that comes somewhere after this one.",
                     "items": {
@@ -155,11 +160,6 @@
                         "array",
                         "null"
                     ]
-                },
-                "index": {
-                    "description": "The place of the item in its list, counting from 1.",
-                    "minimum": 1,
-                    "type": "integer"
                 },
                 "itemContent": {
                     "description": "The element that the item wraps.",
@@ -199,7 +199,7 @@
                 }
             },
             "required": [
-                "index",
+                "co_index",
                 "itemContent"
             ],
             "title": "ListItem",

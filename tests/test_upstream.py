@@ -23,9 +23,11 @@ COPY = ROOT / "src" / "collections" / "schema" / "upstream" / "collections.owl"
 SCRIPT = ROOT / "scripts" / "check_upstream_release.py"
 CO = rdflib.Namespace("http://purl.org/co/")
 
-# CO's local names that the schema renders under another name, as lmodel/uco's
-# uco_co module does, because UCO defines an Item and a size of its own.
-RENAMED = {"Item": "CoItem", "size": "co_size"}
+# CO's local names that the schema renders under another name: Item and size,
+# as lmodel/uco's uco_co module does, because UCO defines an Item and a size
+# of its own, and index, because gen-doc writes the page of a slot named index
+# over the schema's index page.
+RENAMED = {"Item": "CoItem", "size": "co_size", "index": "co_index"}
 
 
 @pytest.fixture(scope="module")

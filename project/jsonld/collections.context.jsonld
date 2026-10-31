@@ -5,6 +5,10 @@
       "collections": "https://w3id.org/lmodel/collections/",
       "linkml": "https://w3id.org/linkml/",
       "@vocab": "https://w3id.org/lmodel/collections/",
+      "co_index": {
+         "@type": "xsd:integer",
+         "@id": "coll:index"
+      },
       "co_size": {
          "@type": "xsd:integer",
          "@id": "coll:size"
@@ -28,10 +32,6 @@
       "followedBy": {
          "@type": "@id",
          "@id": "coll:followedBy"
-      },
-      "index": {
-         "@type": "xsd:integer",
-         "@id": "coll:index"
       },
       "item": {
          "@type": "@id",

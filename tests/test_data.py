@@ -116,7 +116,7 @@ def _same(copy, item):
     """Whether a copy names the same item: the same place and the same content."""
     return (
         item is not None
-        and copy.get("index") == item.get("index")
+        and copy.get("co_index") == item.get("co_index")
         and copy.get("itemContent") == item.get("itemContent")
     )
 
@@ -126,7 +126,7 @@ def _link_faults(item, at, by_index):
     `by_index` maps each index of the item's list to the item there, or is
     None for an item on its own, whose links are checked by index alone."""
     faults = []
-    own = item.get("index")
+    own = item.get("co_index")
     links = [("nextItem", item.get("nextItem"), lambda i: i == own + 1)]
     links.append(("previousItem", item.get("previousItem"), lambda i: i == own - 1))
     for name, rule in (
@@ -139,8 +139,8 @@ def _link_faults(item, at, by_index):
     for name, copy, rule in links:
         if copy is None:
             continue
-        if not rule(copy["index"]) or (
-            by_index is not None and not _same(copy, by_index.get(copy["index"]))
+        if not rule(copy["co_index"]) or (
+            by_index is not None and not _same(copy, by_index.get(copy["co_index"]))
         ):
             faults.append(f"{at}/{name}")
         faults += _link_faults(copy, f"{at}/{name}", by_index)
@@ -152,9 +152,9 @@ def _list_faults(data):
     faults, by_index = [], {}
     items = data.get("item") or []
     for n, item in enumerate(items):
-        index = item["index"]
+        index = item["co_index"]
         if index in by_index or index > len(items):
-            faults.append(f"/item/{n}/index")
+            faults.append(f"/item/{n}/co_index")
         else:
             by_index[index] = item
     for name, index in (("firstItem", 1), ("lastItem", len(items))):

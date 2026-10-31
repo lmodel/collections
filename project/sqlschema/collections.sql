@@ -18,7 +18,7 @@
 --     * Slot: Bag_id Description: Autocreated FK slot
 -- # Class: ListItem Description: An item of a list, which has a place in the list's order.
 --     * Slot: id
---     * Slot: index Description: The place of the item in its list, counting from 1.
+--     * Slot: co_index Description: The place of the item in its list, counting from 1.
 --     * Slot: itemContent Description: The element that the item wraps.
 --     * Slot: List_id Description: Autocreated FK slot
 --     * Slot: ListItem_id Description: Autocreated FK slot
@@ -71,7 +71,7 @@ CREATE INDEX "ix_List_id" ON "List" (id);
 
 CREATE TABLE "ListItem" (
 	id INTEGER NOT NULL,
-	"index" INTEGER NOT NULL,
+	co_index INTEGER NOT NULL,
 	"itemContent" TEXT NOT NULL,
 	"List_id" INTEGER,
 	"ListItem_id" INTEGER,
@@ -100,8 +100,8 @@ CREATE TABLE "Collection_element" (
 	PRIMARY KEY ("Collection_id", element),
 	FOREIGN KEY("Collection_id") REFERENCES "Collection" (id)
 );
-CREATE INDEX "ix_Collection_element_Collection_id" ON "Collection_element" ("Collection_id");
 CREATE INDEX "ix_Collection_element_element" ON "Collection_element" (element);
+CREATE INDEX "ix_Collection_element_Collection_id" ON "Collection_element" ("Collection_id");
 
 CREATE TABLE "Set_element" (
 	"Set_id" INTEGER,
@@ -118,8 +118,8 @@ CREATE TABLE "Bag_element" (
 	PRIMARY KEY ("Bag_id", element),
 	FOREIGN KEY("Bag_id") REFERENCES "Bag" (id)
 );
-CREATE INDEX "ix_Bag_element_Bag_id" ON "Bag_element" ("Bag_id");
 CREATE INDEX "ix_Bag_element_element" ON "Bag_element" (element);
+CREATE INDEX "ix_Bag_element_Bag_id" ON "Bag_element" ("Bag_id");
 
 CREATE TABLE "List_element" (
 	"List_id" INTEGER,
@@ -127,5 +127,5 @@ CREATE TABLE "List_element" (
 	PRIMARY KEY ("List_id", element),
 	FOREIGN KEY("List_id") REFERENCES "List" (id)
 );
-CREATE INDEX "ix_List_element_List_id" ON "List_element" ("List_id");
 CREATE INDEX "ix_List_element_element" ON "List_element" (element);
+CREATE INDEX "ix_List_element_List_id" ON "List_element" ("List_id");

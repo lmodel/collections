@@ -1,19 +1,19 @@
 # A list may hold one element in more than one place, here a at 1 and 3.
 co_size: 3
 item:
-  - index: 1
+  - co_index: 1
     itemContent: https://example.org/a
     followedBy:
-      - index: 2
+      - co_index: 2
         itemContent: https://example.org/b
-      - index: 3
+      - co_index: 3
         itemContent: https://example.org/a
-  - index: 2
+  - co_index: 2
     itemContent: https://example.org/b
-  - index: 3
+  - co_index: 3
     itemContent: https://example.org/a
     precededBy:
-      - index: 1
+      - co_index: 1
         itemContent: https://example.org/a
-      - index: 2
+      - co_index: 2
         itemContent: https://example.org/b

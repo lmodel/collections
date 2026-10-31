@@ -2,10 +2,10 @@
 # Invalid: the previous item is the one whose index is one lower, and the
 # copy wraps what that item wraps.
 item:
-  - index: 1
+  - co_index: 1
     itemContent: https://example.org/a
-  - index: 2
+  - co_index: 2
     itemContent: https://example.org/b
     previousItem:
-      index: 1
+      co_index: 1
       itemContent: https://example.org/z

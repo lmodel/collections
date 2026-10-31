@@ -41,7 +41,7 @@ message ListItem {
   // The element that the item wraps.
   string itemContent = 1;
   // The place of the item in its list, counting from 1.
-  int32 index = 2;
+  int32 co_index = 2;
   // The item that comes straight after this one.
   ListItem nextItem = 3;
   // The item that comes straight before this one.

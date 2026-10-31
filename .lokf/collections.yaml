@@ -18,7 +18,8 @@ comments:
   its code and CC BY 3.0 for its content, as the co_licence annotation says. The descriptions here are
   this project's own words.
 - CO's Item and size are named CoItem and co_size, as in lmodel/uco's uco_co module, because UCO defines
-  an Item and a size of its own. Their IRIs are CO's.
+  an Item and a size of its own. CO's index is named co_index, because gen-doc writes the page of a slot
+  named index over the schema's index page. Their IRIs are CO's.
 - Items have no IRI here, so a slot that links to an item, such as firstItem or nextItem, holds a copy
   of that item. docs/index.md lists the rules of CO that no validator checks and the tests check instead.
 annotations:
@@ -94,7 +95,7 @@ slots:
     multivalued: true
     inlined: true
     inlined_as_list: true
-  index:
+  co_index:
     description: The place of the item in its list, counting from 1.
     slot_uri: coll:index
     domain: ListItem
@@ -233,13 +234,13 @@ classes:
     class_uri: coll:ListItem
     description: An item of a list, which has a place in the list's order.
     slots:
-    - index
+    - co_index
     - nextItem
     - previousItem
     - followedBy
     - precededBy
     slot_usage:
-      index:
+      co_index:
         required: true
 notes:
 - 'Adapted for LOKF by `lokf adapt`. re-rooted on lokf:Concept: Collection.'

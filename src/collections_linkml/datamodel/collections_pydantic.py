@@ -86,7 +86,9 @@ linkml_meta = LinkMLMeta({'annotations': {'co_commit': {'tag': 'co_commit',
                   "descriptions here are this project's own words.",
                   "CO's Item and size are named CoItem and co_size, as in "
                   "lmodel/uco's uco_co module, because UCO defines an Item and a "
-                  "size of its own. Their IRIs are CO's.",
+                  "size of its own. CO's index is named co_index, because gen-doc "
+                  "writes the page of a slot named index over the schema's index "
+                  "page. Their IRIs are CO's.",
                   'Items have no IRI here, so a slot that links to an item, such '
                   'as firstItem or nextItem, holds a copy of that item. '
                   'docs/index.md lists the rules of CO that no validator checks '
@@ -227,9 +229,9 @@ class ListItem(CoItem):
     """
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'class_uri': 'coll:ListItem',
          'from_schema': 'https://w3id.org/lmodel/collections',
-         'slot_usage': {'index': {'name': 'index', 'required': True}}})
+         'slot_usage': {'co_index': {'name': 'co_index', 'required': True}}})
 
-    index: int = Field(default=..., description="""The place of the item in its list, counting from 1.""", ge=1, json_schema_extra = { "linkml_meta": {'domain': 'ListItem', 'domain_of': ['ListItem'], 'slot_uri': 'coll:index'} })
+    co_index: int = Field(default=..., description="""The place of the item in its list, counting from 1.""", ge=1, json_schema_extra = { "linkml_meta": {'domain': 'ListItem', 'domain_of': ['ListItem'], 'slot_uri': 'coll:index'} })
     nextItem: Optional[ListItem] = Field(default=None, description="""The item that comes straight after this one.""", json_schema_extra = { "linkml_meta": {'comments': ['It holds a copy of the item whose index is one higher. CO makes '
                       'it a narrower form of followedBy, which is not stated here for '
                       'the reason given on firstItem.'],

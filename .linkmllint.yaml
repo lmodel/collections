@@ -2,7 +2,8 @@
 # The recommended rules apply, with the naming rule fitted to the
 # Collections Ontology's names. Slots keep CO's property names, so the keys
 # of the data are CO's local names: lowerCamelCase (firstItem, itemContent),
-# and co_size, which renders CO's size under a name UCO does not also use.
+# and co_size and co_index, which render CO's size and index under names
+# that clash with nothing.
 extends: recommended
 rules:
   standard_naming:

@@ -24,7 +24,9 @@ comments:
   License 2.0 for its code and CC BY 3.0 for its content, as the co_licence annotation
   says. The descriptions here are this project's own words.
 - CO's Item and size are named CoItem and co_size, as in lmodel/uco's uco_co module,
-  because UCO defines an Item and a size of its own. Their IRIs are CO's.
+  because UCO defines an Item and a size of its own. CO's index is named co_index,
+  because gen-doc writes the page of a slot named index over the schema's index page.
+  Their IRIs are CO's.
 - Items have no IRI here, so a slot that links to an item, such as firstItem or nextItem,
   holds a copy of that item. docs/index.md lists the rules of CO that no validator
   checks and the tests check instead.
@@ -427,9 +429,9 @@ slots:
     multivalued: true
     inlined: true
     inlined_as_list: true
-  index:
-    name: index
-    definition_uri: https://w3id.org/lmodel/collections/index
+  co_index:
+    name: co_index
+    definition_uri: https://w3id.org/lmodel/collections/co_index
     description: The place of the item in its list, counting from 1.
     from_schema: https://w3id.org/lmodel/collections
     mappings:
@@ -646,22 +648,22 @@ slots:
     usage_slot_name: itemContent
     range: uriorcurie
     required: true
-  ListItem_index:
-    name: ListItem_index
-    definition_uri: https://w3id.org/lmodel/collections/index
+  ListItem_co_index:
+    name: ListItem_co_index
+    definition_uri: https://w3id.org/lmodel/collections/co_index
     description: The place of the item in its list, counting from 1.
     from_schema: https://w3id.org/lmodel/collections
     mappings:
     - coll:index
-    is_a: index
+    is_a: co_index
     domain: ListItem
     slot_uri: coll:index
-    alias: index
+    alias: co_index
     owner: ListItem
     domain_of:
     - ListItem
     is_usage_slot: true
-    usage_slot_name: index
+    usage_slot_name: co_index
     range: integer
     required: true
     minimum_value: 1
@@ -760,18 +762,18 @@ classes:
     is_a: CoItem
     slots:
     - CoItem_itemContent
-    - ListItem_index
+    - ListItem_co_index
     - nextItem
     - previousItem
     - followedBy
     - precededBy
     slot_usage:
-      index:
-        name: index
+      co_index:
+        name: co_index
         required: true
     class_uri: coll:ListItem
 metamodel_version: 1.12.0
 source_file: collections.yaml
-source_file_date: '2026-10-31T12:26:41'
-source_file_size: 8266
+source_file_date: '2026-10-31T12:42:57'
+source_file_size: 8393
 

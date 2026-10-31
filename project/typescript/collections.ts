@@ -52,7 +52,7 @@ export interface CoItem {
  */
 export interface ListItem extends CoItem {
     /** The place of the item in its list, counting from 1. */
-    index: number,
+    co_index: number,
     /** The item that comes straight after this one. */
     nextItem?: ListItem,
     /** The item that comes straight before this one. */

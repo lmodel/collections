@@ -2,7 +2,7 @@
 # Invalid: a list of two items has the size 2, which is the last index.
 co_size: 3
 item:
-  - index: 1
+  - co_index: 1
     itemContent: https://example.org/a
-  - index: 2
+  - co_index: 2
     itemContent: https://example.org/b

@@ -15,39 +15,39 @@
 	rdfs:label "collections" ;
 	rdfs:seeAlso <https://doi.org/10.3233/SW-130121> , <https://lmodel.github.io/collections> ;
 	skos:definition "The Collections Ontology (CO) 2.0 in LinkML, with CO's own names and IRIs: collections that are sets, bags or lists, and the items through which a bag or a list holds its elements." ;
-	skos:note "CO's Item and size are named CoItem and co_size, as in lmodel/uco's uco_co module, because UCO defines an Item and a size of its own. Their IRIs are CO's." , "Items have no IRI here, so a slot that links to an item, such as firstItem or nextItem, holds a copy of that item. docs/index.md lists the rules of CO that no validator checks and the tests check instead." , "Renders CO 2.0 by Paolo Ciccarese and Silvio Peroni, whose ontology IRI is http://purl.org/co. The source is collections.owl at the commit the co_commit annotation names, copied unchanged to upstream/collections.owl." , "The repository states no licence. The project's Google Code archive gives the Apache License 2.0 for its code and CC BY 3.0 for its content, as the co_licence annotation says. The descriptions here are this project's own words." ;
+	skos:note "CO's Item and size are named CoItem and co_size, as in lmodel/uco's uco_co module, because UCO defines an Item and a size of its own. CO's index is named co_index, because gen-doc writes the page of a slot named index over the schema's index page. Their IRIs are CO's." , "Items have no IRI here, so a slot that links to an item, such as firstItem or nextItem, holds a copy of that item. docs/index.md lists the rules of CO that no validator checks and the tests check instead." , "Renders CO 2.0 by Paolo Ciccarese and Silvio Peroni, whose ontology IRI is http://purl.org/co. The source is collections.owl at the commit the co_commit annotation names, copied unchanged to upstream/collections.owl." , "The repository states no licence. The project's Google Code archive gives the Apache License 2.0 for its code and CC BY 3.0 for its content, as the co_licence annotation says. The descriptions here are this project's own words." ;
 	collections:co_commit "619e7b02646321174635fd04be658e338bf7d1d7" ;
 	collections:co_git_object "4e19e4892212de2b1805923a7a69fa4ba8c1b424" ;
 	collections:co_licence "Apache-2.0 for code and CC-BY-3.0 for content, per the Google Code archive" ;
 	collections:co_ontology_iri "http://purl.org/co" .
 collections:Bag a owl:Class ;
 	rdfs:label "Bag" ;
-	rdfs:subClassOf collections:Collection , _:c14n25 , _:c14n33 ;
+	rdfs:subClassOf collections:Collection , _:c14n26 , _:c14n34 ;
 	skos:definition "A collection that may hold one element more than once, in no order." ;
 	skos:exactMatch coll:Bag ;
 	skos:inScheme <https://w3id.org/lmodel/collections> .
 collections:CoItem a owl:Class ;
 	rdfs:label "CoItem" ;
-	rdfs:subClassOf _:c14n0 , _:c14n10 , _:c14n14 ;
+	rdfs:subClassOf _:c14n0 , _:c14n10 , _:c14n15 ;
 	skos:definition "An entry of a bag, which wraps one of the bag's elements." ;
 	skos:exactMatch coll:Item ;
 	skos:inScheme <https://w3id.org/lmodel/collections> .
 collections:Collection a owl:Class ;
 	rdfs:label "Collection" ;
-	rdfs:subClassOf _:c14n24 , _:c14n28 , _:c14n30 , _:c14n31 , _:c14n6 ;
+	rdfs:subClassOf _:c14n25 , _:c14n29 , _:c14n31 , _:c14n32 , _:c14n7 ;
 	skos:definition "A group of things that is taken as a whole." ;
 	skos:exactMatch coll:Collection ;
 	skos:inScheme <https://w3id.org/lmodel/collections> .
 collections:List a owl:Class ;
 	rdfs:label "List" ;
-	rdfs:subClassOf collections:Bag , _:c14n11 , _:c14n12 , _:c14n15 , _:c14n2 , _:c14n21 , _:c14n23 , _:c14n27 , _:c14n29 ;
+	rdfs:subClassOf collections:Bag , _:c14n11 , _:c14n12 , _:c14n16 , _:c14n2 , _:c14n21 , _:c14n22 , _:c14n28 , _:c14n30 ;
 	skos:definition "A collection whose items come in order, one after another." ;
 	skos:exactMatch coll:List ;
 	skos:inScheme <https://w3id.org/lmodel/collections> ;
 	skos:note "No validator checks the order: that the indexes count from 1 with no gap or repeat, and that firstItem, lastItem and each item's links agree with them. The tests check it." .
 collections:ListItem a owl:Class ;
 	rdfs:label "ListItem" ;
-	rdfs:subClassOf collections:CoItem , _:c14n1 , _:c14n13 , _:c14n16 , _:c14n17 , _:c14n19 , _:c14n20 , _:c14n22 , _:c14n32 , _:c14n4 , _:c14n5 , _:c14n7 , _:c14n8 , _:c14n9 ;
+	rdfs:subClassOf collections:CoItem , _:c14n1 , _:c14n13 , _:c14n14 , _:c14n17 , _:c14n19 , _:c14n20 , _:c14n24 , _:c14n33 , _:c14n4 , _:c14n5 , _:c14n6 , _:c14n8 , _:c14n9 ;
 	skos:definition "An item of a list, which has a place in the list's order." ;
 	skos:exactMatch coll:ListItem ;
 	skos:inScheme <https://w3id.org/lmodel/collections> .
@@ -58,10 +58,16 @@ collections:Set a owl:Class ;
 	skos:exactMatch coll:Set ;
 	skos:inScheme <https://w3id.org/lmodel/collections> ;
 	skos:note "No validator checks that the elements differ: LinkML 1.12.1's generators drop list_elements_unique, so the tests check it." .
+collections:co_index a owl:DatatypeProperty ;
+	rdfs:domain collections:ListItem ;
+	rdfs:label "co_index" ;
+	rdfs:range _:c14n23 ;
+	skos:definition "The place of the item in its list, counting from 1." ;
+	skos:inScheme <https://w3id.org/lmodel/collections> .
 collections:co_size a owl:DatatypeProperty ;
 	rdfs:domain collections:Collection ;
 	rdfs:label "co_size" ;
-	rdfs:range _:c14n26 ;
+	rdfs:range _:c14n27 ;
 	skos:definition "How many times the collection holds a thing, counting each repeat: the number of elements of a set, or of items of a bag or a list." ;
 	skos:inScheme <https://w3id.org/lmodel/collections> ;
 	skos:note "CO gives every collection exactly one size. The schema leaves it optional, since a reader can count; where it is given, the tests check that it equals the count." .
@@ -98,12 +104,6 @@ collections:followedBy a owl:ObjectProperty , owl:TransitiveProperty ;
 	skos:definition "An item that comes somewhere after this one." ;
 	skos:inScheme <https://w3id.org/lmodel/collections> ;
 	skos:note "It holds copies of items whose index is higher." .
-collections:index a owl:DatatypeProperty ;
-	rdfs:domain collections:ListItem ;
-	rdfs:label "index" ;
-	rdfs:range _:c14n34 ;
-	skos:definition "The place of the item in its list, counting from 1." ;
-	skos:inScheme <https://w3id.org/lmodel/collections> .
 collections:item a owl:ObjectProperty ;
 	rdfs:domain collections:Bag ;
 	rdfs:label "item" ;
@@ -182,20 +182,20 @@ _:c14n12 a owl:Restriction ;
 	owl:minCardinality 0 ;
 	owl:onProperty collections:lastItem .
 _:c14n13 a owl:Restriction ;
+	owl:minCardinality 1 ;
+	owl:onProperty collections:co_index .
+_:c14n14 a owl:Restriction ;
 	owl:allValuesFrom collections:ListItem ;
 	owl:onProperty collections:precededBy .
-_:c14n14 a owl:Restriction ;
+_:c14n15 a owl:Restriction ;
 	owl:maxCardinality 1 ;
 	owl:onProperty collections:itemContent .
-_:c14n15 a owl:Restriction ;
-	owl:allValuesFrom collections:ListItem ;
-	owl:onProperty collections:item .
 _:c14n16 a owl:Restriction ;
 	owl:allValuesFrom collections:ListItem ;
-	owl:onProperty collections:previousItem .
+	owl:onProperty collections:item .
 _:c14n17 a owl:Restriction ;
-	owl:allValuesFrom _:c14n43 ;
-	owl:onProperty collections:index .
+	owl:allValuesFrom collections:ListItem ;
+	owl:onProperty collections:previousItem .
 _:c14n18 a owl:Restriction ;
 	owl:minCardinality 0 ;
 	owl:onProperty collections:element .
@@ -212,104 +212,104 @@ _:c14n21 a owl:Restriction ;
 	owl:allValuesFrom collections:ListItem ;
 	owl:onProperty collections:firstItem .
 _:c14n22 a owl:Restriction ;
-	owl:minCardinality 1 ;
-	owl:onProperty collections:index .
-_:c14n23 a owl:Restriction ;
 	owl:minCardinality 0 ;
 	owl:onProperty collections:firstItem .
+_:c14n23 a rdfs:Datatype ;
+	owl:intersectionOf _:c14n49 .
 _:c14n24 a owl:Restriction ;
-	owl:allValuesFrom _:c14n54 ;
-	owl:onProperty collections:co_size .
+	owl:maxCardinality 1 ;
+	owl:onProperty collections:co_index .
 _:c14n25 a owl:Restriction ;
+	owl:allValuesFrom _:c14n44 ;
+	owl:onProperty collections:co_size .
+_:c14n26 a owl:Restriction ;
 	owl:minCardinality 0 ;
 	owl:onProperty collections:item .
-_:c14n26 a rdfs:Datatype ;
-	owl:intersectionOf _:c14n48 .
-_:c14n27 a owl:Restriction ;
-	owl:minCardinality 0 ;
-	owl:onProperty collections:item .
+_:c14n27 a rdfs:Datatype ;
+	owl:intersectionOf _:c14n54 .
 _:c14n28 a owl:Restriction ;
 	owl:minCardinality 0 ;
-	owl:onProperty collections:element .
+	owl:onProperty collections:item .
 _:c14n29 a owl:Restriction ;
-	owl:allValuesFrom collections:ListItem ;
-	owl:onProperty collections:lastItem .
+	owl:minCardinality 0 ;
+	owl:onProperty collections:element .
 _:c14n3 a owl:Restriction ;
 	owl:allValuesFrom xsd:string ;
 	owl:onProperty collections:element .
 _:c14n30 a owl:Restriction ;
+	owl:allValuesFrom collections:ListItem ;
+	owl:onProperty collections:lastItem .
+_:c14n31 a owl:Restriction ;
 	owl:maxCardinality 1 ;
 	owl:onProperty collections:co_size .
-_:c14n31 a owl:Restriction ;
+_:c14n32 a owl:Restriction ;
 	owl:minCardinality 0 ;
 	owl:onProperty collections:co_size .
-_:c14n32 a owl:Restriction ;
+_:c14n33 a owl:Restriction ;
 	owl:allValuesFrom collections:ListItem ;
 	owl:onProperty collections:nextItem .
-_:c14n33 a owl:Restriction ;
+_:c14n34 a owl:Restriction ;
 	owl:allValuesFrom collections:CoItem ;
 	owl:onProperty collections:item .
-_:c14n34 a rdfs:Datatype ;
-	owl:intersectionOf _:c14n37 .
 _:c14n35 a rdfs:Datatype ;
 	owl:onDatatype xsd:integer ;
-	owl:withRestrictions _:c14n38 .
+	owl:withRestrictions _:c14n39 .
 _:c14n36 rdf:first _:c14n35 ;
 	rdf:rest rdf:nil .
 _:c14n37 rdf:first xsd:integer ;
 	rdf:rest _:c14n36 .
-_:c14n38 rdf:first _:c14n39 ;
+_:c14n38 a rdfs:Datatype ;
+	owl:intersectionOf _:c14n37 .
+_:c14n39 rdf:first _:c14n40 ;
 	rdf:rest rdf:nil .
-_:c14n39 xsd:minInclusive 1 .
 _:c14n4 a owl:Restriction ;
 	owl:minCardinality 0 ;
 	owl:onProperty collections:previousItem .
-_:c14n40 a rdfs:Datatype ;
+_:c14n40 xsd:minInclusive 1 .
+_:c14n41 a rdfs:Datatype ;
 	owl:onDatatype xsd:integer ;
-	owl:withRestrictions _:c14n44 .
-_:c14n41 rdf:first _:c14n40 ;
+	owl:withRestrictions _:c14n45 .
+_:c14n42 rdf:first _:c14n41 ;
 	rdf:rest rdf:nil .
-_:c14n42 rdf:first xsd:integer ;
-	rdf:rest _:c14n41 .
-_:c14n43 a rdfs:Datatype ;
-	owl:intersectionOf _:c14n42 .
-_:c14n44 rdf:first _:c14n45 ;
+_:c14n43 rdf:first xsd:integer ;
+	rdf:rest _:c14n42 .
+_:c14n44 a rdfs:Datatype ;
+	owl:intersectionOf _:c14n43 .
+_:c14n45 rdf:first _:c14n46 ;
 	rdf:rest rdf:nil .
-_:c14n45 xsd:minInclusive 1 .
-_:c14n46 a rdfs:Datatype ;
+_:c14n46 xsd:minInclusive 0 .
+_:c14n47 a rdfs:Datatype ;
 	owl:onDatatype xsd:integer ;
-	owl:withRestrictions _:c14n49 .
-_:c14n47 rdf:first _:c14n46 ;
+	owl:withRestrictions _:c14n50 .
+_:c14n48 rdf:first _:c14n47 ;
 	rdf:rest rdf:nil .
-_:c14n48 rdf:first xsd:integer ;
-	rdf:rest _:c14n47 .
-_:c14n49 rdf:first _:c14n50 ;
-	rdf:rest rdf:nil .
+_:c14n49 rdf:first xsd:integer ;
+	rdf:rest _:c14n48 .
 _:c14n5 a owl:Restriction ;
-	owl:maxCardinality 1 ;
-	owl:onProperty collections:previousItem .
-_:c14n50 xsd:minInclusive 0 .
-_:c14n51 a rdfs:Datatype ;
+	owl:allValuesFrom _:c14n38 ;
+	owl:onProperty collections:co_index .
+_:c14n50 rdf:first _:c14n51 ;
+	rdf:rest rdf:nil .
+_:c14n51 xsd:minInclusive 1 .
+_:c14n52 a rdfs:Datatype ;
 	owl:onDatatype xsd:integer ;
 	owl:withRestrictions _:c14n55 .
-_:c14n52 rdf:first _:c14n51 ;
+_:c14n53 rdf:first _:c14n52 ;
 	rdf:rest rdf:nil .
-_:c14n53 rdf:first xsd:integer ;
-	rdf:rest _:c14n52 .
-_:c14n54 a rdfs:Datatype ;
-	owl:intersectionOf _:c14n53 .
+_:c14n54 rdf:first xsd:integer ;
+	rdf:rest _:c14n53 .
 _:c14n55 rdf:first _:c14n56 ;
 	rdf:rest rdf:nil .
 _:c14n56 xsd:minInclusive 0 .
 _:c14n6 a owl:Restriction ;
+	owl:maxCardinality 1 ;
+	owl:onProperty collections:previousItem .
+_:c14n7 a owl:Restriction ;
 	owl:allValuesFrom xsd:anyURI ;
 	owl:onProperty collections:element .
-_:c14n7 a owl:Restriction ;
+_:c14n8 a owl:Restriction ;
 	owl:allValuesFrom collections:ListItem ;
 	owl:onProperty collections:followedBy .
-_:c14n8 a owl:Restriction ;
-	owl:maxCardinality 1 ;
-	owl:onProperty collections:index .
 _:c14n9 a owl:Restriction ;
 	owl:maxCardinality 1 ;
 	owl:onProperty collections:nextItem .

@@ -9,9 +9,11 @@ items that each wrap one element. A list is a bag whose items have a place:
 an index from 1, a first and a last item, and a next and a previous item.
 
 Every class and slot keeps CO's local name and CO's IRI, such as
-`coll:Bag` for `http://purl.org/co/Bag`. Two names differ, as in the
-`uco_co` module of lmodel/uco, because UCO defines terms of the same name:
-CO's `Item` is the class `CoItem` and CO's `size` is the slot `co_size`.
+`coll:Bag` for `http://purl.org/co/Bag`. Three names differ. CO's `Item` is
+the class `CoItem` and CO's `size` is the slot `co_size`, as in the `uco_co`
+module of lmodel/uco, because UCO defines terms of the same name. CO's
+`index` is the slot `co_index`, because LinkML's documentation generator
+writes the page of a slot named `index` over the schema's index page.
 The prefix is `coll`, the one the LinkML prefix map gives CO's namespace;
 that map gives `co` to another vocabulary. The descriptions are this
 project's own words.

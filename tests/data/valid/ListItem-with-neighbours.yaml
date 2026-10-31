@@ -1,17 +1,17 @@
 # An item of a list, with copies of the items before and after it.
-index: 2
+co_index: 2
 itemContent: https://example.org/b
 previousItem:
-  index: 1
+  co_index: 1
   itemContent: https://example.org/a
 nextItem:
-  index: 3
+  co_index: 3
   itemContent: https://example.org/c
 precededBy:
-  - index: 1
+  - co_index: 1
     itemContent: https://example.org/a
 followedBy:
-  - index: 3
+  - co_index: 3
     itemContent: https://example.org/c
-  - index: 4
+  - co_index: 4
     itemContent: https://example.org/d
