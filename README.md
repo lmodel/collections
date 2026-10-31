@@ -76,7 +76,7 @@ A concept of one of these types writes its `element`, `co_size` and, for a bag o
 
 A host imports the copy beside LOKF's schema, `lokf.yaml`, and beside other adapt copies. LinkML merges them into one namespace, where the last definition of a name wins silently. So no class, enum or type shares a name with LOKF's or with the released copies of slsa, github-actions, oscal, spdx, nist-sp-800-218, nist-sp-800-53, nist-sp-800-171, nist-csf-v2, in-toto, cis-controls, iso27001, stix and attack.
 
-One key is shared: `element`, which the spdx copy uses for an SPDX element's members under SPDX's IRI. A host that imports both copies has one `element` project under the other's IRI, until `lokf adapt` can rename a key that a neighbour defines ([lokf issue #169](https://github.com/nicholsn/lokf/issues/169), `--beside`). `tests/test_schema_rules.py` lists that key and fails on a new one. lmodel/uco's `uco_co` module renders the CO terms UCO uses, with the same names and IRIs; import that copy or this one, not both, until uco imports this schema in its place.
+One key is shared: `element`, which the spdx copy uses for an SPDX element's members under SPDX's IRI. A host that imports both copies has one `element` project under the other's IRI, until `lokf adapt` can rename a key that a neighbour defines ([lokf issue #169](https://github.com/nicholsn/lokf/issues/169), `--beside`). `tests/test_schema_rules.py` lists that key and fails on a new one. lmodel/uco's `uco_co` module renders the CO terms UCO uses, with the same IRIs and the same names but one, `index`, which is `co_index` here. Import that copy or this one, not both, until uco imports this schema in its place.
 
 ## License
 
