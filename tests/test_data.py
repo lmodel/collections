@@ -41,6 +41,13 @@ def _fails_at(filepath):
     return first.removeprefix("# Fails at: ").strip()
 
 
+def test_the_example_folders_hold_examples():
+    """The parametrized tests below pass on an empty folder, so this one does not."""
+    counts = [len(VALID_EXAMPLE_FILES), len(INVALID_EXAMPLE_FILES)]
+    counts.append(len(RULE_EXAMPLE_FILES))
+    assert all(n >= least for n, least in zip(counts, (12, 11, 14))), counts
+
+
 @pytest.mark.parametrize("filepath", VALID_EXAMPLE_FILES)
 def test_valid_data_files(filepath):
     """Test loading of all valid data files."""
@@ -75,11 +82,12 @@ def test_invalid_data_files_fail(filepath):
 
 
 def _committed_validator(class_name):
-    """A validator for one class of the committed project/jsonschema file."""
+    """A validator for one class of the committed project/jsonschema file,
+    under the draft the file names."""
     schema = json.loads(JSON_SCHEMA.read_text())
-    return jsonschema.Draft7Validator(
-        {"$ref": f"#/$defs/{class_name}", "$defs": schema["$defs"]}
-    )
+    root = {"$schema": schema["$schema"], "$ref": f"#/$defs/{class_name}"}
+    root["$defs"] = schema["$defs"]
+    return jsonschema.validators.validator_for(schema)(root)
 
 
 def _pointer(error):
