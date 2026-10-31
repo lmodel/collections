@@ -25,7 +25,14 @@
                 "item": {
                     "description": "An item of the bag, which holds one of its elements.",
                     "items": {
-                        "$ref": "#/$defs/CoItem"
+                        "anyOf": [
+                            {
+                                "$ref": "#/$defs/CoItem"
+                            },
+                            {
+                                "$ref": "#/$defs/ListItem"
+                            }
+                        ]
                     },
                     "type": [
                         "array",
