@@ -37,10 +37,16 @@ def _tree(watch, owl_sha=None, extra=()):
     entries = [{"path": "README.md", "type": "blob", "sha": "1" * 40}]
     if owl_sha is not False:
         entries.append(
-            {"path": watch.PINNED_FILE, "type": "blob", "sha": owl_sha or watch.PINNED_BLOB}
+            {
+                "path": watch.PINNED_FILE,
+                "type": "blob",
+                "sha": owl_sha or watch.PINNED_BLOB,
+            }
         )
     entries += [{"path": p, "type": "blob", "sha": "2" * 40} for p in watch.LEFT_OUT]
-    entries.append({"path": "images/Collections-Ontology-Bag.png", "type": "blob", "sha": "3" * 40})
+    entries.append(
+        {"path": "images/Collections-Ontology-Bag.png", "type": "blob", "sha": "3" * 40}
+    )
     entries.append({"path": "examples", "type": "tree", "sha": "4" * 40})
     entries += [{"path": p, "type": "blob", "sha": "5" * 40} for p in extra]
     return {"tree": entries, "truncated": False}
@@ -53,7 +59,9 @@ def _answers(watch, head=None, owl=None, tree=None, licence=None):
     answers = {
         f"{watch.API}/branches/{watch.PINNED_BRANCH}": {"commit": {"sha": head}},
         f"{watch.API}/git/trees/{head}?recursive=1": tree or _tree(watch),
-        f"{watch.RAW}/{head}/{watch.PINNED_FILE}": owl if owl is not None else COPY.read_bytes(),
+        f"{watch.RAW}/{head}/{watch.PINNED_FILE}": owl
+        if owl is not None
+        else COPY.read_bytes(),
     }
     if licence:
         answers[f"{watch.API}/license"] = {"license": {"spdx_id": licence}}
@@ -102,17 +110,27 @@ def test_master_moved(watch, tmp_path):
     _stub(watch, _answers(watch, head=NEWER))
     code, text = _run(watch, tmp_path)
     assert code == 1
-    assert "**master now names commit `aaaaaaaaaaaa`, not the pinned `619e7b026463`.**" in text
+    assert (
+        "**master now names commit `aaaaaaaaaaaa`, not the pinned `619e7b026463`.**"
+        in text
+    )
     assert "- Edition: CO 2.0, as pinned." in text
 
 
 def test_the_file_changed(watch, tmp_path):
     """A changed file at the head needs attention, and so does the edition it names."""
-    owl = COPY.read_bytes().replace(b">2.0</owl:versionInfo>", b">2.1</owl:versionInfo>")
-    _stub(watch, _answers(watch, head=NEWER, owl=owl, tree=_tree(watch, owl_sha="6" * 40)))
+    owl = COPY.read_bytes().replace(
+        b">2.0</owl:versionInfo>", b">2.1</owl:versionInfo>"
+    )
+    _stub(
+        watch, _answers(watch, head=NEWER, owl=owl, tree=_tree(watch, owl_sha="6" * 40))
+    )
     code, text = _run(watch, tmp_path)
     assert code == 1
-    assert "**The head of master changes `collections.owl` (object `666666666666`).**" in text
+    assert (
+        "**The head of master changes `collections.owl` (object `666666666666`).**"
+        in text
+    )
     assert "**`collections.owl` names `2.1` in owl:versionInfo, not 2.0.**" in text
     assert "is not the pinned file; the copy check says how." in text
 
@@ -125,7 +143,9 @@ def test_the_file_dropped(watch, tmp_path):
     code, text = _run(watch, tmp_path)
     assert code == 1
     assert "**The head of master no longer holds `collections.owl`.**" in text
-    assert "**The edition check could not finish: `HTTP Error 404: Not Found`.**" in text
+    assert (
+        "**The edition check could not finish: `HTTP Error 404: Not Found`.**" in text
+    )
 
 
 def test_the_copy_drifted(watch, tmp_path, monkeypatch):
@@ -139,7 +159,9 @@ def test_the_copy_drifted(watch, tmp_path, monkeypatch):
     (tmp_path / "collections.owl").write_bytes(COPY.read_bytes() + b"\n")
     code, text = _run(watch, tmp_path)
     assert code == 1
-    assert "**The copy of `collections.owl` differs from its pin `4e19e4892212`.**" in text
+    assert (
+        "**The copy of `collections.owl` differs from its pin `4e19e4892212`.**" in text
+    )
 
 
 def test_a_licence_appears(watch, tmp_path):
@@ -166,7 +188,10 @@ def test_a_licence_appears(watch, tmp_path):
 def test_an_added_file_is_for_information(watch, tmp_path):
     """A new ontology file beside the known ones is reported but needs no
     attention by itself; a picture is not reported."""
-    _stub(watch, _answers(watch, tree=_tree(watch, extra=["collections-3.0.owl", "new.png"])))
+    _stub(
+        watch,
+        _answers(watch, tree=_tree(watch, extra=["collections-3.0.owl", "new.png"])),
+    )
     code, text = _run(watch, tmp_path)
     assert code == 0, text
     assert "also holds `collections-3.0.owl`, which the copy neither holds" in text
@@ -176,10 +201,16 @@ def test_an_added_file_is_for_information(watch, tmp_path):
 @pytest.mark.parametrize(
     "error, shown",
     [
-        (urllib.error.URLError("Connection refused"), "`<urlopen error Connection refused>`"),
+        (
+            urllib.error.URLError("Connection refused"),
+            "`<urlopen error Connection refused>`",
+        ),
         (http.client.IncompleteRead(b"partial"), "`IncompleteRead(7 bytes read)`"),
         (EOFError("cut off"), "`cut off`"),
-        (ValueError("the answer is larger than 5000000 bytes"), "`the answer is larger"),
+        (
+            ValueError("the answer is larger than 5000000 bytes"),
+            "`the answer is larger",
+        ),
     ],
 )
 def test_a_check_that_could_not_finish(watch, tmp_path, error, shown):

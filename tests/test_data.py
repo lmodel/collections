@@ -67,7 +67,9 @@ def test_invalid_data_files_fail(filepath):
     fails this test."""
     pointer = _fails_at(filepath)
     data = yaml.safe_load(Path(filepath).read_text())
-    messages = [r.message for r in validate(data, str(SCHEMA), _class(filepath)).results]
+    messages = [
+        r.message for r in validate(data, str(SCHEMA), _class(filepath)).results
+    ]
     assert messages, f"{filepath} passes the validator"
     assert all(m.endswith(f" in {pointer}") for m in messages), messages
 
@@ -75,7 +77,9 @@ def test_invalid_data_files_fail(filepath):
 def _committed_validator(class_name):
     """A validator for one class of the committed project/jsonschema file."""
     schema = json.loads(JSON_SCHEMA.read_text())
-    return jsonschema.Draft7Validator({"$ref": f"#/$defs/{class_name}", "$defs": schema["$defs"]})
+    return jsonschema.Draft7Validator(
+        {"$ref": f"#/$defs/{class_name}", "$defs": schema["$defs"]}
+    )
 
 
 def _pointer(error):
@@ -125,7 +129,10 @@ def _link_faults(item, at, by_index):
     own = item.get("index")
     links = [("nextItem", item.get("nextItem"), lambda i: i == own + 1)]
     links.append(("previousItem", item.get("previousItem"), lambda i: i == own - 1))
-    for name, rule in (("followedBy", lambda i: i > own), ("precededBy", lambda i: i < own)):
+    for name, rule in (
+        ("followedBy", lambda i: i > own),
+        ("precededBy", lambda i: i < own),
+    ):
         links += [
             (f"{name}/{n}", copy, rule) for n, copy in enumerate(item.get(name) or [])
         ]

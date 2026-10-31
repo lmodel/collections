@@ -49,7 +49,9 @@ def view():
 
 
 def _co_terms(co, kinds):
-    return {s for kind in kinds for s in co.subjects(RDF.type, kind) if s.startswith(CO)}
+    return {
+        s for kind in kinds for s in co.subjects(RDF.type, kind) if s.startswith(CO)
+    }
 
 
 def _local(iri):
@@ -65,7 +67,9 @@ def _uri(view, element):
 def test_the_copy_is_the_pinned_file(watch):
     """The copy's git object hash is the one the watch pins."""
     data = COPY.read_bytes()
-    assert hashlib.sha1(b"blob %d\0" % len(data) + data).hexdigest() == watch.PINNED_BLOB
+    assert (
+        hashlib.sha1(b"blob %d\0" % len(data) + data).hexdigest() == watch.PINNED_BLOB
+    )
 
 
 def test_the_header_names_the_pinned_edition(watch, co):
@@ -78,7 +82,9 @@ def test_the_header_names_the_pinned_edition(watch, co):
     assert header["annotations"]["co_git_object"] == watch.PINNED_BLOB
     ontology = rdflib.URIRef(header["annotations"]["co_ontology_iri"])
     assert (ontology, RDF.type, OWL.Ontology) in co
-    assert [str(v) for v in co.objects(ontology, OWL.versionInfo)] == [watch.PINNED_EDITION]
+    assert [str(v) for v in co.objects(ontology, OWL.versionInfo)] == [
+        watch.PINNED_EDITION
+    ]
 
 
 def test_every_class_of_co_is_rendered_by_its_name(view, co):
@@ -103,7 +109,11 @@ def _named(co, node):
     members = co.value(node, OWL.intersectionOf)
     if members is None:
         return set()
-    return {m for m in rdflib.collection.Collection(co, members) if isinstance(m, rdflib.URIRef)}
+    return {
+        m
+        for m in rdflib.collection.Collection(co, members)
+        if isinstance(m, rdflib.URIRef)
+    }
 
 
 def test_domains_and_ranges_follow_co(view, co):
@@ -117,7 +127,9 @@ def test_domains_and_ranges_follow_co(view, co):
             assert _uri(view, view.get_class(slot.domain)) in _named(co, domain), name
         for rng in co.objects(iri, RDFS.range):
             if rng in bounds:
-                assert (slot.range, slot.minimum_value) == ("integer", bounds[rng]), name
+                assert (slot.range, slot.minimum_value) == ("integer", bounds[rng]), (
+                    name
+                )
             elif _named(co, rng):
                 assert _uri(view, view.get_class(slot.range)) in _named(co, rng), name
             else:
@@ -153,7 +165,9 @@ def test_class_axioms_follow_co(view, co):
     for name, cls in view.all_classes().items():
         if cls.is_a:
             parent = _uri(view, view.get_class(cls.is_a))
-            named = set().union(*(_named(co, s) for s in co.objects(_uri(view, cls), RDFS.subClassOf)))
+            named = set().union(
+                *(_named(co, s) for s in co.objects(_uri(view, cls), RDFS.subClassOf))
+            )
             assert parent in named, name
     stated = {
         frozenset({_uri(view, cls), _uri(view, view.get_class(other))})
