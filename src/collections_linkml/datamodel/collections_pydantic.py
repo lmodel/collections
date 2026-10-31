@@ -84,11 +84,6 @@ linkml_meta = LinkMLMeta({'annotations': {'co_commit': {'tag': 'co_commit',
                   'archive gives the Apache License 2.0 for its code and CC BY 3.0 '
                   'for its content, as the co_licence annotation says. The '
                   "descriptions here are this project's own words.",
-                  "CO's Item and size are named CoItem and co_size, as in "
-                  "lmodel/uco's uco_co module, because UCO defines an Item and a "
-                  "size of its own. CO's index is named co_index, because gen-doc "
-                  "writes the page of a slot named index over the schema's index "
-                  "page. Their IRIs are CO's.",
                   'Items have no IRI here, so a slot that links to an item, such '
                   'as firstItem or nextItem, holds a copy of that item. '
                   'docs/index.md lists the rules of CO that no validator checks '
@@ -102,6 +97,11 @@ linkml_meta = LinkMLMeta({'annotations': {'co_commit': {'tag': 'co_commit',
      'imports': ['linkml:types'],
      'license': 'Apache-2.0',
      'name': 'collections',
+     'notes': ["CO's Item and size are named CoItem and co_size, as in "
+               "lmodel/uco's uco_co module, because UCO defines an Item and a size "
+               "of its own. CO's index is named co_index, because gen-doc writes "
+               "the page of a slot named index over the schema's index page. Their "
+               "IRIs are CO's."],
      'prefixes': {'coll': {'prefix_prefix': 'coll',
                            'prefix_reference': 'http://purl.org/co/'},
                   'collections': {'prefix_prefix': 'collections',
@@ -123,11 +123,11 @@ class Collection(ConfiguredBaseModel):
          'disjoint_with': ['CoItem'],
          'from_schema': 'https://w3id.org/lmodel/collections'})
 
-    co_size: Optional[int] = Field(default=None, description="""How many times the collection holds a thing, counting each repeat: the number of elements of a set, or of items of a bag or a list.""", ge=0, json_schema_extra = { "linkml_meta": {'comments': ['CO gives every collection exactly one size. The schema leaves '
-                      'it optional, since a reader can count; where it is given, the '
-                      'tests check that it equals the count.'],
-         'domain': 'Collection',
+    co_size: Optional[int] = Field(default=None, description="""How many times the collection holds a thing, counting each repeat: the number of elements of a set, or of items of a bag or a list.""", ge=0, json_schema_extra = { "linkml_meta": {'domain': 'Collection',
          'domain_of': ['Collection'],
+         'notes': ['CO gives every collection exactly one size. The schema leaves it '
+                   'optional, since a reader can count; where it is given, the tests '
+                   'check that it equals the count.'],
          'slot_uri': 'coll:size'} })
     element: Optional[list[str]] = Field(default=None, description="""A thing the collection holds, named by its IRI.""", json_schema_extra = { "linkml_meta": {'domain': 'Collection',
          'domain_of': ['Collection'],
@@ -144,11 +144,11 @@ class Set(Collection):
          'from_schema': 'https://w3id.org/lmodel/collections',
          'slot_usage': {'element': {'list_elements_unique': True, 'name': 'element'}}})
 
-    co_size: Optional[int] = Field(default=None, description="""How many times the collection holds a thing, counting each repeat: the number of elements of a set, or of items of a bag or a list.""", ge=0, json_schema_extra = { "linkml_meta": {'comments': ['CO gives every collection exactly one size. The schema leaves '
-                      'it optional, since a reader can count; where it is given, the '
-                      'tests check that it equals the count.'],
-         'domain': 'Collection',
+    co_size: Optional[int] = Field(default=None, description="""How many times the collection holds a thing, counting each repeat: the number of elements of a set, or of items of a bag or a list.""", ge=0, json_schema_extra = { "linkml_meta": {'domain': 'Collection',
          'domain_of': ['Collection'],
+         'notes': ['CO gives every collection exactly one size. The schema leaves it '
+                   'optional, since a reader can count; where it is given, the tests '
+                   'check that it equals the count.'],
          'slot_uri': 'coll:size'} })
     element: Optional[list[str]] = Field(default=None, description="""A thing the collection holds, named by its IRI.""", json_schema_extra = { "linkml_meta": {'domain': 'Collection',
          'domain_of': ['Collection'],
@@ -165,11 +165,11 @@ class Bag(Collection):
          'from_schema': 'https://w3id.org/lmodel/collections'})
 
     item: Optional[list[CoItem]] = Field(default=None, description="""An item of the bag, which holds one of its elements.""", json_schema_extra = { "linkml_meta": {'domain': 'Bag', 'domain_of': ['Bag'], 'slot_uri': 'coll:item'} })
-    co_size: Optional[int] = Field(default=None, description="""How many times the collection holds a thing, counting each repeat: the number of elements of a set, or of items of a bag or a list.""", ge=0, json_schema_extra = { "linkml_meta": {'comments': ['CO gives every collection exactly one size. The schema leaves '
-                      'it optional, since a reader can count; where it is given, the '
-                      'tests check that it equals the count.'],
-         'domain': 'Collection',
+    co_size: Optional[int] = Field(default=None, description="""How many times the collection holds a thing, counting each repeat: the number of elements of a set, or of items of a bag or a list.""", ge=0, json_schema_extra = { "linkml_meta": {'domain': 'Collection',
          'domain_of': ['Collection'],
+         'notes': ['CO gives every collection exactly one size. The schema leaves it '
+                   'optional, since a reader can count; where it is given, the tests '
+                   'check that it equals the count.'],
          'slot_uri': 'coll:size'} })
     element: Optional[list[str]] = Field(default=None, description="""A thing the collection holds, named by its IRI.""", json_schema_extra = { "linkml_meta": {'domain': 'Collection',
          'domain_of': ['Collection'],
@@ -188,24 +188,26 @@ class List(Bag):
          'slot_usage': {'item': {'name': 'item', 'range': 'ListItem'}}})
 
     firstItem: Optional[ListItem] = Field(default=None, description="""The first item of the list.""", json_schema_extra = { "linkml_meta": {'comments': ['It holds a copy of the item with index 1, which has no previous '
-                      'item. CO makes it a narrower form of item, which is not stated '
-                      "here: a LinkML slot inherits its parent's multivalued, and this "
-                      'one is single.'],
+                      'item.'],
          'domain': 'List',
          'domain_of': ['List'],
+         'notes': ['CO makes it a narrower form of item, which is not stated here: a '
+                   "LinkML slot inherits its parent's multivalued, and this one is "
+                   'single.'],
          'slot_uri': 'coll:firstItem'} })
     lastItem: Optional[ListItem] = Field(default=None, description="""The last item of the list.""", json_schema_extra = { "linkml_meta": {'comments': ['It holds a copy of the item with the highest index, which has '
-                      'no next item. CO makes it a narrower form of item, which is not '
-                      'stated here for the reason given on firstItem.'],
+                      'no next item.'],
          'domain': 'List',
          'domain_of': ['List'],
+         'notes': ['CO makes it a narrower form of item, which is not stated here for '
+                   'the reason given on firstItem.'],
          'slot_uri': 'coll:lastItem'} })
     item: Optional[list[ListItem]] = Field(default=None, description="""An item of the bag, which holds one of its elements.""", json_schema_extra = { "linkml_meta": {'domain': 'Bag', 'domain_of': ['Bag'], 'slot_uri': 'coll:item'} })
-    co_size: Optional[int] = Field(default=None, description="""How many times the collection holds a thing, counting each repeat: the number of elements of a set, or of items of a bag or a list.""", ge=0, json_schema_extra = { "linkml_meta": {'comments': ['CO gives every collection exactly one size. The schema leaves '
-                      'it optional, since a reader can count; where it is given, the '
-                      'tests check that it equals the count.'],
-         'domain': 'Collection',
+    co_size: Optional[int] = Field(default=None, description="""How many times the collection holds a thing, counting each repeat: the number of elements of a set, or of items of a bag or a list.""", ge=0, json_schema_extra = { "linkml_meta": {'domain': 'Collection',
          'domain_of': ['Collection'],
+         'notes': ['CO gives every collection exactly one size. The schema leaves it '
+                   'optional, since a reader can count; where it is given, the tests '
+                   'check that it equals the count.'],
          'slot_uri': 'coll:size'} })
     element: Optional[list[str]] = Field(default=None, description="""A thing the collection holds, named by its IRI.""", json_schema_extra = { "linkml_meta": {'domain': 'Collection',
          'domain_of': ['Collection'],
@@ -232,18 +234,18 @@ class ListItem(CoItem):
          'slot_usage': {'co_index': {'name': 'co_index', 'required': True}}})
 
     co_index: int = Field(default=..., description="""The place of the item in its list, counting from 1.""", ge=1, json_schema_extra = { "linkml_meta": {'domain': 'ListItem', 'domain_of': ['ListItem'], 'slot_uri': 'coll:index'} })
-    nextItem: Optional[ListItem] = Field(default=None, description="""The item that comes straight after this one.""", json_schema_extra = { "linkml_meta": {'comments': ['It holds a copy of the item whose index is one higher. CO makes '
-                      'it a narrower form of followedBy, which is not stated here for '
-                      'the reason given on firstItem.'],
+    nextItem: Optional[ListItem] = Field(default=None, description="""The item that comes straight after this one.""", json_schema_extra = { "linkml_meta": {'comments': ['It holds a copy of the item whose index is one higher.'],
          'domain': 'ListItem',
          'domain_of': ['ListItem'],
+         'notes': ['CO makes it a narrower form of followedBy, which is not stated '
+                   'here for the reason given on firstItem.'],
          'slot_uri': 'coll:nextItem'} })
-    previousItem: Optional[ListItem] = Field(default=None, description="""The item that comes straight before this one.""", json_schema_extra = { "linkml_meta": {'comments': ['It holds a copy of the item whose index is one lower. CO makes '
-                      'it a narrower form of precededBy, which is not stated here for '
-                      'the reason given on firstItem.'],
+    previousItem: Optional[ListItem] = Field(default=None, description="""The item that comes straight before this one.""", json_schema_extra = { "linkml_meta": {'comments': ['It holds a copy of the item whose index is one lower.'],
          'domain': 'ListItem',
          'domain_of': ['ListItem'],
          'inverse': 'nextItem',
+         'notes': ['CO makes it a narrower form of precededBy, which is not stated '
+                   'here for the reason given on firstItem.'],
          'slot_uri': 'coll:previousItem'} })
     followedBy: Optional[list[ListItem]] = Field(default=None, description="""An item that comes somewhere after this one.""", json_schema_extra = { "linkml_meta": {'comments': ['It holds copies of items whose index is higher.'],
          'domain': 'ListItem',

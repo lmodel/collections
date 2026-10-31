@@ -17,11 +17,13 @@ comments:
 - The repository states no licence. The project's Google Code archive gives the Apache License 2.0 for
   its code and CC BY 3.0 for its content, as the co_licence annotation says. The descriptions here are
   this project's own words.
+- Items have no IRI here, so a slot that links to an item, such as firstItem or nextItem, holds a copy
+  of that item. docs/index.md lists the rules of CO that no validator checks and the tests check instead.
+notes:
 - CO's Item and size are named CoItem and co_size, as in lmodel/uco's uco_co module, because UCO defines
   an Item and a size of its own. CO's index is named co_index, because gen-doc writes the page of a slot
   named index over the schema's index page. Their IRIs are CO's.
-- Items have no IRI here, so a slot that links to an item, such as firstItem or nextItem, holds a copy
-  of that item. docs/index.md lists the rules of CO that no validator checks and the tests check instead.
+- 'Adapted for LOKF by `lokf adapt`. re-rooted on lokf:Concept: Collection.'
 annotations:
   co_ontology_iri: http://purl.org/co
   co_commit: 619e7b02646321174635fd04be658e338bf7d1d7
@@ -45,7 +47,7 @@ slots:
     multivalued: true
   elementOf:
     description: A collection that holds the thing as an element.
-    comments:
+    notes:
     - CO declares it the inverse of element. LinkML's Python generator states an inverse only between
       slots that range over classes, and element ranges over any thing named by its IRI, so the inverse
       is not stated here.
@@ -57,7 +59,7 @@ slots:
   co_size:
     description: 'How many times the collection holds a thing, counting each repeat: the number of elements
       of a set, or of items of a bag or a list.'
-    comments:
+    notes:
     - CO gives every collection exactly one size. The schema leaves it optional, since a reader can count;
       where it is given, the tests check that it equals the count.
     slot_uri: coll:size
@@ -88,7 +90,7 @@ slots:
     range: uriorcurie
   itemContentOf:
     description: An item that wraps the thing.
-    comments:
+    notes:
     - CO declares it the inverse of itemContent, which is not stated here for the reason given on elementOf.
     slot_uri: coll:itemContentOf
     range: CoItem
@@ -104,9 +106,10 @@ slots:
   firstItem:
     description: The first item of the list.
     comments:
-    - 'It holds a copy of the item with index 1, which has no previous item. CO makes it a narrower form
-      of item, which is not stated here: a LinkML slot inherits its parent''s multivalued, and this one
-      is single.'
+    - It holds a copy of the item with index 1, which has no previous item.
+    notes:
+    - 'CO makes it a narrower form of item, which is not stated here: a LinkML slot inherits its parent''s
+      multivalued, and this one is single.'
     slot_uri: coll:firstItem
     domain: List
     range: ListItem
@@ -123,8 +126,9 @@ slots:
   lastItem:
     description: The last item of the list.
     comments:
-    - It holds a copy of the item with the highest index, which has no next item. CO makes it a narrower
-      form of item, which is not stated here for the reason given on firstItem.
+    - It holds a copy of the item with the highest index, which has no next item.
+    notes:
+    - CO makes it a narrower form of item, which is not stated here for the reason given on firstItem.
     slot_uri: coll:lastItem
     domain: List
     range: ListItem
@@ -141,8 +145,9 @@ slots:
   nextItem:
     description: The item that comes straight after this one.
     comments:
-    - It holds a copy of the item whose index is one higher. CO makes it a narrower form of followedBy,
-      which is not stated here for the reason given on firstItem.
+    - It holds a copy of the item whose index is one higher.
+    notes:
+    - CO makes it a narrower form of followedBy, which is not stated here for the reason given on firstItem.
     slot_uri: coll:nextItem
     domain: ListItem
     range: ListItem
@@ -150,8 +155,9 @@ slots:
   previousItem:
     description: The item that comes straight before this one.
     comments:
-    - It holds a copy of the item whose index is one lower. CO makes it a narrower form of precededBy,
-      which is not stated here for the reason given on firstItem.
+    - It holds a copy of the item whose index is one lower.
+    notes:
+    - CO makes it a narrower form of precededBy, which is not stated here for the reason given on firstItem.
     slot_uri: coll:previousItem
     inverse: nextItem
     domain: ListItem
@@ -242,5 +248,3 @@ classes:
     slot_usage:
       co_index:
         required: true
-notes:
-- 'Adapted for LOKF by `lokf adapt`. re-rooted on lokf:Concept: Collection.'

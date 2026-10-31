@@ -15,7 +15,8 @@
 	rdfs:label "collections" ;
 	rdfs:seeAlso <https://doi.org/10.3233/SW-130121> , <https://lmodel.github.io/collections> ;
 	skos:definition "The Collections Ontology (CO) 2.0 in LinkML, with CO's own names and IRIs: collections that are sets, bags or lists, and the items through which a bag or a list holds its elements." ;
-	skos:note "CO's Item and size are named CoItem and co_size, as in lmodel/uco's uco_co module, because UCO defines an Item and a size of its own. CO's index is named co_index, because gen-doc writes the page of a slot named index over the schema's index page. Their IRIs are CO's." , "Items have no IRI here, so a slot that links to an item, such as firstItem or nextItem, holds a copy of that item. docs/index.md lists the rules of CO that no validator checks and the tests check instead." , "Renders CO 2.0 by Paolo Ciccarese and Silvio Peroni, whose ontology IRI is http://purl.org/co. The source is collections.owl at the commit the co_commit annotation names, copied unchanged to upstream/collections.owl." , "The repository states no licence. The project's Google Code archive gives the Apache License 2.0 for its code and CC BY 3.0 for its content, as the co_licence annotation says. The descriptions here are this project's own words." ;
+	skos:editorialNote "CO's Item and size are named CoItem and co_size, as in lmodel/uco's uco_co module, because UCO defines an Item and a size of its own. CO's index is named co_index, because gen-doc writes the page of a slot named index over the schema's index page. Their IRIs are CO's." ;
+	skos:note "Items have no IRI here, so a slot that links to an item, such as firstItem or nextItem, holds a copy of that item. docs/index.md lists the rules of CO that no validator checks and the tests check instead." , "Renders CO 2.0 by Paolo Ciccarese and Silvio Peroni, whose ontology IRI is http://purl.org/co. The source is collections.owl at the commit the co_commit annotation names, copied unchanged to upstream/collections.owl." , "The repository states no licence. The project's Google Code archive gives the Apache License 2.0 for its code and CC BY 3.0 for its content, as the co_licence annotation says. The descriptions here are this project's own words." ;
 	collections:co_commit "619e7b02646321174635fd04be658e338bf7d1d7" ;
 	collections:co_git_object "4e19e4892212de2b1805923a7a69fa4ba8c1b424" ;
 	collections:co_licence "Apache-2.0 for code and CC-BY-3.0 for content, per the Google Code archive" ;
@@ -69,8 +70,8 @@ collections:co_size a owl:DatatypeProperty ;
 	rdfs:label "co_size" ;
 	rdfs:range _:c14n27 ;
 	skos:definition "How many times the collection holds a thing, counting each repeat: the number of elements of a set, or of items of a bag or a list." ;
-	skos:inScheme <https://w3id.org/lmodel/collections> ;
-	skos:note "CO gives every collection exactly one size. The schema leaves it optional, since a reader can count; where it is given, the tests check that it equals the count." .
+	skos:editorialNote "CO gives every collection exactly one size. The schema leaves it optional, since a reader can count; where it is given, the tests check that it equals the count." ;
+	skos:inScheme <https://w3id.org/lmodel/collections> .
 collections:element a owl:DatatypeProperty ;
 	rdfs:domain collections:Collection ;
 	rdfs:label "element" ;
@@ -81,15 +82,16 @@ collections:elementOf a owl:ObjectProperty ;
 	rdfs:label "elementOf" ;
 	rdfs:range collections:Collection ;
 	skos:definition "A collection that holds the thing as an element." ;
-	skos:inScheme <https://w3id.org/lmodel/collections> ;
-	skos:note "CO declares it the inverse of element. LinkML's Python generator states an inverse only between slots that range over classes, and element ranges over any thing named by its IRI, so the inverse is not stated here." .
+	skos:editorialNote "CO declares it the inverse of element. LinkML's Python generator states an inverse only between slots that range over classes, and element ranges over any thing named by its IRI, so the inverse is not stated here." ;
+	skos:inScheme <https://w3id.org/lmodel/collections> .
 collections:firstItem a owl:ObjectProperty ;
 	rdfs:domain collections:List ;
 	rdfs:label "firstItem" ;
 	rdfs:range collections:ListItem ;
 	skos:definition "The first item of the list." ;
+	skos:editorialNote "CO makes it a narrower form of item, which is not stated here: a LinkML slot inherits its parent's multivalued, and this one is single." ;
 	skos:inScheme <https://w3id.org/lmodel/collections> ;
-	skos:note "It holds a copy of the item with index 1, which has no previous item. CO makes it a narrower form of item, which is not stated here: a LinkML slot inherits its parent's multivalued, and this one is single." .
+	skos:note "It holds a copy of the item with index 1, which has no previous item." .
 collections:firstItemOf a owl:ObjectProperty ;
 	rdfs:domain collections:ListItem ;
 	rdfs:label "firstItemOf" ;
@@ -120,8 +122,8 @@ collections:itemContentOf a owl:ObjectProperty ;
 	rdfs:label "itemContentOf" ;
 	rdfs:range collections:CoItem ;
 	skos:definition "An item that wraps the thing." ;
-	skos:inScheme <https://w3id.org/lmodel/collections> ;
-	skos:note "CO declares it the inverse of itemContent, which is not stated here for the reason given on elementOf." .
+	skos:editorialNote "CO declares it the inverse of itemContent, which is not stated here for the reason given on elementOf." ;
+	skos:inScheme <https://w3id.org/lmodel/collections> .
 collections:itemOf a owl:ObjectProperty ;
 	rdfs:domain collections:CoItem ;
 	rdfs:label "itemOf" ;
@@ -134,8 +136,9 @@ collections:lastItem a owl:ObjectProperty ;
 	rdfs:label "lastItem" ;
 	rdfs:range collections:ListItem ;
 	skos:definition "The last item of the list." ;
+	skos:editorialNote "CO makes it a narrower form of item, which is not stated here for the reason given on firstItem." ;
 	skos:inScheme <https://w3id.org/lmodel/collections> ;
-	skos:note "It holds a copy of the item with the highest index, which has no next item. CO makes it a narrower form of item, which is not stated here for the reason given on firstItem." .
+	skos:note "It holds a copy of the item with the highest index, which has no next item." .
 collections:lastItemOf a owl:ObjectProperty ;
 	rdfs:domain collections:ListItem ;
 	rdfs:label "lastItemOf" ;
@@ -148,8 +151,9 @@ collections:nextItem a owl:ObjectProperty ;
 	rdfs:label "nextItem" ;
 	rdfs:range collections:ListItem ;
 	skos:definition "The item that comes straight after this one." ;
+	skos:editorialNote "CO makes it a narrower form of followedBy, which is not stated here for the reason given on firstItem." ;
 	skos:inScheme <https://w3id.org/lmodel/collections> ;
-	skos:note "It holds a copy of the item whose index is one higher. CO makes it a narrower form of followedBy, which is not stated here for the reason given on firstItem." .
+	skos:note "It holds a copy of the item whose index is one higher." .
 collections:precededBy a owl:ObjectProperty , owl:TransitiveProperty ;
 	rdfs:domain collections:ListItem ;
 	rdfs:label "precededBy" ;
@@ -164,8 +168,9 @@ collections:previousItem a owl:ObjectProperty ;
 	rdfs:range collections:ListItem ;
 	owl:inverseOf collections:nextItem ;
 	skos:definition "The item that comes straight before this one." ;
+	skos:editorialNote "CO makes it a narrower form of precededBy, which is not stated here for the reason given on firstItem." ;
 	skos:inScheme <https://w3id.org/lmodel/collections> ;
-	skos:note "It holds a copy of the item whose index is one lower. CO makes it a narrower form of precededBy, which is not stated here for the reason given on firstItem." .
+	skos:note "It holds a copy of the item whose index is one lower." .
 _:c14n0 a owl:Restriction ;
 	owl:minCardinality 1 ;
 	owl:onProperty collections:itemContent .

@@ -20,10 +20,12 @@
   ],
   "description": "The Collections Ontology (CO) 2.0 in LinkML, with CO's own names and IRIs: collections that are sets, bags or lists, and the items through which a bag or a list holds its elements.",
   "title": "Collections Ontology (CO)",
+  "notes": [
+    "CO's Item and size are named CoItem and co_size, as in lmodel/uco's uco_co module, because UCO defines an Item and a size of its own. CO's index is named co_index, because gen-doc writes the page of a slot named index over the schema's index page. Their IRIs are CO's."
+  ],
   "comments": [
     "Renders CO 2.0 by Paolo Ciccarese and Silvio Peroni, whose ontology IRI is http://purl.org/co. The source is collections.owl at the commit the co_commit annotation names, copied unchanged to upstream/collections.owl.",
     "The repository states no licence. The project's Google Code archive gives the Apache License 2.0 for its code and CC BY 3.0 for its content, as the co_licence annotation says. The descriptions here are this project's own words.",
-    "CO's Item and size are named CoItem and co_size, as in lmodel/uco's uco_co module, because UCO defines an Item and a size of its own. CO's index is named co_index, because gen-doc writes the page of a slot named index over the schema's index page. Their IRIs are CO's.",
     "Items have no IRI here, so a slot that links to an item, such as firstItem or nextItem, holds a copy of that item. docs/index.md lists the rules of CO that no validator checks and the tests check instead."
   ],
   "source": "https://github.com/collections-ontology/collections-ontology",
@@ -386,7 +388,7 @@
       "name": "elementOf",
       "definition_uri": "https://w3id.org/lmodel/collections/elementOf",
       "description": "A collection that holds the thing as an element.",
-      "comments": [
+      "notes": [
         "CO declares it the inverse of element. LinkML's Python generator states an inverse only between slots that range over classes, and element ranges over any thing named by its IRI, so the inverse is not stated here."
       ],
       "from_schema": "https://w3id.org/lmodel/collections",
@@ -404,7 +406,7 @@
       "name": "co_size",
       "definition_uri": "https://w3id.org/lmodel/collections/co_size",
       "description": "How many times the collection holds a thing, counting each repeat: the number of elements of a set, or of items of a bag or a list.",
-      "comments": [
+      "notes": [
         "CO gives every collection exactly one size. The schema leaves it optional, since a reader can count; where it is given, the tests check that it equals the count."
       ],
       "from_schema": "https://w3id.org/lmodel/collections",
@@ -481,7 +483,7 @@
       "name": "itemContentOf",
       "definition_uri": "https://w3id.org/lmodel/collections/itemContentOf",
       "description": "An item that wraps the thing.",
-      "comments": [
+      "notes": [
         "CO declares it the inverse of itemContent, which is not stated here for the reason given on elementOf."
       ],
       "from_schema": "https://w3id.org/lmodel/collections",
@@ -517,8 +519,11 @@
       "name": "firstItem",
       "definition_uri": "https://w3id.org/lmodel/collections/firstItem",
       "description": "The first item of the list.",
+      "notes": [
+        "CO makes it a narrower form of item, which is not stated here: a LinkML slot inherits its parent's multivalued, and this one is single."
+      ],
       "comments": [
-        "It holds a copy of the item with index 1, which has no previous item. CO makes it a narrower form of item, which is not stated here: a LinkML slot inherits its parent's multivalued, and this one is single."
+        "It holds a copy of the item with index 1, which has no previous item."
       ],
       "from_schema": "https://w3id.org/lmodel/collections",
       "mappings": [
@@ -558,8 +563,11 @@
       "name": "lastItem",
       "definition_uri": "https://w3id.org/lmodel/collections/lastItem",
       "description": "The last item of the list.",
+      "notes": [
+        "CO makes it a narrower form of item, which is not stated here for the reason given on firstItem."
+      ],
       "comments": [
-        "It holds a copy of the item with the highest index, which has no next item. CO makes it a narrower form of item, which is not stated here for the reason given on firstItem."
+        "It holds a copy of the item with the highest index, which has no next item."
       ],
       "from_schema": "https://w3id.org/lmodel/collections",
       "mappings": [
@@ -599,8 +607,11 @@
       "name": "nextItem",
       "definition_uri": "https://w3id.org/lmodel/collections/nextItem",
       "description": "The item that comes straight after this one.",
+      "notes": [
+        "CO makes it a narrower form of followedBy, which is not stated here for the reason given on firstItem."
+      ],
       "comments": [
-        "It holds a copy of the item whose index is one higher. CO makes it a narrower form of followedBy, which is not stated here for the reason given on firstItem."
+        "It holds a copy of the item whose index is one higher."
       ],
       "from_schema": "https://w3id.org/lmodel/collections",
       "mappings": [
@@ -622,8 +633,11 @@
       "name": "previousItem",
       "definition_uri": "https://w3id.org/lmodel/collections/previousItem",
       "description": "The item that comes straight before this one.",
+      "notes": [
+        "CO makes it a narrower form of precededBy, which is not stated here for the reason given on firstItem."
+      ],
       "comments": [
-        "It holds a copy of the item whose index is one lower. CO makes it a narrower form of precededBy, which is not stated here for the reason given on firstItem."
+        "It holds a copy of the item whose index is one lower."
       ],
       "from_schema": "https://w3id.org/lmodel/collections",
       "mappings": [
@@ -907,8 +921,8 @@
   ],
   "metamodel_version": "1.12.0",
   "source_file": "collections.yaml",
-  "source_file_date": "2026-10-31T12:42:57",
-  "source_file_size": 8393,
+  "source_file_date": "2026-10-31T18:00:48",
+  "source_file_size": 8454,
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/collections.context.jsonld",
