@@ -6,6 +6,8 @@ The `v0.0.0` tag is a baseline, not a release: it marks where versioning starts 
 
 ## [Unreleased]
 
+## [0.1.0] - 2026-10-31
+
 ### Added
 
 - **A LinkML schema of the Collections Ontology (CO) 2.0, with CO's own names and IRIs.** It holds collections, sets, bags and lists, and the items of a bag or a list, with the constraints LinkML can state. Tests check CO's other rules, such as a list's order, over the examples.
