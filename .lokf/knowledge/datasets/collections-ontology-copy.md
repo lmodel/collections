@@ -30,7 +30,7 @@ status: draft
 
 NOTICE says that the file is copied unchanged from commit `619e7b02646321174635fd04be658e338bf7d1d7` of `collections-ontology/collections-ontology`, git object `4e19e4892212de2b1805923a7a69fa4ba8c1b424`. It also says that the file differs from the archived Subversion trunk in one line, the address of the error ontology.[^notice]
 
-`tests/test_upstream.py` checks the copy's hash, and that the schema renders every class and property the file declares, with CO's domains, ranges, cardinalities, inverses, transitive properties, superclasses and disjoint classes.[^test_upstream.py] The upstream watch compares the file on CO's master branch with the same pin.
+`tests/test_upstream.py` checks the copy's hash. It also checks that the schema renders every class and property the file declares, with CO's domains, ranges, cardinalities, inverses, transitive properties, superclasses and disjoint classes.[^test_upstream.py] The upstream watch compares the file on CO's master branch with the same pin.
 
 [^collections.owl]: src/collections/schema/upstream/collections.owl, the owl:Ontology header
 [^notice]: NOTICE, the Collections Ontology section

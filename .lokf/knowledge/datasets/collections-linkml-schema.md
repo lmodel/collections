@@ -46,7 +46,7 @@ The schema binds `coll:` to CO's namespace, `http://purl.org/co/`, and gives eve
 
 ## Slots
 
-Every slot keeps CO's local name, except `co_size` for CO's `size` and `co_index` for its `index`. `.linkmllint.yaml` lets slot names be lowerCamelCase, as CO's are.[^schema-collections.yaml] Five slots that link back to a collection (`elementOf`, `itemOf`, `itemContentOf`, `firstItemOf`, `lastItemOf`) are declared, and no class uses them.
+Every slot keeps CO's local name, except `co_size` for CO's `size` and `co_index` for its `index`. `.linkmllint.yaml` lets slot names be lowerCamelCase, as CO's are.[^schema-collections.yaml] The schema declares five slots that link back to a collection (`elementOf`, `itemOf`, `itemContentOf`, `firstItemOf`, `lastItemOf`), and no class uses them.
 
 ## As the bundle's domain schema
 

@@ -21,7 +21,7 @@ status: draft
 
 # Documentation website
 
-`website/` is the ktl-website site, served at `https://lmodel.github.io/collections`. It shows the README as its home page, the pages in `docs/`, a page per schema element from `docs/elements/`, and a page per concept of the bundle with its trust label.[^site.config.mjs] `npm run build` runs the sync, builds the site and checks every link; `website/README.md` says how it builds and deploys.[^website-readme.md]
+`website/` is the ktl-website site, served at `https://lmodel.github.io/collections`. It shows the README as its home page, the pages in `docs/`, a page per schema element from `docs/elements/`, and a page per concept of the bundle with its trust label.[^site.config.mjs] `npm run build` runs the sync, builds the site and checks every link. `website/README.md` says how it builds and deploys.[^website-readme.md]
 
 `REDIRECTS` keeps the addresses of the retired mkdocs site of 2023, which served each element at the site root, and the `/elements/<name>/` addresses the w3id rules send a term to. Each leads to its successor's schema page: `_index` to `co_index`, `size` to `co_size`, and `Thing`, `PositiveInteger` and `types` to the schema's index.
 

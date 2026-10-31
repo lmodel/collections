@@ -26,7 +26,7 @@ status: draft
 
 # Names and IRIs
 
-The schema renders an ontology, so it keeps the ontology's names and IRIs: data written against it uses CO's property names as its keys, and every class and slot projects under CO's own IRI. The prefix is `coll`, which LinkML's prefix map gives CO's namespace; the same map gives `co` to another vocabulary.[^about.md]
+The schema renders an ontology, so it keeps the ontology's names and IRIs: data written against it uses CO's property names as its keys, and every class and slot projects under CO's own IRI. The prefix is `coll`, which LinkML's prefix map gives CO's namespace. The same map gives `co` to another vocabulary.[^about.md]
 
 Three names differ, each with CO's IRI kept:
 

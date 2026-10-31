@@ -24,7 +24,14 @@ status: draft
 
 A release attaches the adapt copy, the bundle as a zip and a Microsoft 365 Copilot skill zip, each with its `.sha256` and a build-provenance attestation. Nothing is published to PyPI. The upstream watch reads CO's GitHub repository, sends the workflow's read-only token to `api.github.com` alone, and writes nothing but its report.
 
-The policy's table names each workflow and what holds it: read-only pull request checks, a release job only on a push to `main` in the `release` Environment, the Pages scopes on the website's deploy job alone, and a librarian whose agent holds no write token. Every workflow pins its actions to commit hashes, and Dependabot keeps them and the two uv locks and two npm locks current, each monthly.[^dependabot.yml]
+The policy's table names each workflow and what holds it:
+
+- read-only pull request checks;
+- a release job only on a push to `main`, in the `release` Environment;
+- the Pages scopes on the website's deploy job alone;
+- a librarian whose agent holds no write token.
+
+Every workflow pins its actions to commit hashes, and Dependabot keeps them and the two uv locks and two npm locks current, each monthly.[^dependabot.yml]
 
 A ruleset named `main` on the default branch blocks deletion and force-pushes and requires a linear history. Two settings are not yet in force: required reviewers on the `release` Environment, and secret scanning with push protection.
 

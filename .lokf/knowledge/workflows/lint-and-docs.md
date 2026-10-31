@@ -17,6 +17,13 @@ status: draft
 
 # Lint & docs (lint-and-docs.yaml)
 
-`.github/workflows/lint-and-docs.yaml` checks the shell, the workflows and the prose. Its four read-only jobs run ShellCheck, actionlint, the word budgets (1000 for CONTRIBUTING.md, 900 for SECURITY.md), and markdownlint, lychee and codespell over the Markdown files.[^lint-and-docs.yaml] It runs on a push to `main`, on every pull request, on Mondays at 06:00 UTC to catch link rot, and by hand.
+`.github/workflows/lint-and-docs.yaml` checks the shell, the workflows and the prose. Its four read-only jobs run:
+
+- ShellCheck;
+- actionlint;
+- the word budgets, 1000 for CONTRIBUTING.md and 900 for SECURITY.md;
+- markdownlint, lychee and codespell over the Markdown files.[^lint-and-docs.yaml]
+
+It runs on a push to `main`, on every pull request, on Mondays at 06:00 UTC to catch link rot, and by hand.
 
 [^lint-and-docs.yaml]: .github/workflows/lint-and-docs.yaml, the header comment and the four jobs

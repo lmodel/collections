@@ -24,7 +24,7 @@ status: draft
 
 # Release
 
-1. Write each change under `## [Unreleased]` in CHANGELOG.md; the release job refuses an empty one.[^contributing.md]
+1. Write each change under `## [Unreleased]` in CHANGELOG.md. The release job refuses an empty one.[^contributing.md]
 2. Merge a change typed `feat:`, `fix:` or `security:`, or one marked breaking. Other types wait for the next release.
 3. On the push to `main`, `semantic-release.yml` retitles the section, commits CHANGELOG.md and tags `vX.Y.Z`.
 

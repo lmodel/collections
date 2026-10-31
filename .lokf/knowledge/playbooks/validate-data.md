@@ -19,6 +19,6 @@ status: draft
 
 Run `linkml-validate -s src/collections/schema/collections.yaml -C List list.yaml`, with the class the file holds after `-C`. It checks the file against the JSON Schema generated from the schema.[^index.md]
 
-The validator does not check that a set repeats no element, that a size is the count, or that a list's indexes and links agree. `rule_faults` in `tests/test_data.py` checks them; [Scope and rules](../explanations/scope-and-rules.md) lists them.
+The validator does not check that a set repeats no element, that a size is the count, or that a list's indexes and links agree. `rule_faults` in `tests/test_data.py` checks them, and [Scope and rules](../explanations/scope-and-rules.md) lists them.
 
 [^index.md]: docs/index.md, the Validating data section

@@ -2,6 +2,7 @@
 
 ## 2026-10-31
 
+* **Prose**: reworded 11 concept bodies in plain English. No fact, link, number or frontmatter changed.
 * **Added**: collections LinkML schema, from `src/collections/schema/collections.yaml` and its adapt copy.
 * **Added**: Copy of CO's OWL file, from `src/collections/schema/upstream/collections.owl` and NOTICE.
 * **Added**: Generated artefacts, from the justfile, `.linkml/generators.yaml` and `config.public.mk`.
