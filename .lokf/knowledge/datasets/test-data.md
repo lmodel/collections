@@ -3,7 +3,7 @@ type: Dataset
 id: https://w3id.org/lmodel/collections/knowledge/datasets/test-data
 genre: reference
 title: Tests and example data
-description: "The tests under `tests/`: 10 valid examples, 11 counter-examples the validator rejects and 14 that break a rule only a test checks, the checks against CO's OWL file and the watch's stubbed answers, and the 13 released neighbour copies the adapt copy is held apart from."
+description: "The tests under `tests/`: 12 valid examples, 11 counter-examples the validator rejects and 14 that break a rule only a test checks, the checks against CO's OWL file and the watch's stubbed answers, and the 13 released neighbour copies the adapt copy is held apart from."
 resource: tests
 sources:
   - id: test_data.py
@@ -22,13 +22,13 @@ sources:
   - resource: tests/neighbours
 generated:
   by: process:ktl-librarian
-  at: "2026-10-31T12:56:19Z"
+  at: "2026-10-31T18:10:16Z"
 status: draft
 ---
 
 # Tests and example data
 
-`tests/data/valid/` holds 10 examples, at least one per class, and `tests/data/invalid/` holds 11 counter-examples. Each counter-example's first line names, as `# Fails at:`, where the validator must reject it, and `tests/test_data.py` checks that it fails there and only there. It also holds every example to the committed `project/jsonschema/collections.schema.json`.[^test_data.py]
+`tests/data/valid/` holds 12 examples, at least one per class, and `tests/data/invalid/` holds 11 counter-examples. Each counter-example's first line names, as `# Fails at:`, where the validator must reject it, and `tests/test_data.py` checks that it fails there and only there. It also holds every example to the committed `project/jsonschema/collections.schema.json`.[^test_data.py]
 
 `tests/data/problem/invalid/` holds 14 counter-examples of the rules no validator checks, such as a set that repeats an element or a list whose indexes have a gap. Each passes the validator and breaks its rule at the place its first line names, which `rule_faults` in `tests/test_data.py` finds. The same check holds every valid example.
 

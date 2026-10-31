@@ -14,7 +14,7 @@ sources:
     title: the six update entries
 generated:
   by: process:ktl-librarian
-  at: "2026-10-31T12:56:19Z"
+  at: "2026-10-31T18:10:16Z"
 status: draft
 ---
 
@@ -22,7 +22,7 @@ status: draft
 
 `SECURITY.md` asks for a vulnerability to be reported through GitHub's private vulnerability reporting, not in a public issue. One person maintains the repository, so a first reply takes days and there is no bounty. Only the latest release receives fixes.[^security.md]
 
-A release attaches the adapt copy, the bundle as a zip and a Microsoft 365 Copilot skill zip, each with its `.sha256` and a build-provenance attestation. Nothing is published to PyPI. The upstream watch reads CO's GitHub repository, sends the workflow's read-only token to `api.github.com` alone, and writes nothing but its report.
+A release attaches the adapt copy, the bundle as a zip and a Microsoft 365 Copilot skill zip, each with its `.sha256` and a build-provenance attestation. Nothing is published to PyPI. The upstream watch reads CO's GitHub repository and follows a redirect only to GitHub. It sends the job's token, which can also write issues, to `api.github.com` alone, and writes nothing but its report.
 
 The policy's table names each workflow and what holds it:
 

@@ -25,7 +25,7 @@ A [LOKF](https://lokf.nolan-nichols.com) knowledge base for collections. Every M
 * [collections LinkML schema](datasets/collections-linkml-schema.md) - The LinkML schema of the Collections Ontology (CO) 2.0, `src/collections/schema/collections.yaml` (schema id `https://w3id.org/lmodel/collections`, version 2.0): six classes and sixteen slots, each with CO's name and IRI. Its `lokf adapt` copy `.lokf/collections.yaml`, rooted on `Collection`, is the bundle's domain schema.
 * [Copy of CO's OWL file](datasets/collections-ontology-copy.md) - `src/collections/schema/upstream/collections.owl`, the Collections Ontology 2.0's OWL file copied unchanged from commit `619e7b0` of its GitHub repository and matched by its git object hash, which the tests hold the schema to.
 * [Generated artefacts](datasets/generated-artefacts.md) - What `just gen-project` and `just gen-doc` generate from the schema: the twelve formats in `project/`, the Python dataclasses and Pydantic models in `src/collections_linkml/datamodel/`, the merged schema in `docs/schema/` and the element pages in `docs/elements/`.
-* [Tests and example data](datasets/test-data.md) - The tests under `tests/`: 10 valid examples, 11 counter-examples the validator rejects and 14 that break a rule only a test checks, the checks against CO's OWL file and the watch's stubbed answers, and the 13 released neighbour copies the adapt copy is held apart from.
+* [Tests and example data](datasets/test-data.md) - The tests under `tests/`: 12 valid examples, 11 counter-examples the validator rejects and 14 that break a rule only a test checks, the checks against CO's OWL file and the watch's stubbed answers, and the 13 released neighbour copies the adapt copy is held apart from.
 
 # References
 
@@ -53,7 +53,7 @@ A [LOKF](https://lokf.nolan-nichols.com) knowledge base for collections. Every M
 
 # Policies
 
-* [Licence and attribution](policies/license-and-attribution.md) - The licences: Apache-2.0 for the schema and code, CC BY 4.0 for the knowledge bundle, Apache-2.0 for code and CC BY 3.0 for content for the copied CO file, as CO's Google Code archive gives them, and MIT for the copier template's scaffolding.
+* [Licence and attribution](policies/license-and-attribution.md) - The licences: Apache-2.0 for the schema and code, CC BY 4.0 for the knowledge bundle, Apache-2.0 for the copied CO file, which CO's Google Code archive gives for the project's code, and MIT for the copier template's scaffolding.
 * [Security policy](policies/security-policy.md) - How to report a vulnerability (GitHub's private vulnerability reporting), which release receives fixes (the latest), what executes in the repository and what holds each surface, the ruleset on `main`, and the two repository settings that are not yet in force.
 * [AI covenant](policies/ai-covenant.md) - The rules for AI-assisted work in this repository: the contributor owns what they submit, every element renders a class or property of CO 2.0 cited by its axiom, CO's IRIs are kept, the copied OWL file stays CO's, and the scheduled librarian's changes go through a reviewed pull request.
 
