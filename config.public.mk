@@ -6,10 +6,16 @@
 
 # Note:
 # - just works fine with quoted variables of dot-env files like this one
-LINKML_SCHEMA_NAME="collections_linkml"
+LINKML_SCHEMA_NAME="collections"
 LINKML_SCHEMA_AUTHOR="Noel McLoughlin <noel.mcloughlin@gmail.com>"
 LINKML_SCHEMA_DESCRIPTION="Collections Ontology (CO): LinkML Schema"
-LINKML_SCHEMA_SOURCE_DIR="src/collections_linkml/schema"
+LINKML_SCHEMA_SOURCE_DIR="src/collections/schema"
+
+# The schema keeps the name collections and the path that w3id.org/lmodel/collections
+# serves, src/collections/schema/collections.yaml. A Python package of that name
+# would shadow the standard library's collections module, so the data model's
+# package is collections_linkml.
+LINKML_PYTHON_PACKAGE="collections_linkml"
 
 ###### linkml generator variables, used by justfile
 

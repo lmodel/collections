@@ -38,7 +38,10 @@ gen_ts_args := env_var_or_default("LINKML_GENERATORS_TYPESCRIPT_ARGS", "")
 # Directory variables
 src := "src"
 dest := "project"
-pymodel := src / schema_name / "datamodel"
+# The Python package that holds the data model. It defaults to the schema's
+# name; LINKML_PYTHON_PACKAGE names another when the schema's name is taken.
+python_package := env_var_or_default("LINKML_PYTHON_PACKAGE", schema_name)
+pymodel := src / python_package / "datamodel"
 source_schema_path := source_schema_dir / schema_name + ".yaml"
 docdir := "docs/elements"  # Directory for generated documentation
 distrib_schema_path := "docs/schema"  # Directory for publishing schema artifacts

@@ -3,8 +3,11 @@ requires = ["hatchling", "uv-dynamic-versioning"]
 build-backend = "hatchling.build"
 
 [project]
-name = "collections_linkml"
-description = "Collections Ontology (CO): LinkML Schema"
+# Named like lmodel/slsa's slsa-linkml, so the PyPI name says what it holds.
+# The import package is collections_linkml, because a package named
+# collections would shadow the standard library's. PyPI publishing is off.
+name = "collections-linkml"
+description = "Collections Ontology (CO) 2.0 (LinkML)"
 authors = [
   {name = "Noel McLoughlin", email = "noel.mcloughlin@gmail.com"},
 ]
@@ -27,6 +30,14 @@ dev = [
     "jupyter>=1.0.0",
     "mknotebooks>= 0.8.0",
 ]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/collections_linkml"]
+
+# The schema sits outside the package, at the path w3id.org serves, so the
+# wheel carries it under the package's schema folder.
+[tool.hatch.build.targets.wheel.force-include]
+"src/collections/schema" = "collections_linkml/schema"
 
 # See https://hatch.pypa.io/latest/config/build/#file-selection for how to
 # explicitly include files other than default into the build distributions.
@@ -59,8 +70,8 @@ skip = [
   "pyproject.toml",
   "uv.lock",
   "project/*",
-  "src/collections_linkml/datamodel/collections_linkml_pydantic.py",
-  "src/collections_linkml/datamodel/collections_linkml.py",
+  "src/collections_linkml/datamodel/collections_pydantic.py",
+  "src/collections_linkml/datamodel/collections.py",
 ]
 
 # Reminder: words have to be lowercased for the ignore-words-list
@@ -77,6 +88,6 @@ extend-exclude = [
   "uv.lock",
   "pyproject.toml",
   "project/*",
-  "src/collections_linkml/datamodel/collections_linkml_pydantic.py",
-  "src/collections_linkml/datamodel/collections_linkml.py",
+  "src/collections_linkml/datamodel/collections_pydantic.py",
+  "src/collections_linkml/datamodel/collections.py",
 ]
