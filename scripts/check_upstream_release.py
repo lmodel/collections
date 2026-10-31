@@ -36,9 +36,11 @@ An ontology file the authors add beside the known ones is reported for
 information only.
 
 Text a server chose, such as a commit hash, a licence name or an error
-message, is quoted as code in the report, so the issue the workflow opens
-from it cannot mention anyone. Set ``GITHUB_TOKEN`` to raise the API rate
-limit. The token goes to api.github.com alone, never on to a redirect.
+message, is quoted as code on one line in the report, so the issue the
+workflow opens from it cannot mention anyone. A redirect is followed only to
+an https address on api.github.com or raw.githubusercontent.com. Set
+``GITHUB_TOKEN`` to raise the API rate limit. The token goes to
+api.github.com alone, never on to a redirect.
 Usage::
 
     python scripts/check_upstream_release.py [--report FILE]
@@ -54,6 +56,7 @@ import os
 import re
 import sys
 import urllib.error
+import urllib.parse
 import urllib.request
 from functools import cache
 from pathlib import Path
@@ -64,6 +67,8 @@ REPOSITORY = "collections-ontology/collections-ontology"
 API = f"https://api.github.com/repos/{REPOSITORY}"
 RAW = f"https://raw.githubusercontent.com/{REPOSITORY}"
 USER_AGENT = "lmodel-collections-watch"
+# The hosts a redirect may lead to.
+HOSTS = frozenset({"api.github.com", "raw.githubusercontent.com"})
 
 # The most the script reads of one answer. The largest, the file tree, is
 # about 30 kB, and the OWL file about 40 kB.
@@ -119,6 +124,20 @@ LICENCE_STATEMENT = re.compile(
 )
 
 
+class _GitHubRedirect(urllib.request.HTTPRedirectHandler):
+    """Follow a redirect only to an https address on one of HOSTS."""
+
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        parts = urllib.parse.urlsplit(newurl)
+        if parts.scheme != "https" or parts.hostname not in HOSTS:
+            raise ValueError(f"a redirect leads off GitHub, to {newurl}")
+        return super().redirect_request(req, fp, code, msg, headers, newurl)
+
+
+# An opener in place of urlopen's, whose redirect handler follows any address.
+_open = urllib.request.build_opener(_GitHubRedirect).open
+
+
 def _get(url: str) -> bytes:
     req = urllib.request.Request(
         url,
@@ -129,7 +148,7 @@ def _get(url: str) -> bytes:
         # urllib copies ordinary headers onto a redirect, so the token goes in
         # an unredirected one and reaches api.github.com alone.
         req.add_unredirected_header("Authorization", f"Bearer {token}")
-    with urllib.request.urlopen(req, timeout=60) as resp:
+    with _open(req, timeout=60) as resp:
         body = resp.read(MAX_BYTES + 1)
     if len(body) > MAX_BYTES:
         raise ValueError(f"the answer from {url} is larger than {MAX_BYTES} bytes")
@@ -137,9 +156,10 @@ def _get(url: str) -> bytes:
 
 
 def _code(text: object) -> str:
-    """Text a server chose, such as a commit hash, as a code span, so it
-    cannot mention a person or add a link in the issue."""
-    return "`" + str(text).replace("`", "'") + "`"
+    """Text a server chose, such as a commit hash, as a code span on one line,
+    so it cannot mention a person or add a link in the issue. A blank line
+    would end the span, so every run of spaces and line breaks is one space."""
+    return "`" + " ".join(str(text).replace("`", "'").split()) + "`"
 
 
 def _blob_sha(data: bytes) -> str:

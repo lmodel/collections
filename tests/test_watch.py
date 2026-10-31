@@ -266,7 +266,7 @@ def test_the_token_goes_to_the_api_alone(watch, monkeypatch):
         return Answer()
 
     monkeypatch.setenv("GITHUB_TOKEN", "secret")
-    monkeypatch.setattr(urllib.request, "urlopen", urlopen)
+    monkeypatch.setattr(watch, "_open", urlopen)
     watch._get(f"{watch.API}/license")
     watch._get(f"{watch.RAW}/{watch.PINNED_COMMIT}/{watch.PINNED_FILE}")
     watch._get("https://api.github.com.example.org/repos")
@@ -290,6 +290,33 @@ def test_an_oversized_answer_is_refused(watch, monkeypatch):
         def read(self, size):
             return b"x" * size
 
-    monkeypatch.setattr(urllib.request, "urlopen", lambda req, timeout: Answer())
+    monkeypatch.setattr(watch, "_open", lambda req, timeout: Answer())
     with pytest.raises(ValueError, match="larger than"):
         watch._get(f"{watch.API}/license")
+
+
+def test_a_redirect_off_github_is_refused(watch):
+    """A redirect is followed to GitHub's two hosts over https, and to no
+    other address."""
+    handler = watch._GitHubRedirect()
+    req = urllib.request.Request(f"{watch.API}/license")
+    for newurl in (
+        "https://example.org/license",
+        "http://api.github.com/repos/x",
+        "https://api.github.com.example.org/repos/x",
+    ):
+        with pytest.raises(ValueError, match="leads off GitHub"):
+            handler.redirect_request(req, None, 302, "Found", {}, newurl)
+    moved = "https://api.github.com/repositories/1/license"
+    assert (
+        handler.redirect_request(req, None, 301, "Moved", {}, moved).full_url == moved
+    )
+
+
+def test_server_text_stays_on_one_line(watch, tmp_path):
+    """A licence name with a blank line and a mention in it stays inside its
+    code span, so the issue mentions no one."""
+    _stub(watch, _answers(watch, licence="MIT\n\n@someone `x`"))
+    code, text = _run(watch, tmp_path)
+    assert code == 1
+    assert "**GitHub now detects the licence `MIT @someone 'x'` for" in text
