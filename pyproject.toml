@@ -12,7 +12,7 @@ authors = [
   {name = "Noel McLoughlin", email = "noel.mcloughlin@gmail.com"},
 ]
 license = "Apache-2.0"
-license-files = ["LICENSE"]
+license-files = ["LICENSE", "NOTICE"]
 readme = "README.md"
 requires-python = ">=3.10"
 dynamic = ["version"]
@@ -72,6 +72,13 @@ skip = [
   "project/*",
   "src/collections_linkml/datamodel/collections_pydantic.py",
   "src/collections_linkml/datamodel/collections.py",
+  # The Collections Ontology's file, copied unchanged; the neighbours' adapt
+  # copies, copied as released; and files copied in by the KTL sidecar sync
+  # or written by npm, not by hand.
+  "src/collections/schema/upstream/*",
+  "tests/neighbours/*",
+  ".lokf/scripts/*",
+  "website/package-lock.json",
 ]
 
 # Reminder: words have to be lowercased for the ignore-words-list
@@ -90,4 +97,8 @@ extend-exclude = [
   "project/*",
   "src/collections_linkml/datamodel/collections_pydantic.py",
   "src/collections_linkml/datamodel/collections.py",
+  "src/collections/schema/upstream/*",
+  "tests/neighbours/*",
+  ".lokf/scripts/*",
+  "website/package-lock.json",
 ]
