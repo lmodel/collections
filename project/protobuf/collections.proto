@@ -1,38 +1,60 @@
-// Collection that can have a number of copies of each object
-message Bag
- {
- repeated  thing element = 0
-  positiveInteger size = 0
- }
-// Element belonging to a bag
-message CoItem
- {
-  bag itemOf = 0
- }
-// A group of objects that can be considered as a whole.
-message Collection
- {
- repeated  thing element = 0
-  positiveInteger size = 0
- }
-// An ordered array of items, that can be present in multiple copies
-message List
- {
- repeated  thing element = 0
-  positiveInteger size = 0
- repeated  listItem item = 0
-  listItem lastItem = 0
-  listItem firstItem = 0
- }
-// element belonging to a list
-message ListItem
- {
-  bag itemOf = 0
-  positiveInteger index = 0
- }
-// A collection that cannot contain duplicate elements.
-message Set
- {
- repeated  thing element = 0
-  positiveInteger size = 0
- }
+syntax = "proto3";
+package collections;
+// metamodel_version: 1.12.0
+// version: 2.0
+// A collection that may hold one element more than once, in no order.
+message Bag {
+  // How many times the collection holds a thing, counting each repeat: the number of elements of a set, or of items of a bag or a list.
+  int32 co_size = 1;
+  // A thing the collection holds, named by its IRI.
+  repeated string element = 2;
+  // An item of the bag, which holds one of its elements.
+  repeated CoItem item = 3;
+}
+// An entry of a bag, which wraps one of the bag's elements.
+message CoItem {
+  // The element that the item wraps.
+  string itemContent = 1;
+}
+// A group of things that is taken as a whole.
+message Collection {
+  // How many times the collection holds a thing, counting each repeat: the number of elements of a set, or of items of a bag or a list.
+  int32 co_size = 1;
+  // A thing the collection holds, named by its IRI.
+  repeated string element = 2;
+}
+// A collection whose items come in order, one after another.
+message List {
+  // How many times the collection holds a thing, counting each repeat: the number of elements of a set, or of items of a bag or a list.
+  int32 co_size = 1;
+  // A thing the collection holds, named by its IRI.
+  repeated string element = 2;
+  // The first item of the list.
+  ListItem firstItem = 3;
+  // The last item of the list.
+  ListItem lastItem = 4;
+  // An item of the bag, which holds one of its elements.
+  repeated ListItem item = 5;
+}
+// An item of a list, which has a place in the list's order.
+message ListItem {
+  // The element that the item wraps.
+  string itemContent = 1;
+  // The place of the item in its list, counting from 1.
+  int32 index = 2;
+  // The item that comes straight after this one.
+  ListItem nextItem = 3;
+  // The item that comes straight before this one.
+  ListItem previousItem = 4;
+  // An item that comes somewhere after this one.
+  repeated ListItem followedBy = 5;
+  // An item that comes somewhere before this one.
+  repeated ListItem precededBy = 6;
+}
+// A collection that holds each of its elements once.
+message Set {
+  // How many times the collection holds a thing, counting each repeat: the number of elements of a set, or of items of a bag or a list.
+  int32 co_size = 1;
+  // A thing the collection holds, named by its IRI.
+  repeated string element = 2;
+}

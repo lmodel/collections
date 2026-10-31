@@ -1,10 +1,11 @@
+# metamodel_version: 1.12.0
+# version: 2.0
 BASE <https://w3id.org/lmodel/collections/>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX coll: <http://purl.org/co/>
 PREFIX linkml: <https://w3id.org/linkml/>
 
-
-<PositiveInteger> xsd:positiveInteger
 
 linkml:String xsd:string
 
@@ -18,7 +19,7 @@ linkml:Double xsd:double
 
 linkml:Decimal xsd:decimal
 
-linkml:Time xsd:dateTime
+linkml:Time xsd:time
 
 linkml:Date xsd:date
 
@@ -38,73 +39,70 @@ linkml:Objectidentifier IRI
 
 linkml:Nodeidentifier NONLITERAL
 
+linkml:Jsonpointer xsd:string
+
+linkml:Jsonpath xsd:string
+
+linkml:Sparqlpath xsd:string
+
 <Bag>  (
     CLOSED {
        (  $<Bag_tes> (  &<Collection_tes> ;
-             rdf:type [ <Collection> ] ?
+             rdf:type [ coll:Collection ] ? ;
+             coll:item @<CoItem> *
           ) ;
-          rdf:type [ <Bag> ] ?
+          rdf:type [ coll:Bag ] ?
        )
     } OR @<List>
 )
 
 <CoItem>  (
     CLOSED {
-       (  $<CoItem_tes> (  &<Thing_tes> ;
-             rdf:type [ <Thing> ] ? ;
-             <itemOf> @<Bag> ?
-          ) ;
-          rdf:type [ <CoItem> ] ?
+       (  $<CoItem_tes> coll:itemContent @linkml:Uriorcurie ;
+          rdf:type [ coll:Item ] ?
        )
     } OR @<ListItem>
 )
 
 <Collection>  (
     CLOSED {
-       (  $<Collection_tes> (  &<Thing_tes> ;
-             rdf:type [ <Thing> ] ? ;
-             <size> @<PositiveInteger> ?
+       (  $<Collection_tes> (  coll:size @linkml:Integer ? ;
+             coll:element @linkml:Uriorcurie *
           ) ;
-          rdf:type [ <Collection> ] ?
+          rdf:type [ coll:Collection ] ?
        )
     } OR @<Bag> OR @<Set>
 )
 
 <List> CLOSED {
     (  $<List_tes> (  &<Bag_tes> ;
-          rdf:type [ <Bag> ] ? ;
-          <lastItem> @<ListItem> ? ;
-          <firstItem> @<ListItem> ?
+          rdf:type [ coll:Bag ] ? ;
+          coll:firstItem @<ListItem> ? ;
+          coll:lastItem @<ListItem> ? ;
+          coll:item @<ListItem> *
        ) ;
-       rdf:type [ <List> ] ?
+       rdf:type [ coll:List ] ?
     )
 }
 
 <ListItem> CLOSED {
     (  $<ListItem_tes> (  &<CoItem_tes> ;
-          rdf:type [ <CoItem> ] ? ;
-          <_index> @<PositiveInteger>
+          rdf:type [ coll:Item ] ? ;
+          coll:index @linkml:Integer ;
+          coll:nextItem @<ListItem> ? ;
+          coll:previousItem @<ListItem> ? ;
+          coll:followedBy @<ListItem> * ;
+          coll:precededBy @<ListItem> *
        ) ;
-       rdf:type [ <ListItem> ] ?
+       rdf:type [ coll:ListItem ] ?
     )
 }
 
 <Set> CLOSED {
     (  $<Set_tes> (  &<Collection_tes> ;
-          rdf:type [ <Collection> ] ?
+          rdf:type [ coll:Collection ] ? ;
+          coll:element @linkml:Uriorcurie *
        ) ;
-       rdf:type [ <Set> ] ?
+       rdf:type [ coll:Set ] ?
     )
 }
-
-<Thing>  (
-    @<CoItem> OR @<Collection>
-)
-
-<Thing_struct> {
-    (  $<Thing_tes> rdf:type . * ;
-       rdf:type [ <Thing> ] ?
-    )
-}
-
-

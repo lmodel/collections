@@ -1,0 +1,9 @@
+# linkml-lint reads this file from the directory `just lint` runs in.
+# The recommended rules apply, with the naming rule fitted to the
+# Collections Ontology's names. Slots keep CO's property names, so the keys
+# of the data are CO's local names: lowerCamelCase (firstItem, itemContent),
+# and co_size, which renders CO's size under a name UCO does not also use.
+extends: recommended
+rules:
+  standard_naming:
+    slot_pattern: "^([a-z]+_)?[a-z][A-Za-z0-9]*$"

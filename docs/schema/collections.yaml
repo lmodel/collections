@@ -1,0 +1,777 @@
+name: collections
+annotations:
+  co_ontology_iri:
+    tag: co_ontology_iri
+    value: http://purl.org/co
+  co_commit:
+    tag: co_commit
+    value: 619e7b02646321174635fd04be658e338bf7d1d7
+  co_git_object:
+    tag: co_git_object
+    value: 4e19e4892212de2b1805923a7a69fa4ba8c1b424
+  co_licence:
+    tag: co_licence
+    value: Apache-2.0 for code and CC-BY-3.0 for content, per the Google Code archive
+description: 'The Collections Ontology (CO) 2.0 in LinkML, with CO''s own names and
+  IRIs: collections that are sets, bags or lists, and the items through which a bag
+  or a list holds its elements.'
+title: Collections Ontology (CO)
+comments:
+- Renders CO 2.0 by Paolo Ciccarese and Silvio Peroni, whose ontology IRI is http://purl.org/co.
+  The source is collections.owl at the commit the co_commit annotation names, copied
+  unchanged to upstream/collections.owl.
+- The repository states no licence. The project's Google Code archive gives the Apache
+  License 2.0 for its code and CC BY 3.0 for its content, as the co_licence annotation
+  says. The descriptions here are this project's own words.
+- CO's Item and size are named CoItem and co_size, as in lmodel/uco's uco_co module,
+  because UCO defines an Item and a size of its own. Their IRIs are CO's.
+- Items have no IRI here, so a slot that links to an item, such as firstItem or nextItem,
+  holds a copy of that item. docs/index.md lists the rules of CO that no validator
+  checks and the tests check instead.
+source: https://github.com/collections-ontology/collections-ontology
+see_also:
+- https://lmodel.github.io/collections
+- https://doi.org/10.3233/SW-130121
+id: https://w3id.org/lmodel/collections
+version: '2.0'
+imports:
+- linkml:types
+license: Apache-2.0
+prefixes:
+  collections:
+    prefix_prefix: collections
+    prefix_reference: https://w3id.org/lmodel/collections/
+  coll:
+    prefix_prefix: coll
+    prefix_reference: http://purl.org/co/
+  linkml:
+    prefix_prefix: linkml
+    prefix_reference: https://w3id.org/linkml/
+default_prefix: collections
+default_range: string
+types:
+  string:
+    name: string
+    definition_uri: https://w3id.org/linkml/String
+    description: A character string
+    notes:
+    - In RDF serializations, a slot with range of string is treated as a literal or
+      type xsd:string. If you are authoring schemas in LinkML YAML, the type is referenced
+      with the lower case "string".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    exact_mappings:
+    - schema:Text
+    base: str
+    uri: xsd:string
+  integer:
+    name: integer
+    definition_uri: https://w3id.org/linkml/Integer
+    description: An integer
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "integer".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    exact_mappings:
+    - schema:Integer
+    base: int
+    uri: xsd:integer
+  boolean:
+    name: boolean
+    definition_uri: https://w3id.org/linkml/Boolean
+    description: A binary (true or false) value
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "boolean".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    exact_mappings:
+    - schema:Boolean
+    base: Bool
+    uri: xsd:boolean
+    repr: bool
+  float:
+    name: float
+    definition_uri: https://w3id.org/linkml/Float
+    description: A real number that conforms to the xsd:float specification
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "float".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    exact_mappings:
+    - schema:Float
+    base: float
+    uri: xsd:float
+  double:
+    name: double
+    definition_uri: https://w3id.org/linkml/Double
+    description: A real number that conforms to the xsd:double specification
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "double".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    close_mappings:
+    - schema:Float
+    base: float
+    uri: xsd:double
+  decimal:
+    name: decimal
+    definition_uri: https://w3id.org/linkml/Decimal
+    description: A real number with arbitrary precision that conforms to the xsd:decimal
+      specification
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "decimal".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    broad_mappings:
+    - schema:Number
+    base: Decimal
+    uri: xsd:decimal
+  time:
+    name: time
+    definition_uri: https://w3id.org/linkml/Time
+    description: A time object represents a (local) time of day, independent of any
+      particular day
+    notes:
+    - URI is dateTime because OWL reasoners do not work with straight date or time
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "time".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    exact_mappings:
+    - schema:Time
+    base: XSDTime
+    uri: xsd:time
+    repr: str
+  date:
+    name: date
+    definition_uri: https://w3id.org/linkml/Date
+    description: a date (year, month and day) in an idealized calendar
+    notes:
+    - URI is dateTime because OWL reasoners don't work with straight date or time
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "date".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    exact_mappings:
+    - schema:Date
+    base: XSDDate
+    uri: xsd:date
+    repr: str
+  datetime:
+    name: datetime
+    definition_uri: https://w3id.org/linkml/Datetime
+    description: The combination of a date and time
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "datetime".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    exact_mappings:
+    - schema:DateTime
+    base: XSDDateTime
+    uri: xsd:dateTime
+    repr: str
+  date_or_datetime:
+    name: date_or_datetime
+    definition_uri: https://w3id.org/linkml/DateOrDatetime
+    description: Either a date or a datetime
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "date_or_datetime".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: str
+    uri: linkml:DateOrDatetime
+    repr: str
+  uriorcurie:
+    name: uriorcurie
+    definition_uri: https://w3id.org/linkml/Uriorcurie
+    description: a URI or a CURIE
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "uriorcurie".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: URIorCURIE
+    uri: xsd:anyURI
+    repr: str
+  curie:
+    name: curie
+    definition_uri: https://w3id.org/linkml/Curie
+    conforms_to: https://www.w3.org/TR/curie/
+    description: a compact URI
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "curie".
+    comments:
+    - in RDF serializations this MUST be expanded to a URI
+    - in non-RDF serializations MAY be serialized as the compact representation
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: Curie
+    uri: xsd:string
+    repr: str
+  uri:
+    name: uri
+    definition_uri: https://w3id.org/linkml/Uri
+    conforms_to: https://www.ietf.org/rfc/rfc3987.txt
+    description: a complete URI
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "uri".
+    comments:
+    - in RDF serializations a slot with range of uri is treated as a literal or type
+      xsd:anyURI unless it is an identifier or a reference to an identifier, in which
+      case it is translated directly to a node
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    close_mappings:
+    - schema:URL
+    base: URI
+    uri: xsd:anyURI
+    repr: str
+  ncname:
+    name: ncname
+    definition_uri: https://w3id.org/linkml/Ncname
+    description: Prefix part of CURIE
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "ncname".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: NCName
+    uri: xsd:string
+    repr: str
+  objectidentifier:
+    name: objectidentifier
+    definition_uri: https://w3id.org/linkml/Objectidentifier
+    description: A URI or CURIE that represents an object in the model.
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "objectidentifier".
+    comments:
+    - Used for inheritance and type checking
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: ElementIdentifier
+    uri: shex:iri
+    repr: str
+  nodeidentifier:
+    name: nodeidentifier
+    definition_uri: https://w3id.org/linkml/Nodeidentifier
+    description: A URI, CURIE or BNODE that represents a node in a model.
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "nodeidentifier".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: NodeIdentifier
+    uri: shex:nonLiteral
+    repr: str
+  jsonpointer:
+    name: jsonpointer
+    definition_uri: https://w3id.org/linkml/Jsonpointer
+    conforms_to: https://datatracker.ietf.org/doc/html/rfc6901
+    description: A string encoding a JSON Pointer. The value of the string MUST conform
+      to JSON Point syntax and SHOULD dereference to a valid object within the current
+      instance document when encoded in tree form.
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "jsonpointer".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: str
+    uri: xsd:string
+    repr: str
+  jsonpath:
+    name: jsonpath
+    definition_uri: https://w3id.org/linkml/Jsonpath
+    conforms_to: https://www.ietf.org/archive/id/draft-goessner-dispatch-jsonpath-00.html
+    description: A string encoding a JSON Path. The value of the string MUST conform
+      to JSON Point syntax and SHOULD dereference to zero or more valid objects within
+      the current instance document when encoded in tree form.
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "jsonpath".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: str
+    uri: xsd:string
+    repr: str
+  sparqlpath:
+    name: sparqlpath
+    definition_uri: https://w3id.org/linkml/Sparqlpath
+    conforms_to: https://www.w3.org/TR/sparql11-query/#propertypaths
+    description: A string encoding a SPARQL Property Path. The value of the string
+      MUST conform to SPARQL syntax and SHOULD dereference to zero or more valid objects
+      within the current instance document when encoded as RDF.
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "sparqlpath".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: str
+    uri: xsd:string
+    repr: str
+slots:
+  element:
+    name: element
+    definition_uri: https://w3id.org/lmodel/collections/element
+    description: A thing the collection holds, named by its IRI.
+    from_schema: https://w3id.org/lmodel/collections
+    mappings:
+    - coll:element
+    domain: Collection
+    slot_uri: coll:element
+    owner: Collection
+    domain_of:
+    - Collection
+    range: uriorcurie
+    multivalued: true
+  elementOf:
+    name: elementOf
+    definition_uri: https://w3id.org/lmodel/collections/elementOf
+    description: A collection that holds the thing as an element.
+    comments:
+    - CO declares it the inverse of element. LinkML's Python generator states an inverse
+      only between slots that range over classes, and element ranges over any thing
+      named by its IRI, so the inverse is not stated here.
+    from_schema: https://w3id.org/lmodel/collections
+    mappings:
+    - coll:elementOf
+    slot_uri: coll:elementOf
+    range: Collection
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  co_size:
+    name: co_size
+    definition_uri: https://w3id.org/lmodel/collections/co_size
+    description: 'How many times the collection holds a thing, counting each repeat:
+      the number of elements of a set, or of items of a bag or a list.'
+    comments:
+    - CO gives every collection exactly one size. The schema leaves it optional, since
+      a reader can count; where it is given, the tests check that it equals the count.
+    from_schema: https://w3id.org/lmodel/collections
+    mappings:
+    - coll:size
+    domain: Collection
+    slot_uri: coll:size
+    owner: Collection
+    domain_of:
+    - Collection
+    range: integer
+    minimum_value: 0
+  item:
+    name: item
+    definition_uri: https://w3id.org/lmodel/collections/item
+    description: An item of the bag, which holds one of its elements.
+    from_schema: https://w3id.org/lmodel/collections
+    mappings:
+    - coll:item
+    domain: Bag
+    slot_uri: coll:item
+    owner: Bag
+    domain_of:
+    - Bag
+    inverse: itemOf
+    range: CoItem
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  itemOf:
+    name: itemOf
+    definition_uri: https://w3id.org/lmodel/collections/itemOf
+    description: A bag that holds the item.
+    from_schema: https://w3id.org/lmodel/collections
+    mappings:
+    - coll:itemOf
+    domain: CoItem
+    slot_uri: coll:itemOf
+    owner: itemOf
+    inverse: item
+    range: Bag
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  itemContent:
+    name: itemContent
+    definition_uri: https://w3id.org/lmodel/collections/itemContent
+    description: The element that the item wraps.
+    from_schema: https://w3id.org/lmodel/collections
+    mappings:
+    - coll:itemContent
+    domain: CoItem
+    slot_uri: coll:itemContent
+    owner: CoItem
+    domain_of:
+    - CoItem
+    range: uriorcurie
+  itemContentOf:
+    name: itemContentOf
+    definition_uri: https://w3id.org/lmodel/collections/itemContentOf
+    description: An item that wraps the thing.
+    comments:
+    - CO declares it the inverse of itemContent, which is not stated here for the
+      reason given on elementOf.
+    from_schema: https://w3id.org/lmodel/collections
+    mappings:
+    - coll:itemContentOf
+    slot_uri: coll:itemContentOf
+    range: CoItem
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  index:
+    name: index
+    definition_uri: https://w3id.org/lmodel/collections/index
+    description: The place of the item in its list, counting from 1.
+    from_schema: https://w3id.org/lmodel/collections
+    mappings:
+    - coll:index
+    domain: ListItem
+    slot_uri: coll:index
+    owner: ListItem
+    domain_of:
+    - ListItem
+    range: integer
+    minimum_value: 1
+  firstItem:
+    name: firstItem
+    definition_uri: https://w3id.org/lmodel/collections/firstItem
+    description: The first item of the list.
+    comments:
+    - 'It holds a copy of the item with index 1, which has no previous item. CO makes
+      it a narrower form of item, which is not stated here: a LinkML slot inherits
+      its parent''s multivalued, and this one is single.'
+    from_schema: https://w3id.org/lmodel/collections
+    mappings:
+    - coll:firstItem
+    domain: List
+    slot_uri: coll:firstItem
+    owner: List
+    domain_of:
+    - List
+    inverse: firstItemOf
+    range: ListItem
+    inlined: true
+    inlined_as_list: true
+  firstItemOf:
+    name: firstItemOf
+    definition_uri: https://w3id.org/lmodel/collections/firstItemOf
+    description: A list whose first item this is.
+    from_schema: https://w3id.org/lmodel/collections
+    mappings:
+    - coll:firstItemOf
+    domain: ListItem
+    slot_uri: coll:firstItemOf
+    owner: firstItemOf
+    inverse: firstItem
+    range: List
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  lastItem:
+    name: lastItem
+    definition_uri: https://w3id.org/lmodel/collections/lastItem
+    description: The last item of the list.
+    comments:
+    - It holds a copy of the item with the highest index, which has no next item.
+      CO makes it a narrower form of item, which is not stated here for the reason
+      given on firstItem.
+    from_schema: https://w3id.org/lmodel/collections
+    mappings:
+    - coll:lastItem
+    domain: List
+    slot_uri: coll:lastItem
+    owner: List
+    domain_of:
+    - List
+    inverse: lastItemOf
+    range: ListItem
+    inlined: true
+    inlined_as_list: true
+  lastItemOf:
+    name: lastItemOf
+    definition_uri: https://w3id.org/lmodel/collections/lastItemOf
+    description: A list whose last item this is.
+    from_schema: https://w3id.org/lmodel/collections
+    mappings:
+    - coll:lastItemOf
+    domain: ListItem
+    slot_uri: coll:lastItemOf
+    owner: lastItemOf
+    inverse: lastItem
+    range: List
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  nextItem:
+    name: nextItem
+    definition_uri: https://w3id.org/lmodel/collections/nextItem
+    description: The item that comes straight after this one.
+    comments:
+    - It holds a copy of the item whose index is one higher. CO makes it a narrower
+      form of followedBy, which is not stated here for the reason given on firstItem.
+    from_schema: https://w3id.org/lmodel/collections
+    mappings:
+    - coll:nextItem
+    domain: ListItem
+    slot_uri: coll:nextItem
+    owner: ListItem
+    domain_of:
+    - ListItem
+    inverse: previousItem
+    range: ListItem
+    inlined: true
+    inlined_as_list: true
+  previousItem:
+    name: previousItem
+    definition_uri: https://w3id.org/lmodel/collections/previousItem
+    description: The item that comes straight before this one.
+    comments:
+    - It holds a copy of the item whose index is one lower. CO makes it a narrower
+      form of precededBy, which is not stated here for the reason given on firstItem.
+    from_schema: https://w3id.org/lmodel/collections
+    mappings:
+    - coll:previousItem
+    domain: ListItem
+    slot_uri: coll:previousItem
+    owner: ListItem
+    domain_of:
+    - ListItem
+    inverse: nextItem
+    range: ListItem
+    inlined: true
+    inlined_as_list: true
+  followedBy:
+    name: followedBy
+    definition_uri: https://w3id.org/lmodel/collections/followedBy
+    description: An item that comes somewhere after this one.
+    comments:
+    - It holds copies of items whose index is higher.
+    from_schema: https://w3id.org/lmodel/collections
+    mappings:
+    - coll:followedBy
+    domain: ListItem
+    slot_uri: coll:followedBy
+    owner: ListItem
+    domain_of:
+    - ListItem
+    transitive: true
+    inverse: precededBy
+    range: ListItem
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  precededBy:
+    name: precededBy
+    definition_uri: https://w3id.org/lmodel/collections/precededBy
+    description: An item that comes somewhere before this one.
+    comments:
+    - It holds copies of items whose index is lower.
+    from_schema: https://w3id.org/lmodel/collections
+    mappings:
+    - coll:precededBy
+    domain: ListItem
+    slot_uri: coll:precededBy
+    owner: ListItem
+    domain_of:
+    - ListItem
+    transitive: true
+    inverse: followedBy
+    range: ListItem
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  Set_element:
+    name: Set_element
+    definition_uri: https://w3id.org/lmodel/collections/element
+    description: A thing the collection holds, named by its IRI.
+    from_schema: https://w3id.org/lmodel/collections
+    mappings:
+    - coll:element
+    is_a: element
+    domain: Set
+    slot_uri: coll:element
+    list_elements_unique: true
+    alias: element
+    owner: Set
+    domain_of:
+    - Set
+    is_usage_slot: true
+    usage_slot_name: element
+    range: uriorcurie
+    multivalued: true
+  List_item:
+    name: List_item
+    definition_uri: https://w3id.org/lmodel/collections/item
+    description: An item of the bag, which holds one of its elements.
+    from_schema: https://w3id.org/lmodel/collections
+    mappings:
+    - coll:item
+    is_a: item
+    domain: List
+    slot_uri: coll:item
+    alias: item
+    owner: List
+    domain_of:
+    - List
+    is_usage_slot: true
+    usage_slot_name: item
+    range: ListItem
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  CoItem_itemContent:
+    name: CoItem_itemContent
+    definition_uri: https://w3id.org/lmodel/collections/itemContent
+    description: The element that the item wraps.
+    from_schema: https://w3id.org/lmodel/collections
+    mappings:
+    - coll:itemContent
+    is_a: itemContent
+    domain: CoItem
+    slot_uri: coll:itemContent
+    alias: itemContent
+    owner: CoItem
+    domain_of:
+    - CoItem
+    is_usage_slot: true
+    usage_slot_name: itemContent
+    range: uriorcurie
+    required: true
+  ListItem_index:
+    name: ListItem_index
+    definition_uri: https://w3id.org/lmodel/collections/index
+    description: The place of the item in its list, counting from 1.
+    from_schema: https://w3id.org/lmodel/collections
+    mappings:
+    - coll:index
+    is_a: index
+    domain: ListItem
+    slot_uri: coll:index
+    alias: index
+    owner: ListItem
+    domain_of:
+    - ListItem
+    is_usage_slot: true
+    usage_slot_name: index
+    range: integer
+    required: true
+    minimum_value: 1
+classes:
+  Collection:
+    name: Collection
+    definition_uri: https://w3id.org/lmodel/collections/Collection
+    description: A group of things that is taken as a whole.
+    from_schema: https://w3id.org/lmodel/collections
+    exact_mappings:
+    - coll:Collection
+    slots:
+    - co_size
+    - element
+    class_uri: coll:Collection
+    disjoint_with:
+    - CoItem
+  Set:
+    name: Set
+    definition_uri: https://w3id.org/lmodel/collections/Set
+    description: A collection that holds each of its elements once.
+    comments:
+    - 'No validator checks that the elements differ: LinkML 1.12.1''s generators drop
+      list_elements_unique, so the tests check it.'
+    from_schema: https://w3id.org/lmodel/collections
+    exact_mappings:
+    - coll:Set
+    is_a: Collection
+    slots:
+    - co_size
+    - Set_element
+    slot_usage:
+      element:
+        name: element
+        list_elements_unique: true
+    class_uri: coll:Set
+  Bag:
+    name: Bag
+    definition_uri: https://w3id.org/lmodel/collections/Bag
+    description: A collection that may hold one element more than once, in no order.
+    from_schema: https://w3id.org/lmodel/collections
+    exact_mappings:
+    - coll:Bag
+    is_a: Collection
+    slots:
+    - co_size
+    - element
+    - item
+    class_uri: coll:Bag
+    disjoint_with:
+    - Set
+  List:
+    name: List
+    definition_uri: https://w3id.org/lmodel/collections/List
+    description: A collection whose items come in order, one after another.
+    comments:
+    - 'No validator checks the order: that the indexes count from 1 with no gap or
+      repeat, and that firstItem, lastItem and each item''s links agree with them.
+      The tests check it.'
+    from_schema: https://w3id.org/lmodel/collections
+    exact_mappings:
+    - coll:List
+    is_a: Bag
+    slots:
+    - co_size
+    - element
+    - firstItem
+    - lastItem
+    - List_item
+    slot_usage:
+      item:
+        name: item
+        range: ListItem
+    class_uri: coll:List
+  CoItem:
+    name: CoItem
+    definition_uri: https://w3id.org/lmodel/collections/CoItem
+    description: An entry of a bag, which wraps one of the bag's elements.
+    from_schema: https://w3id.org/lmodel/collections
+    exact_mappings:
+    - coll:Item
+    slots:
+    - CoItem_itemContent
+    slot_usage:
+      itemContent:
+        name: itemContent
+        required: true
+    class_uri: coll:Item
+  ListItem:
+    name: ListItem
+    definition_uri: https://w3id.org/lmodel/collections/ListItem
+    description: An item of a list, which has a place in the list's order.
+    from_schema: https://w3id.org/lmodel/collections
+    exact_mappings:
+    - coll:ListItem
+    is_a: CoItem
+    slots:
+    - CoItem_itemContent
+    - ListItem_index
+    - nextItem
+    - previousItem
+    - followedBy
+    - precededBy
+    slot_usage:
+      index:
+        name: index
+        required: true
+    class_uri: coll:ListItem
+metamodel_version: 1.12.0
+source_file: collections.yaml
+source_file_date: '2026-10-31T12:26:41'
+source_file_size: 8266
+

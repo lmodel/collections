@@ -1,42 +1,44 @@
+# metamodel_version: 1.12.0
+# version: 2.0
 type Bag
   {
-    element: [Thing]
-    size: PositiveInteger
+    coSize: Int
+    element: [String]
+    item: [CoItem]
   }
 
 type CoItem
   {
-    itemOf: Bag
+    itemContent: String!
   }
 
 type Collection
   {
-    element: [Thing]
-    size: PositiveInteger
+    coSize: Int
+    element: [String]
   }
 
 type List
   {
-    element: [Thing]
-    size: PositiveInteger
-    item: [ListItem]
-    lastItem: ListItem
+    coSize: Int
+    element: [String]
     firstItem: ListItem
+    lastItem: ListItem
+    item: [ListItem]
   }
 
 type ListItem
   {
-    itemOf: Bag
-    index: PositiveInteger!
+    itemContent: String!
+    index: Int!
+    nextItem: ListItem
+    previousItem: ListItem
+    followedBy: [ListItem]
+    precededBy: [ListItem]
   }
 
 type Set
   {
-    element: [Thing]
-    size: PositiveInteger
+    coSize: Int
+    element: [String]
   }
-
-interface Thing
-  {
-  }
-

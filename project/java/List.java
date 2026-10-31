@@ -1,22 +1,23 @@
-package None;
+package example;
 
+/* metamodel_version: 1.12.0 */
+/* version: 2.0 */
+import java.net.URI;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.ZonedDateTime;
 import java.util.List;
 import lombok.*;
 
-
-
-/* version: 2.0.0 */
-
-
 /**
-  An ordered array of items, that can be present in multiple copies
+  A collection whose items come in order, one after another.
 **/
 @Data
 @EqualsAndHashCode(callSuper=false)
 public class List extends Bag {
 
-  private List<ListItem> item;
-  private ListItem lastItem;
   private ListItem firstItem;
+  private ListItem lastItem;
+
 
 }

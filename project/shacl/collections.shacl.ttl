@@ -1,116 +1,181 @@
-@prefix collections: <https://w3id.org/lmodel/collections/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-
-collections:CoItem a sh:NodeShape ;
-    sh:closed true ;
-    sh:description "Element belonging to a bag" ;
-    sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:class collections:Bag ;
-            sh:description "The link to a bag in which the item is member." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:BlankNode ;
-            sh:order 0 ;
-            sh:path collections:itemOf ] ;
-    sh:targetClass collections:CoItem .
-
-collections:Collection a sh:NodeShape ;
-    sh:closed true ;
-    sh:description "A group of objects that can be considered as a whole." ;
-    sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:class collections:Thing ;
-            sh:description "The link to the members of a collection" ;
-            sh:nodeKind sh:BlankNode ;
-            sh:order 0 ;
-            sh:path collections:element ],
-        [ sh:description "The number of item belonging to a collection." ;
-            sh:maxCount 1 ;
-            sh:order 1 ;
-            sh:path collections:size ] ;
-    sh:targetClass collections:Collection .
-
-collections:List a sh:NodeShape ;
-    sh:closed true ;
-    sh:description "An ordered array of items, that can be present in multiple copies" ;
-    sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:class collections:ListItem ;
-            sh:description "The link to the last item of the list." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:BlankNode ;
-            sh:order 1 ;
-            sh:path collections:lastItem ],
-        [ sh:class collections:Thing ;
-            sh:description "The link to the members of a collection" ;
-            sh:nodeKind sh:BlankNode ;
-            sh:order 3 ;
-            sh:path collections:element ],
-        [ sh:description "The number of item belonging to a collection." ;
-            sh:maxCount 1 ;
-            sh:order 4 ;
-            sh:path collections:size ],
-        [ sh:class collections:ListItem ;
-            sh:description "The link to every item of the bag" ;
-            sh:nodeKind sh:BlankNode ;
-            sh:order 0 ;
-            sh:path collections:item ],
-        [ sh:class collections:ListItem ;
-            sh:description "The link to the first item of the list." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:BlankNode ;
-            sh:order 2 ;
-            sh:path collections:firstItem ] ;
-    sh:targetClass collections:List .
-
-collections:Set a sh:NodeShape ;
-    sh:closed true ;
-    sh:description "A collection that cannot contain duplicate elements." ;
-    sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:class collections:Thing ;
-            sh:description "The link to the members of a collection" ;
-            sh:nodeKind sh:BlankNode ;
-            sh:order 0 ;
-            sh:path collections:element ],
-        [ sh:description "The number of item belonging to a collection." ;
-            sh:maxCount 1 ;
-            sh:order 1 ;
-            sh:path collections:size ] ;
-    sh:targetClass collections:Set .
-
-collections:Bag a sh:NodeShape ;
-    sh:closed true ;
-    sh:description "Collection that can have a number of copies of each object" ;
-    sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:class collections:Thing ;
-            sh:description "The link to the members of a collection" ;
-            sh:nodeKind sh:BlankNode ;
-            sh:order 0 ;
-            sh:path collections:element ],
-        [ sh:description "The number of item belonging to a collection." ;
-            sh:maxCount 1 ;
-            sh:order 1 ;
-            sh:path collections:size ] ;
-    sh:targetClass collections:Bag .
-
-collections:ListItem a sh:NodeShape ;
-    sh:closed true ;
-    sh:description "element belonging to a list" ;
-    sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:class collections:Bag ;
-            sh:description "The link to a bag in which the item is member." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:BlankNode ;
-            sh:order 1 ;
-            sh:path collections:itemOf ],
-        [ sh:description "A number identifying the position, starting from 1, of a particular list item within a list." ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:order 0 ;
-            sh:path collections:_index ] ;
-    sh:targetClass collections:ListItem .
-
-collections:Thing a sh:NodeShape ;
-    sh:closed false ;
-    sh:ignoredProperties ( rdf:type ) ;
-    sh:targetClass collections:Thing .
-
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix coll: <http://purl.org/co/> .
+coll:Bag a sh:NodeShape ;
+	rdfs:comment "A collection that may hold one element more than once, in no order." ;
+	sh:closed true ;
+	sh:ignoredProperties _:c14n19 ;
+	sh:property _:c14n0 , _:c14n10 , _:c14n20 ;
+	sh:targetClass coll:Bag .
+coll:Collection a sh:NodeShape ;
+	rdfs:comment "A group of things that is taken as a whole." ;
+	sh:closed true ;
+	sh:ignoredProperties _:c14n7 ;
+	sh:property _:c14n21 , _:c14n9 ;
+	sh:targetClass coll:Collection .
+coll:Item a sh:NodeShape ;
+	rdfs:comment "An entry of a bag, which wraps one of the bag's elements." ;
+	sh:closed true ;
+	sh:ignoredProperties _:c14n12 ;
+	sh:property _:c14n3 ;
+	sh:targetClass coll:Item .
+coll:List a sh:NodeShape ;
+	rdfs:comment "A collection whose items come in order, one after another." ;
+	sh:closed true ;
+	sh:ignoredProperties _:c14n6 ;
+	sh:property _:c14n17 , _:c14n23 , _:c14n25 , _:c14n27 , _:c14n4 ;
+	sh:targetClass coll:List .
+coll:ListItem a sh:NodeShape ;
+	rdfs:comment "An item of a list, which has a place in the list's order." ;
+	sh:closed true ;
+	sh:ignoredProperties _:c14n5 ;
+	sh:property _:c14n1 , _:c14n16 , _:c14n22 , _:c14n26 , _:c14n28 , _:c14n8 ;
+	sh:targetClass coll:ListItem .
+coll:Set a sh:NodeShape ;
+	rdfs:comment "A collection that holds each of its elements once." ;
+	sh:closed true ;
+	sh:ignoredProperties _:c14n24 ;
+	sh:property _:c14n18 , _:c14n29 ;
+	sh:targetClass coll:Set .
+_:c14n0 sh:datatype xsd:integer ;
+	sh:description "How many times the collection holds a thing, counting each repeat: the number of elements of a set, or of items of a bag or a list." ;
+	sh:maxCount 1 ;
+	sh:minInclusive 0 ;
+	sh:nodeKind sh:Literal ;
+	sh:order 1 ;
+	sh:path coll:size .
+_:c14n1 sh:description "The element that the item wraps." ;
+	sh:maxCount 1 ;
+	sh:minCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:order 5 ;
+	sh:path coll:itemContent .
+_:c14n10 sh:description "A thing the collection holds, named by its IRI." ;
+	sh:nodeKind sh:IRI ;
+	sh:order 2 ;
+	sh:path coll:element .
+_:c14n11 rdf:first coll:index ;
+	rdf:rest _:c14n2 .
+_:c14n12 rdf:first coll:followedBy ;
+	rdf:rest _:c14n11 .
+_:c14n13 rdf:first coll:item ;
+	rdf:rest _:c14n32 .
+_:c14n14 rdf:first coll:previousItem ;
+	rdf:rest _:c14n34 .
+_:c14n15 rdf:first coll:precededBy ;
+	rdf:rest _:c14n14 .
+_:c14n16 sh:class coll:ListItem ;
+	sh:description "The item that comes straight after this one." ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:BlankNodeOrIRI ;
+	sh:order 1 ;
+	sh:path coll:nextItem .
+_:c14n17 sh:class coll:ListItem ;
+	sh:description "The last item of the list." ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:BlankNodeOrIRI ;
+	sh:order 1 ;
+	sh:path coll:lastItem .
+_:c14n18 sh:datatype xsd:integer ;
+	sh:description "How many times the collection holds a thing, counting each repeat: the number of elements of a set, or of items of a bag or a list." ;
+	sh:maxCount 1 ;
+	sh:minInclusive 0 ;
+	sh:nodeKind sh:Literal ;
+	sh:order 0 ;
+	sh:path coll:size .
+_:c14n19 rdf:first coll:firstItem ;
+	rdf:rest _:c14n30 .
+_:c14n2 rdf:first coll:nextItem ;
+	rdf:rest _:c14n15 .
+_:c14n20 sh:class coll:Item ;
+	sh:description "An item of the bag, which holds one of its elements." ;
+	sh:nodeKind sh:BlankNodeOrIRI ;
+	sh:order 0 ;
+	sh:path coll:item .
+_:c14n21 sh:datatype xsd:integer ;
+	sh:description "How many times the collection holds a thing, counting each repeat: the number of elements of a set, or of items of a bag or a list." ;
+	sh:maxCount 1 ;
+	sh:minInclusive 0 ;
+	sh:nodeKind sh:Literal ;
+	sh:order 0 ;
+	sh:path coll:size .
+_:c14n22 sh:class coll:ListItem ;
+	sh:description "The item that comes straight before this one." ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:BlankNodeOrIRI ;
+	sh:order 2 ;
+	sh:path coll:previousItem .
+_:c14n23 sh:class coll:ListItem ;
+	sh:description "The first item of the list." ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:BlankNodeOrIRI ;
+	sh:order 0 ;
+	sh:path coll:firstItem .
+_:c14n24 rdf:first rdf:type ;
+	rdf:rest rdf:nil .
+_:c14n25 sh:description "A thing the collection holds, named by its IRI." ;
+	sh:nodeKind sh:IRI ;
+	sh:order 4 ;
+	sh:path coll:element .
+_:c14n26 sh:class coll:ListItem ;
+	sh:description "An item that comes somewhere after this one." ;
+	sh:nodeKind sh:BlankNodeOrIRI ;
+	sh:order 3 ;
+	sh:path coll:followedBy .
+_:c14n27 sh:datatype xsd:integer ;
+	sh:description "How many times the collection holds a thing, counting each repeat: the number of elements of a set, or of items of a bag or a list." ;
+	sh:maxCount 1 ;
+	sh:minInclusive 0 ;
+	sh:nodeKind sh:Literal ;
+	sh:order 3 ;
+	sh:path coll:size .
+_:c14n28 sh:class coll:ListItem ;
+	sh:description "An item that comes somewhere before this one." ;
+	sh:nodeKind sh:BlankNodeOrIRI ;
+	sh:order 4 ;
+	sh:path coll:precededBy .
+_:c14n29 sh:description "A thing the collection holds, named by its IRI." ;
+	sh:nodeKind sh:IRI ;
+	sh:order 1 ;
+	sh:path coll:element .
+_:c14n3 sh:description "The element that the item wraps." ;
+	sh:maxCount 1 ;
+	sh:minCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:order 0 ;
+	sh:path coll:itemContent .
+_:c14n30 rdf:first coll:lastItem ;
+	rdf:rest _:c14n31 .
+_:c14n31 rdf:first rdf:type ;
+	rdf:rest rdf:nil .
+_:c14n32 rdf:first coll:lastItem ;
+	rdf:rest _:c14n33 .
+_:c14n33 rdf:first rdf:type ;
+	rdf:rest rdf:nil .
+_:c14n34 rdf:first rdf:type ;
+	rdf:rest rdf:nil .
+_:c14n4 sh:class coll:ListItem ;
+	sh:description "An item of the bag, which holds one of its elements." ;
+	sh:nodeKind sh:BlankNodeOrIRI ;
+	sh:order 2 ;
+	sh:path coll:item .
+_:c14n5 rdf:first rdf:type ;
+	rdf:rest rdf:nil .
+_:c14n6 rdf:first rdf:type ;
+	rdf:rest rdf:nil .
+_:c14n7 rdf:first coll:firstItem ;
+	rdf:rest _:c14n13 .
+_:c14n8 sh:datatype xsd:integer ;
+	sh:description "The place of the item in its list, counting from 1." ;
+	sh:maxCount 1 ;
+	sh:minCount 1 ;
+	sh:minInclusive 1 ;
+	sh:nodeKind sh:Literal ;
+	sh:order 0 ;
+	sh:path coll:index .
+_:c14n9 sh:description "A thing the collection holds, named by its IRI." ;
+	sh:nodeKind sh:IRI ;
+	sh:order 1 ;
+	sh:path coll:element .
