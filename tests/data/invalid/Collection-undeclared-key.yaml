@@ -1,0 +1,4 @@
+# Fails at: /
+# Invalid: every class is closed, so a key the class does not declare fails.
+members:
+  - https://example.org/a

@@ -1,0 +1,10 @@
+# Fails at: /lastItem
+# Invalid: the last item is the item with the highest index.
+item:
+  - co_index: 1
+    itemContent: https://example.org/a
+  - co_index: 2
+    itemContent: https://example.org/b
+lastItem:
+  co_index: 1
+  itemContent: https://example.org/a

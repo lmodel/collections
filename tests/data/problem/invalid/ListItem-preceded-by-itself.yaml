@@ -1,0 +1,7 @@
+# Fails at: /precededBy/0
+# Invalid: an item is preceded only by items with a lower index, never by itself.
+co_index: 2
+itemContent: https://example.org/b
+precededBy:
+  - co_index: 2
+    itemContent: https://example.org/b

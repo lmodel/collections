@@ -1,19 +1,21 @@
-package None;
+package example;
 
+/* metamodel_version: 1.12.0 */
+/* version: 2.0 */
+import java.net.URI;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.ZonedDateTime;
 import java.util.List;
 import lombok.*;
 
-
-
-/* version: 2.0.0 */
-
-
 /**
-  A collection that cannot contain duplicate elements.
+  A collection that holds each of its elements once.
 **/
 @Data
 @EqualsAndHashCode(callSuper=false)
 public class Set extends Collection {
+
 
 
 }

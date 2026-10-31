@@ -1,0 +1,10 @@
+# Fails at: /firstItem
+# Invalid: a list has one first item.
+item:
+  - co_index: 1
+    itemContent: https://example.org/a
+firstItem:
+  - co_index: 1
+    itemContent: https://example.org/a
+  - co_index: 1
+    itemContent: https://example.org/b

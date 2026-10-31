@@ -1,34 +1,99 @@
-[tool.poetry]
-name = "collections"
-version = "1.1.0"
-description = "Linkml schema for Collections Ontology (CO)"
-authors = ["Noel McLoughlin <noel.mcloughlin@gmail.com>"]
-license = "Apache Software License 2.0"
+[build-system]
+requires = ["hatchling", "uv-dynamic-versioning"]
+build-backend = "hatchling.build"
+
+[project]
+# Named like lmodel/slsa's slsa-linkml, so the PyPI name says what it holds.
+# The import package is collections_linkml, because a package named
+# collections would shadow the standard library's. PyPI publishing is off.
+name = "collections-linkml"
+description = "Collections Ontology (CO) 2.0 (LinkML)"
+authors = [
+  {name = "Noel McLoughlin", email = "noel.mcloughlin@gmail.com"},
+]
+license = "Apache-2.0"
+license-files = ["LICENSE", "NOTICE"]
 readme = "README.md"
-include = ["README.md", "src/collections/schema", "project"]
+requires-python = ">=3.10"
+dynamic = ["version"]
 
-[tool.poetry.dependencies]
-python = "^3.9"
-linkml-runtime = "^1.4.9"
-linkml-owl = "^0.2"
-schema-automator = "^0.2.11"
-linkml-transformer = "^0.1.2"
+dependencies = [
+  "linkml-runtime >=1.9.4",
+]
 
-[tool.poetry-dynamic-versioning]
-enable = true
+[dependency-groups]
+dev = [
+    "linkml>=1.9.3",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/collections_linkml"]
+
+# The schema sits outside the package, at the path w3id.org serves, so the
+# wheel carries it under the package's schema folder.
+[tool.hatch.build.targets.wheel.force-include]
+"src/collections/schema" = "collections_linkml/schema"
+
+# See https://hatch.pypa.io/latest/config/build/#file-selection for how to
+# explicitly include files other than default into the build distributions.
+
+[tool.hatch.version]
+source = "uv-dynamic-versioning"
+
+# Ref.: https://github.com/ninoseki/uv-dynamic-versioning/
+[tool.uv-dynamic-versioning]
 vcs = "git"
 style = "pep440"
+fallback-version = "0.0.0"
 
-[tool.poetry.dev-dependencies]
-cruft = "^2.12"
-linkml = "^1.4.8"
-mkdocs-material = "^9.0"
-mkdocs-mermaid2-plugin = "^0.6"
-schemasheets = "^0.1"
+# Ref.: https://docs.pytest.org/en/stable/reference/reference.html#configuration-options
+[tool.pytest.ini_options]
+testpaths = ["tests"]
 
-[build-system]
-requires = ["poetry-core>=1.5.0", "poetry-dynamic-versioning"]
-build-backend = "poetry_dynamic_versioning.backend"
+# https://docs.astral.sh/ruff/configuration/
+[tool.ruff]
+exclude = [
+    "src/collections_linkml/_version.py",
+]
+# Set oldest supported Python version
+target-version = "py310"
 
-[tool.poetry.extras]
-docs = ["linkml", "mkdocs-material"]
+# Ref.: https://github.com/codespell-project/codespell
+[tool.codespell]
+skip = [
+  "LICENSE",
+  "pyproject.toml",
+  "uv.lock",
+  "project/*",
+  "src/collections_linkml/datamodel/collections_pydantic.py",
+  "src/collections_linkml/datamodel/collections.py",
+  # The Collections Ontology's file, copied unchanged; the neighbours' adapt
+  # copies, copied as released; and files copied in by the KTL sidecar sync
+  # or written by npm, not by hand.
+  "src/collections/schema/upstream/*",
+  "tests/neighbours/*",
+  ".lokf/scripts/*",
+  "website/package-lock.json",
+]
+
+# Reminder: words have to be lowercased for the ignore-words-list
+ignore-words-list = "linke"
+quiet-level = 3
+
+# Ref.: https://github.com/crate-ci/typos (spell checker)
+[tool.typos.default.extend-words]
+linke = "linke"
+
+[tool.typos.files]
+extend-exclude = [
+  "LICENSE",
+  "uv.lock",
+  "pyproject.toml",
+  "project/*",
+  "src/collections_linkml/datamodel/collections_pydantic.py",
+  "src/collections_linkml/datamodel/collections.py",
+  "src/collections/schema/upstream/*",
+  "tests/neighbours/*",
+  ".lokf/scripts/*",
+  "website/package-lock.json",
+]

@@ -1,0 +1,6 @@
+# Fails at: /
+# Invalid: a set holds its elements directly; only a bag has items.
+element:
+  - https://example.org/a
+item:
+  - itemContent: https://example.org/a

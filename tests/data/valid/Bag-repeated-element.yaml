@@ -1,0 +1,10 @@
+# A bag holds the element a twice and b once, through three items, so its
+# size is 3 and its elements are a and b.
+co_size: 3
+element:
+  - https://example.org/a
+  - https://example.org/b
+item:
+  - itemContent: https://example.org/a
+  - itemContent: https://example.org/b
+  - itemContent: https://example.org/a

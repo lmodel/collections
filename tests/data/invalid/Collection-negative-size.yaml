@@ -1,0 +1,3 @@
+# Fails at: /co_size
+# Invalid: a size is a count, never below 0.
+co_size: -1

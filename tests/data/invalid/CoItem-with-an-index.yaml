@@ -1,0 +1,4 @@
+# Fails at: /
+# Invalid: a plain item has no index; it is a list item that has one.
+co_index: 1
+itemContent: https://example.org/a

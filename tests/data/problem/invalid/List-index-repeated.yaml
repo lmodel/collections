@@ -1,0 +1,7 @@
+# Fails at: /item/1/co_index
+# Invalid: two items cannot share a place.
+item:
+  - co_index: 1
+    itemContent: https://example.org/a
+  - co_index: 1
+    itemContent: https://example.org/b

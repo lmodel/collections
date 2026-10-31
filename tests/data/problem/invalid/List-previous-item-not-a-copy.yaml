@@ -1,0 +1,11 @@
+# Fails at: /item/1/previousItem
+# Invalid: the previous item is the one whose index is one lower, and the
+# copy wraps what that item wraps.
+item:
+  - co_index: 1
+    itemContent: https://example.org/a
+  - co_index: 2
+    itemContent: https://example.org/b
+    previousItem:
+      co_index: 1
+      itemContent: https://example.org/z

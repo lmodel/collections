@@ -1,0 +1,8 @@
+# The index alone gives the order. The items need not be written in it.
+item:
+  - co_index: 2
+    itemContent: https://example.org/step/test
+  - co_index: 1
+    itemContent: https://example.org/step/build
+  - co_index: 3
+    itemContent: https://example.org/step/release

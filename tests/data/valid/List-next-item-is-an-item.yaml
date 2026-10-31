@@ -1,0 +1,9 @@
+# CO's chain item o nextItem makes the next item of an item an item of the
+# same list, so this list holds b at 2, though its item entries name only a.
+co_size: 2
+item:
+  - co_index: 1
+    itemContent: https://example.org/a
+    nextItem:
+      co_index: 2
+      itemContent: https://example.org/b

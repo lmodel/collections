@@ -1,21 +1,23 @@
-package None;
+package example;
 
+/* metamodel_version: 1.12.0 */
+/* version: 2.0 */
+import java.net.URI;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.ZonedDateTime;
 import java.util.List;
 import lombok.*;
 
-
-
-/* version: 2.0.0 */
-
-
 /**
-  A group of objects that can be considered as a whole.
+  A group of things that is taken as a whole.
 **/
 @Data
 @EqualsAndHashCode(callSuper=false)
-public class Collection extends Thing {
+public class Collection  {
 
-  private List<Thing> element;
-  private String size;
+  private Integer coSize;
+  private List<URI> element;
+
 
 }

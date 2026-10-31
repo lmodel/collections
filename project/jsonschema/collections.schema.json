@@ -2,18 +2,42 @@
     "$defs": {
         "Bag": {
             "additionalProperties": false,
-            "description": "Collection that can have a number of copies of each object",
+            "description": "A collection that may hold one element more than once, in no order.",
             "properties": {
-                "element": {
-                    "description": "The link to the members of a collection",
-                    "items": {
-                        "$ref": "#/$defs/Thing"
-                    },
-                    "type": "array"
+                "co_size": {
+                    "description": "How many times the collection holds a thing, counting each repeat: the number of elements of a set, or of items of a bag or a list.",
+                    "minimum": 0,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
                 },
-                "size": {
-                    "description": "The number of item belonging to a collection.",
-                    "type": "integer"
+                "element": {
+                    "description": "A thing the collection holds, named by its IRI.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "item": {
+                    "description": "An item of the bag, which holds one of its elements.",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/$defs/CoItem"
+                            },
+                            {
+                                "$ref": "#/$defs/ListItem"
+                            }
+                        ]
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
                 }
             },
             "title": "Bag",
@@ -21,30 +45,40 @@
         },
         "CoItem": {
             "additionalProperties": false,
-            "description": "Element belonging to a bag",
+            "description": "An entry of a bag, which wraps one of the bag's elements.",
             "properties": {
-                "itemOf": {
-                    "$ref": "#/$defs/Bag",
-                    "description": "The link to a bag in which the item is member."
+                "itemContent": {
+                    "description": "The element that the item wraps.",
+                    "type": "string"
                 }
             },
+            "required": [
+                "itemContent"
+            ],
             "title": "CoItem",
             "type": "object"
         },
         "Collection": {
             "additionalProperties": false,
-            "description": "A group of objects that can be considered as a whole.",
+            "description": "A group of things that is taken as a whole.",
             "properties": {
-                "element": {
-                    "description": "The link to the members of a collection",
-                    "items": {
-                        "$ref": "#/$defs/Thing"
-                    },
-                    "type": "array"
+                "co_size": {
+                    "description": "How many times the collection holds a thing, counting each repeat: the number of elements of a set, or of items of a bag or a list.",
+                    "minimum": 0,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
                 },
-                "size": {
-                    "description": "The number of item belonging to a collection.",
-                    "type": "integer"
+                "element": {
+                    "description": "A thing the collection holds, named by its IRI.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
                 }
             },
             "title": "Collection",
@@ -52,33 +86,57 @@
         },
         "List": {
             "additionalProperties": false,
-            "description": "An ordered array of items, that can be present in multiple copies",
+            "description": "A collection whose items come in order, one after another.",
             "properties": {
+                "co_size": {
+                    "description": "How many times the collection holds a thing, counting each repeat: the number of elements of a set, or of items of a bag or a list.",
+                    "minimum": 0,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
                 "element": {
-                    "description": "The link to the members of a collection",
+                    "description": "A thing the collection holds, named by its IRI.",
                     "items": {
-                        "$ref": "#/$defs/Thing"
+                        "type": "string"
                     },
-                    "type": "array"
+                    "type": [
+                        "array",
+                        "null"
+                    ]
                 },
                 "firstItem": {
-                    "$ref": "#/$defs/ListItem",
-                    "description": "The link to the first item of the list."
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/ListItem"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The first item of the list."
                 },
                 "item": {
-                    "description": "The link to every item of the bag",
+                    "description": "An item of the bag, which holds one of its elements.",
                     "items": {
                         "$ref": "#/$defs/ListItem"
                     },
-                    "type": "array"
+                    "type": [
+                        "array",
+                        "null"
+                    ]
                 },
                 "lastItem": {
-                    "$ref": "#/$defs/ListItem",
-                    "description": "The link to the last item of the list."
-                },
-                "size": {
-                    "description": "The number of item belonging to a collection.",
-                    "type": "integer"
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/ListItem"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The last item of the list."
                 }
             },
             "title": "List",
@@ -86,37 +144,88 @@
         },
         "ListItem": {
             "additionalProperties": false,
-            "description": "element belonging to a list",
+            "description": "An item of a list, which has a place in the list's order.",
             "properties": {
-                "_index": {
-                    "description": "A number identifying the position, starting from 1, of a particular list item within a list.",
+                "co_index": {
+                    "description": "The place of the item in its list, counting from 1.",
+                    "minimum": 1,
                     "type": "integer"
                 },
-                "itemOf": {
-                    "$ref": "#/$defs/Bag",
-                    "description": "The link to a bag in which the item is member."
+                "followedBy": {
+                    "description": "An item that comes somewhere after this one.",
+                    "items": {
+                        "$ref": "#/$defs/ListItem"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "itemContent": {
+                    "description": "The element that the item wraps.",
+                    "type": "string"
+                },
+                "nextItem": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/ListItem"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The item that comes straight after this one."
+                },
+                "precededBy": {
+                    "description": "An item that comes somewhere before this one.",
+                    "items": {
+                        "$ref": "#/$defs/ListItem"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "previousItem": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/ListItem"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The item that comes straight before this one."
                 }
             },
             "required": [
-                "_index"
+                "co_index",
+                "itemContent"
             ],
             "title": "ListItem",
             "type": "object"
         },
         "Set": {
             "additionalProperties": false,
-            "description": "A collection that cannot contain duplicate elements.",
+            "description": "A collection that holds each of its elements once.",
             "properties": {
-                "element": {
-                    "description": "The link to the members of a collection",
-                    "items": {
-                        "$ref": "#/$defs/Thing"
-                    },
-                    "type": "array"
+                "co_size": {
+                    "description": "How many times the collection holds a thing, counting each repeat: the number of elements of a set, or of items of a bag or a list.",
+                    "minimum": 0,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
                 },
-                "size": {
-                    "description": "The number of item belonging to a collection.",
-                    "type": "integer"
+                "element": {
+                    "description": "A thing the collection holds, named by its IRI.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
                 }
             },
             "title": "Set",
@@ -124,10 +233,10 @@
         }
     },
     "$id": "https://w3id.org/lmodel/collections",
-    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
     "additionalProperties": true,
-    "metamodel_version": "1.7.0",
+    "metamodel_version": "1.12.0",
     "title": "collections",
     "type": "object",
-    "version": "2.0.0"
+    "version": "2.0"
 }

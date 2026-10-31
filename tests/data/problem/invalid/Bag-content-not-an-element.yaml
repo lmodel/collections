@@ -1,0 +1,7 @@
+# Fails at: /item/1/itemContent
+# Invalid: what an item wraps is an element of the bag.
+element:
+  - https://example.org/a
+item:
+  - itemContent: https://example.org/a
+  - itemContent: https://example.org/b

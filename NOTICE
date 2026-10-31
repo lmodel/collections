@@ -1,0 +1,85 @@
+Collections Ontology LinkML Schema (collections)
+Copyright 2026 Noel McLoughlin
+
+The code in this repository is licensed under the Apache License,
+Version 2.0 (see LICENSE). The work it models is third-party work under
+its own terms, described below.
+
+The Collections Ontology
+------------------------
+
+src/collections/schema/collections.yaml, src/collections_linkml/datamodel/
+and project/ render the Collections Ontology (CO) 2.0 by Paolo Ciccarese
+and Silvio Peroni, http://purl.org/co, which they describe in "The
+Collections Ontology: creating and handling collections in OWL 2 DL
+frameworks", Semantic Web 5(6), 2014, https://doi.org/10.3233/SW-130121.
+The schema keeps CO's names and IRIs. Its descriptions are this
+project's own words, and its use does not imply endorsement by CO's
+authors.
+
+src/collections/schema/upstream/collections.owl is CO 2.0's OWL file,
+unchanged, from
+https://github.com/collections-ontology/collections-ontology at commit
+619e7b02646321174635fd04be658e338bf7d1d7 (git object
+4e19e4892212de2b1805923a7a69fa4ba8c1b424), read on 2026-10-31. That
+repository is an export of the project's Google Code site and states no
+licence of its own. The Google Code archive's record of the project,
+https://code.google.com/archive/p/collections-ontology, gives its
+licences. Its code, the files of its Subversion repository, is under the
+Apache License, Version 2.0. Its other content, such as its wiki, is
+under Creative Commons Attribution 3.0
+(https://creativecommons.org/licenses/by/3.0/). collections.owl is in that repository's trunk, so this
+repository copies it under the Apache License, with this credit. The
+schema cites one page of the wiki for a fact and copies none of its
+text. The file differs from the copy in the archived Subversion trunk in
+one line, the address of the error ontology it imports, which Silvio
+Peroni changed on GitHub in 2019.
+
+linkml-project-copier
+---------------------
+
+This project was generated from linkml-project-copier
+(https://github.com/linkml/linkml-project-copier), and its justfile,
+configuration and documentation scaffolding derive from that template:
+
+  The MIT License (MIT)
+  Copyright (c) 2025 David Linke
+
+  Permission is hereby granted, free of charge, to any person obtaining a
+  copy of this software and associated documentation files (the
+  "Software"), to deal in the Software without restriction, including
+  without limitation the rights to use, copy, modify, merge, publish,
+  distribute, sublicense, and/or sell copies of the Software, and to permit
+  persons to whom the Software is furnished to do so, subject to the
+  following conditions:
+
+  The above copyright notice and this permission notice shall be included
+  in all copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+  NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+  DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+  OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+  USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+Knowledge bundle
+----------------
+
+This product maintains its documentation as a Linked Open Knowledge Format
+(LOKF) bundle under .lokf/: https://lokf.nolan-nichols.com/specification/
+
+LOKF is a semantic profile of the Open Knowledge Format (OKF) specification
+by Google Cloud Platform:
+https://github.com/GoogleCloudPlatform/open-knowledge-format/blob/main/SPEC.md
+
+The scripts under .lokf/scripts/ and .lokf/m365/ and the
+knowledge-librarian, knowledge-registrar, knowledge-release and
+knowledge-sync workflows under .github/workflows/ are copies of the
+ktl-sidecar templates in knowledge-trust-ladder
+(https://github.com/noelmcloughlin/knowledge-trust-ladder). The site under
+website/ and the knowledge-website workflow derive from the ktl-website
+templates in the same repository, and website/NOTICE lists the part
+adapted from the LOKF toolkit's site. All of them are licensed under the
+Apache License, Version 2.0.

@@ -1,0 +1,6 @@
+# Fails at: /item/0
+# Invalid: an item wraps one element, not two.
+item:
+  - itemContent:
+      - https://example.org/a
+      - https://example.org/b
