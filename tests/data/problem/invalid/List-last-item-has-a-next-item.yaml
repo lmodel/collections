@@ -1,0 +1,13 @@
+# Fails at: /lastItem
+# Invalid: the last item has no next item, so no item comes after it.
+item:
+  - co_index: 1
+    itemContent: https://example.org/a
+  - co_index: 2
+    itemContent: https://example.org/b
+lastItem:
+  co_index: 2
+  itemContent: https://example.org/b
+  nextItem:
+    co_index: 3
+    itemContent: https://example.org/c

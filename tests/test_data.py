@@ -147,23 +147,45 @@ def _link_faults(item, at, by_index):
     return faults
 
 
-def _list_faults(data):
-    """A list's order: indexes 1 to n, each once, and every link agreeing."""
+def _list_items(data):
+    """A list's items by their index, each with the first place it is written,
+    as CO's axioms give them: the entries of `item`; `firstItem` and
+    `lastItem`, which CO makes narrower forms of `item`; and the `nextItem` of
+    each of them, by CO's chain item o nextItem. An index takes the first item
+    written at it, the entries of `item` first, so a link that disagrees is
+    left to the link checks. The faults are the entries of `item` that repeat
+    an index."""
     faults, by_index = [], {}
     items = data.get("item") or []
     for n, item in enumerate(items):
-        index = item["co_index"]
-        if index in by_index or index > len(items):
+        if item["co_index"] in by_index:
             faults.append(f"/item/{n}/co_index")
-        else:
-            by_index[index] = item
+        by_index.setdefault(item["co_index"], (item, f"/item/{n}"))
+    linked = [(data.get(name), f"/{name}") for name in ("firstItem", "lastItem")]
+    linked += [(item, f"/item/{n}") for n, item in enumerate(items)]
+    while linked:
+        item, at = linked.pop(0)
+        if item is not None:
+            by_index.setdefault(item["co_index"], (item, at))
+            linked.append((item.get("nextItem"), f"{at}/nextItem"))
+    return by_index, faults
+
+
+def _list_faults(data, by_index):
+    """A list's order: indexes 1 to n, each once, and every link agreeing."""
+    items = {index: item for index, (item, _) in by_index.items()}
+    faults = [
+        f"/item/{n}/co_index"
+        for n, item in enumerate(data.get("item") or [])
+        if item["co_index"] > len(items)
+    ]
     for name, index in (("firstItem", 1), ("lastItem", len(items))):
-        if name in data:
-            if not _same(data[name], by_index.get(index)):
+        if data.get(name) is not None:
+            if not _same(data[name], items.get(index)):
                 faults.append(f"/{name}")
-            faults += _link_faults(data[name], f"/{name}", by_index)
-    for n, item in enumerate(items):
-        faults += _link_faults(item, f"/item/{n}", by_index)
+            faults += _link_faults(data[name], f"/{name}", items)
+    for n, item in enumerate(data.get("item") or []):
+        faults += _link_faults(item, f"/item/{n}", items)
     return faults
 
 
@@ -176,23 +198,27 @@ def rule_faults(class_name, data):
         return []
     faults = []
     elements = data.get("element") or []
-    items = data.get("item") or []
     seen = set()
     for n, element in enumerate(elements):
         if class_name == "Set" and element in seen:
             faults.append(f"/element/{n}")
         seen.add(element)
+    if class_name == "List":
+        by_index, faults_of_order = _list_items(data)
+        items = list(by_index.values())
+    else:
+        items = [(item, f"/item/{n}") for n, item in enumerate(data.get("item") or [])]
     count = len(items) if class_name in ("Bag", "List") else len(elements)
     if "co_size" in data and data["co_size"] != count:
         faults.append("/co_size")
     if "element" in data:
         faults += [
-            f"/item/{n}/itemContent"
-            for n, item in enumerate(items)
+            f"{at}/itemContent"
+            for item, at in items
             if item["itemContent"] not in elements
         ]
     if class_name == "List":
-        faults += _list_faults(data)
+        faults += faults_of_order + _list_faults(data, by_index)
     return faults
 
 
