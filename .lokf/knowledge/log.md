@@ -2,6 +2,7 @@
 
 ## 2026-10-31
 
+* **Changed**: the README now says `uco_co` keeps the same names but `index`, which is `co_index` here, and the schema gives its naming reasons in the header notes.
 * **Prose**: reworded 7 concept bodies in plain English. No fact, link, number or frontmatter changed.
 * **Changed**: NOTICE now says the copied OWL file falls under CO's code licence, Apache-2.0, and that CC BY 3.0 covers CO's other content.
 * **Changed**: SECURITY.md now says the watch's token can also write issues, and that the watch follows a redirect only to GitHub.

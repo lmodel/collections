@@ -14,13 +14,13 @@ sources:
     title: the Knowledge Trust Ladder (KTL) section
   - id: schema-collections.yaml
     resource: src/collections/schema/collections.yaml
-    title: the header comments
+    title: the header notes
   - id: test_schema_rules.py
     resource: tests/test_schema_rules.py
     title: the shared key
 generated:
   by: process:ktl-librarian
-  at: "2026-10-31T12:56:19Z"
+  at: "2026-10-31T18:19:29Z"
 status: draft
 ---
 
@@ -33,9 +33,9 @@ Three names differ, each with CO's IRI kept:
 - `CoItem` for CO's `Item` and `co_size` for its `size`, as lmodel/uco's `uco_co` module names them, because UCO defines an `Item` and a `size` of its own.
 - `co_index` for CO's `index`, because LinkML's documentation generator writes the page of a slot named `index` over the schema's index page.[^schema-collections.yaml]
 
-The README says that `uco_co` renders the CO terms UCO uses with the same names and IRIs, so a host imports one of the two copies, not both.[^readme.md] A host that imports this copy beside spdx's has one key under two IRIs: `element`, which spdx uses for an SPDX element's members. `tests/test_schema_rules.py` lists that key and fails on a new one.[^test_schema_rules.py]
+The README says that `uco_co` renders the CO terms UCO uses with the same IRIs and the same names but one: `index`, which is `co_index` here. So a host imports one of the two copies, not both.[^readme.md] A host that imports this copy beside spdx's has one key under two IRIs: `element`, which spdx uses for an SPDX element's members. `tests/test_schema_rules.py` lists that key and fails on a new one.[^test_schema_rules.py]
 
 [^about.md]: docs/about.md, the naming paragraph
-[^schema-collections.yaml]: src/collections/schema/collections.yaml, the header comments
+[^schema-collections.yaml]: src/collections/schema/collections.yaml, the header notes
 [^readme.md]: README.md, the Knowledge Trust Ladder (KTL) section
 [^test_schema_rules.py]: tests/test_schema_rules.py, the shared key
