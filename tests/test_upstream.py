@@ -5,7 +5,7 @@ unchanged. These tests check that the copy is the pinned file, that the
 schema header and the upstream watch name the same edition, and that the
 schema renders every class and property of CO, by CO's name and IRI, with
 the domains, ranges, cardinalities, required slots and class axioms CO
-states.
+states, and the mappings CO's alignment.owl gives.
 """
 
 import hashlib
@@ -21,6 +21,10 @@ from rdflib.namespace import OWL, RDF, RDFS
 ROOT = Path(__file__).parent.parent
 SCHEMA = ROOT / "src" / "collections" / "schema" / "collections.yaml"
 COPY = ROOT / "src" / "collections" / "schema" / "upstream" / "collections.owl"
+ALIGNMENT = COPY.with_name("alignment.owl")
+# The git object of alignment.owl at the commit the watch pins, the same file
+# as in the trunk of the Google Code archive.
+ALIGNMENT_BLOB = "f6d6457b9b323e3e4bdf54ffeec5bc59f878f7ac"
 SCRIPT = ROOT / "scripts" / "check_upstream_release.py"
 CO = rdflib.Namespace("http://purl.org/co/")
 
@@ -37,6 +41,20 @@ RENAMED = {"Item": "CoItem", "size": "co_size", "index": "co_index"}
 # StructureBag says exactly one, so the schema requires an item's content.
 OPTIONAL_HERE = {CO.size}
 REQUIRED_BY_THE_WIKI = {CO.Item: {CO.itemContent}}
+
+# CO's alignment.owl writes ORE's namespace as .../ore/items/; ORE defines its
+# terms under .../ore/terms/, which the mappings use.
+ORE_AS_WRITTEN = "http://www.openarchives.org/ore/items/"
+ORE = "http://www.openarchives.org/ore/terms/"
+
+# The mappings that are this project's own, not CO's: schema.org's ItemList
+# and ListItem link list items as CO does.
+OWN_MAPPINGS = "http://schema.org/"
+
+# What the schema adds to CO: the class CoElement and its iri. CO lets
+# element and itemContent hold anything; ranging over CoElement, which has an
+# identifier, makes their values links to resources in RDF rather than text.
+ADDED_HERE = {"CoElement", "iri"}
 
 
 @pytest.fixture(scope="module")
@@ -57,6 +75,13 @@ def co():
 @pytest.fixture(scope="module")
 def view():
     return SchemaView(str(SCHEMA))
+
+
+@pytest.fixture(scope="module")
+def alignment():
+    graph = rdflib.Graph()
+    graph.parse(ALIGNMENT, format="xml")
+    return graph
 
 
 def _co_terms(co, kinds):
@@ -83,6 +108,41 @@ def test_the_copy_is_the_pinned_file(watch):
     )
 
 
+def test_the_alignment_is_the_pinned_file():
+    """The copy of alignment.owl is the file at the pinned commit."""
+    data = ALIGNMENT.read_bytes()
+    assert hashlib.sha1(b"blob %d\0" % len(data) + data).hexdigest() == ALIGNMENT_BLOB
+
+
+def test_mappings_follow_the_alignment(view, alignment):
+    """Each class and slot's exact, narrow and broad mappings, but for
+    schema.org's, are the equivalents, the narrower terms and the broader
+    terms CO's alignment.owl states for its IRI."""
+    equivalent = (OWL.equivalentClass, OWL.equivalentProperty)
+    narrower = (RDFS.subClassOf, RDFS.subPropertyOf)
+
+    def iri(term):
+        return str(term).replace(ORE_AS_WRITTEN, ORE)
+
+    elements = [*view.all_classes().items(), *view.all_slots().items()]
+    for name, element in elements:
+        if name in ADDED_HERE:
+            continue
+        co_iri = _uri(view, element)
+        expected = {
+            "exact": {iri(o) for p in equivalent for o in alignment.objects(co_iri, p)},
+            "narrow": {iri(s) for p in narrower for s in alignment.subjects(p, co_iri)},
+            "broad": {iri(o) for p in narrower for o in alignment.objects(co_iri, p)},
+        }
+        for kind, terms in expected.items():
+            stated = {
+                view.expand_curie(m)
+                for m in getattr(element, f"{kind}_mappings")
+                if not view.expand_curie(m).startswith(OWN_MAPPINGS)
+            }
+            assert stated == terms, (name, kind)
+
+
 def test_the_header_names_the_pinned_edition(watch, co):
     """The header's version, source and annotations, the watch's pins and the
     copy's owl:versionInfo agree."""
@@ -99,14 +159,22 @@ def test_the_header_names_the_pinned_edition(watch, co):
 
 
 def test_every_class_of_co_is_rendered_by_its_name(view, co):
-    classes = {_uri(view, c): name for name, c in view.all_classes().items()}
+    classes = {
+        _uri(view, c): name
+        for name, c in view.all_classes().items()
+        if name not in ADDED_HERE
+    }
     assert set(classes) == _co_terms(co, [OWL.Class])
     for iri, name in classes.items():
         assert name == RENAMED.get(_local(iri), _local(iri))
 
 
 def test_every_property_of_co_is_rendered_by_its_name(view, co):
-    slots = {_uri(view, s): name for name, s in view.all_slots().items()}
+    slots = {
+        _uri(view, s): name
+        for name, s in view.all_slots().items()
+        if name not in ADDED_HERE
+    }
     assert set(slots) == _co_terms(co, [OWL.ObjectProperty, OWL.DatatypeProperty])
     for iri, name in slots.items():
         assert name == RENAMED.get(_local(iri), _local(iri))
@@ -133,6 +201,8 @@ def test_domains_and_ranges_follow_co(view, co):
     xsd = rdflib.namespace.XSD
     bounds = {xsd.positiveInteger: 1, xsd.nonNegativeInteger: 0}
     for name, slot in view.all_slots().items():
+        if name in ADDED_HERE:
+            continue
         iri = _uri(view, slot)
         for domain in co.objects(iri, RDFS.domain):
             assert _uri(view, view.get_class(slot.domain)) in _named(co, domain), name
@@ -145,7 +215,7 @@ def test_domains_and_ranges_follow_co(view, co):
                 assert _uri(view, view.get_class(slot.range)) in _named(co, rng), name
             else:
                 # itemContent ranges over anything that is not an item.
-                assert slot.range == "uriorcurie", name
+                assert slot.range == "CoElement", name
 
 
 def _restrictions(co, cls):
@@ -187,10 +257,14 @@ def test_cardinality_follows_co(view, co):
     class restriction allows it one value at most, and multivalued
     otherwise."""
     single = set(co.subjects(RDF.type, OWL.FunctionalProperty))
-    for cls in view.all_classes().values():
+    for name, cls in view.all_classes().items():
+        if name in ADDED_HERE:
+            continue
         _, restrictions = _restrictions(co, _uri(view, cls))
         single |= {p for p, _, most in restrictions if most is not None and most <= 1}
     for name, slot in view.all_slots().items():
+        if name in ADDED_HERE:
+            continue
         assert bool(slot.multivalued) == (_uri(view, slot) not in single), name
 
 
@@ -198,6 +272,8 @@ def test_required_slots_follow_co(view, co):
     """A class requires the slots whose properties CO's restrictions give it at
     least one value of, but for the departures listed above."""
     for name, cls in view.all_classes().items():
+        if name in ADDED_HERE:
+            continue
         classes, restrictions = _restrictions(co, _uri(view, cls))
         expected = {p for p, least, _ in restrictions if least}
         for owner, props in REQUIRED_BY_THE_WIKI.items():
@@ -220,8 +296,9 @@ def test_inverses_and_transitivity_follow_co(view, co):
 
 
 def test_class_axioms_follow_co(view, co):
-    """Each class's parent is a superclass CO names, and the disjoint pairs
-    are CO's."""
+    """Each class's parent is a superclass CO names, the disjoint pairs among
+    CO's classes are CO's, and a CoElement is never an item, as CO's range of
+    itemContent says."""
     for name, cls in view.all_classes().items():
         if cls.is_a:
             parent = _uri(view, view.get_class(cls.is_a))
@@ -231,7 +308,10 @@ def test_class_axioms_follow_co(view, co):
             assert parent in named, name
     stated = {
         frozenset({_uri(view, cls), _uri(view, view.get_class(other))})
-        for cls in view.all_classes().values()
+        for name, cls in view.all_classes().items()
+        if name not in ADDED_HERE
         for other in cls.disjoint_with
     }
     assert stated == {frozenset(p) for p in co.subject_objects(OWL.disjointWith)}
+    assert view.get_class("CoElement").disjoint_with == ["CoItem"]
+    assert (CO.itemContent, RDFS.range, None) in co

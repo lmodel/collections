@@ -56,9 +56,15 @@ linkml:Sparqlpath xsd:string
     } OR @<List>
 )
 
+<CoElement> CLOSED {
+    (  $<CoElement_tes> rdf:type . * ;
+       rdf:type [ <CoElement> ]
+    )
+}
+
 <CoItem>  (
     CLOSED {
-       (  $<CoItem_tes> coll:itemContent @linkml:Uriorcurie ;
+       (  $<CoItem_tes> coll:itemContent @<CoElement> ;
           rdf:type [ coll:Item ] ?
        )
     } OR @<ListItem>
@@ -67,7 +73,7 @@ linkml:Sparqlpath xsd:string
 <Collection>  (
     CLOSED {
        (  $<Collection_tes> (  coll:size @linkml:Integer ? ;
-             coll:element @linkml:Uriorcurie *
+             coll:element @<CoElement> *
           ) ;
           rdf:type [ coll:Collection ] ?
        )
@@ -101,7 +107,7 @@ linkml:Sparqlpath xsd:string
 <Set> CLOSED {
     (  $<Set_tes> (  &<Collection_tes> ;
           rdf:type [ coll:Collection ] ? ;
-          coll:element @linkml:Uriorcurie *
+          coll:element @<CoElement> *
        ) ;
        rdf:type [ coll:Set ] ?
     )

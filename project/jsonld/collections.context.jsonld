@@ -4,6 +4,15 @@
       "coll": "http://purl.org/co/",
       "collections": "https://w3id.org/lmodel/collections/",
       "linkml": "https://w3id.org/linkml/",
+      "mo": "http://purl.org/ontology/mo/",
+      "odpbag": "http://www.ontologydesignpatterns.org/cp/owl/bag.owl#",
+      "odpce": "http://www.ontologydesignpatterns.org/cp/owl/collectionentity.owl#",
+      "odplist": "http://www.ontologydesignpatterns.org/cp/owl/list.owl#",
+      "odpset": "http://www.ontologydesignpatterns.org/cp/owl/set.owl#",
+      "ore": "http://www.openarchives.org/ore/terms/",
+      "schema": "http://schema.org/",
+      "seq": "http://www.ontologydesignpatterns.org/cp/owl/sequence.owl#",
+      "swan": "http://swan.mindinformatics.org/ontologies/1.2/collections/",
       "@vocab": "https://w3id.org/lmodel/collections/",
       "co_index": {
          "@type": "xsd:integer",
@@ -13,8 +22,9 @@
          "@type": "xsd:integer",
          "@id": "coll:size"
       },
+      "iri": "@id",
       "element": {
-         "@type": "xsd:anyURI",
+         "@type": "@id",
          "@id": "coll:element"
       },
       "elementOf": {
@@ -38,7 +48,7 @@
          "@id": "coll:item"
       },
       "itemContent": {
-         "@type": "xsd:anyURI",
+         "@type": "@id",
          "@id": "coll:itemContent"
       },
       "itemContentOf": {
@@ -71,6 +81,9 @@
       },
       "Bag": {
          "@id": "coll:Bag"
+      },
+      "CoElement": {
+         "@id": "CoElement"
       },
       "CoItem": {
          "@id": "coll:Item"

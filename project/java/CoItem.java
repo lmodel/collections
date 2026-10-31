@@ -16,7 +16,7 @@ import lombok.*;
 @EqualsAndHashCode(callSuper=false)
 public class CoItem  {
 
-  private URI itemContent;
+  private CoElement itemContent;
 
 
 }

@@ -65,13 +65,23 @@ version = "2.0"
 COLL = CurieNamespace('coll', 'http://purl.org/co/')
 COLLECTIONS = CurieNamespace('collections', 'https://w3id.org/lmodel/collections/')
 LINKML = CurieNamespace('linkml', 'https://w3id.org/linkml/')
+MO = CurieNamespace('mo', 'http://purl.org/ontology/mo/')
+ODPBAG = CurieNamespace('odpbag', 'http://www.ontologydesignpatterns.org/cp/owl/bag.owl#')
+ODPCE = CurieNamespace('odpce', 'http://www.ontologydesignpatterns.org/cp/owl/collectionentity.owl#')
+ODPLIST = CurieNamespace('odplist', 'http://www.ontologydesignpatterns.org/cp/owl/list.owl#')
+ODPSET = CurieNamespace('odpset', 'http://www.ontologydesignpatterns.org/cp/owl/set.owl#')
+ORE = CurieNamespace('ore', 'http://www.openarchives.org/ore/terms/')
+SCHEMA = CurieNamespace('schema', 'http://schema.org/')
+SEQ = CurieNamespace('seq', 'http://www.ontologydesignpatterns.org/cp/owl/sequence.owl#')
+SWAN = CurieNamespace('swan', 'http://swan.mindinformatics.org/ontologies/1.2/collections/')
 DEFAULT_ = COLLECTIONS
 
 
 # Types
 
 # Class references
-
+class CoElementIri(URIorCURIE):
+    pass
 
 
 @dataclass(repr=False)
@@ -87,7 +97,7 @@ class Collection(YAMLRoot):
     class_model_uri: ClassVar[URIRef] = COLLECTIONS.Collection
 
     co_size: Optional[int] = None
-    element: Optional[Union[Union[str, URIorCURIE], list[Union[str, URIorCURIE]]]] = empty_list()
+    element: Optional[Union[Union[str, CoElementIri], list[Union[str, CoElementIri]]]] = empty_list()
 
     def __post_init__(self, *_: str, **kwargs: Any):
         if self.co_size is not None and not isinstance(self.co_size, int):
@@ -95,7 +105,7 @@ class Collection(YAMLRoot):
 
         if not isinstance(self.element, list):
             self.element = [self.element] if self.element is not None else []
-        self.element = [v if isinstance(v, URIorCURIE) else URIorCURIE(v) for v in self.element]
+        self.element = [v if isinstance(v, CoElementIri) else CoElementIri(v) for v in self.element]
 
         super().__post_init__(**kwargs)
 
@@ -112,12 +122,12 @@ class Set(Collection):
     class_name: ClassVar[str] = "Set"
     class_model_uri: ClassVar[URIRef] = COLLECTIONS.Set
 
-    element: Optional[Union[Union[str, URIorCURIE], list[Union[str, URIorCURIE]]]] = empty_list()
+    element: Optional[Union[Union[str, CoElementIri], list[Union[str, CoElementIri]]]] = empty_list()
 
     def __post_init__(self, *_: str, **kwargs: Any):
         if not isinstance(self.element, list):
             self.element = [self.element] if self.element is not None else []
-        self.element = [v if isinstance(v, URIorCURIE) else URIorCURIE(v) for v in self.element]
+        self.element = [v if isinstance(v, CoElementIri) else CoElementIri(v) for v in self.element]
 
         super().__post_init__(**kwargs)
 
@@ -137,7 +147,9 @@ class Bag(Collection):
     item: Optional[Union[Union[dict, "CoItem"], list[Union[dict, "CoItem"]]]] = empty_list()
 
     def __post_init__(self, *_: str, **kwargs: Any):
-        self._normalize_inlined_as_list(slot_name="item", slot_type=CoItem, key_name="itemContent", keyed=False)
+        if not isinstance(self.item, list):
+            self.item = [self.item] if self.item is not None else []
+        self.item = [v if isinstance(v, CoItem) else CoItem(**as_dict(v)) for v in self.item]
 
         super().__post_init__(**kwargs)
 
@@ -165,7 +177,30 @@ class List(Bag):
         if self.lastItem is not None and not isinstance(self.lastItem, ListItem):
             self.lastItem = ListItem(**as_dict(self.lastItem))
 
-        self._normalize_inlined_as_list(slot_name="item", slot_type=ListItem, key_name="itemContent", keyed=False)
+        self._normalize_inlined_as_list(slot_name="item", slot_type=ListItem, key_name="co_index", keyed=False)
+
+        super().__post_init__(**kwargs)
+
+
+@dataclass(repr=False)
+class CoElement(YAMLRoot):
+    """
+    A thing that a collection holds, named by its IRI.
+    """
+    _inherited_slots: ClassVar[list[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = COLLECTIONS["CoElement"]
+    class_class_curie: ClassVar[str] = "collections:CoElement"
+    class_name: ClassVar[str] = "CoElement"
+    class_model_uri: ClassVar[URIRef] = COLLECTIONS.CoElement
+
+    iri: Union[str, CoElementIri] = None
+
+    def __post_init__(self, *_: str, **kwargs: Any):
+        if self._is_empty(self.iri):
+            self.MissingRequiredField("iri")
+        if not isinstance(self.iri, CoElementIri):
+            self.iri = CoElementIri(self.iri)
 
         super().__post_init__(**kwargs)
 
@@ -182,13 +217,13 @@ class CoItem(YAMLRoot):
     class_name: ClassVar[str] = "CoItem"
     class_model_uri: ClassVar[URIRef] = COLLECTIONS.CoItem
 
-    itemContent: Union[str, URIorCURIE] = None
+    itemContent: Union[str, CoElementIri] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
         if self._is_empty(self.itemContent):
             self.MissingRequiredField("itemContent")
-        if not isinstance(self.itemContent, URIorCURIE):
-            self.itemContent = URIorCURIE(self.itemContent)
+        if not isinstance(self.itemContent, CoElementIri):
+            self.itemContent = CoElementIri(self.itemContent)
 
         super().__post_init__(**kwargs)
 
@@ -205,7 +240,7 @@ class ListItem(CoItem):
     class_name: ClassVar[str] = "ListItem"
     class_model_uri: ClassVar[URIRef] = COLLECTIONS.ListItem
 
-    itemContent: Union[str, URIorCURIE] = None
+    itemContent: Union[str, CoElementIri] = None
     co_index: int = None
     nextItem: Optional[Union[dict, "ListItem"]] = None
     previousItem: Optional[Union[dict, "ListItem"]] = None
@@ -224,9 +259,9 @@ class ListItem(CoItem):
         if self.previousItem is not None and not isinstance(self.previousItem, ListItem):
             self.previousItem = ListItem(**as_dict(self.previousItem))
 
-        self._normalize_inlined_as_list(slot_name="followedBy", slot_type=ListItem, key_name="itemContent", keyed=False)
+        self._normalize_inlined_as_list(slot_name="followedBy", slot_type=ListItem, key_name="co_index", keyed=False)
 
-        self._normalize_inlined_as_list(slot_name="precededBy", slot_type=ListItem, key_name="itemContent", keyed=False)
+        self._normalize_inlined_as_list(slot_name="precededBy", slot_type=ListItem, key_name="co_index", keyed=False)
 
         super().__post_init__(**kwargs)
 
@@ -239,10 +274,10 @@ class slots:
     pass
 
 slots.element = Slot(uri=COLL.element, name="element", curie=COLL.curie('element'),
-                   model_uri=COLLECTIONS.element, domain=Collection, range=Optional[Union[Union[str, URIorCURIE], list[Union[str, URIorCURIE]]]])
+                   model_uri=COLLECTIONS.element, domain=Collection, range=Optional[Union[Union[str, CoElementIri], list[Union[str, CoElementIri]]]])
 
 slots.elementOf = Slot(uri=COLL.elementOf, name="elementOf", curie=COLL.curie('elementOf'),
-                   model_uri=COLLECTIONS.elementOf, domain=None, range=Optional[Union[Union[dict, Collection], list[Union[dict, Collection]]]])
+                   model_uri=COLLECTIONS.elementOf, domain=CoElement, range=Optional[Union[Union[dict, Collection], list[Union[dict, Collection]]]])
 
 slots.co_size = Slot(uri=COLL.size, name="co_size", curie=COLL.curie('size'),
                    model_uri=COLLECTIONS.co_size, domain=Collection, range=Optional[int])
@@ -254,10 +289,10 @@ slots.itemOf = Slot(uri=COLL.itemOf, name="itemOf", curie=COLL.curie('itemOf'),
                    model_uri=COLLECTIONS.itemOf, domain=CoItem, range=Optional[Union[Union[dict, Bag], list[Union[dict, Bag]]]])
 
 slots.itemContent = Slot(uri=COLL.itemContent, name="itemContent", curie=COLL.curie('itemContent'),
-                   model_uri=COLLECTIONS.itemContent, domain=CoItem, range=Optional[Union[str, URIorCURIE]])
+                   model_uri=COLLECTIONS.itemContent, domain=CoItem, range=Optional[Union[str, CoElementIri]])
 
 slots.itemContentOf = Slot(uri=COLL.itemContentOf, name="itemContentOf", curie=COLL.curie('itemContentOf'),
-                   model_uri=COLLECTIONS.itemContentOf, domain=None, range=Optional[Union[Union[dict, CoItem], list[Union[dict, CoItem]]]])
+                   model_uri=COLLECTIONS.itemContentOf, domain=CoElement, range=Optional[Union[Union[dict, "CoItem"], list[Union[dict, "CoItem"]]]])
 
 slots.co_index = Slot(uri=COLL.index, name="co_index", curie=COLL.curie('index'),
                    model_uri=COLLECTIONS.co_index, domain=ListItem, range=Optional[int])
@@ -286,14 +321,17 @@ slots.followedBy = Slot(uri=COLL.followedBy, name="followedBy", curie=COLL.curie
 slots.precededBy = Slot(uri=COLL.precededBy, name="precededBy", curie=COLL.curie('precededBy'),
                    model_uri=COLLECTIONS.precededBy, domain=ListItem, range=Optional[Union[Union[dict, "ListItem"], list[Union[dict, "ListItem"]]]])
 
+slots.coElement__iri = Slot(uri=COLLECTIONS.iri, name="coElement__iri", curie=COLLECTIONS.curie('iri'),
+                   model_uri=COLLECTIONS.coElement__iri, domain=None, range=URIRef)
+
 slots.Set_element = Slot(uri=COLL.element, name="Set_element", curie=COLL.curie('element'),
-                   model_uri=COLLECTIONS.Set_element, domain=Set, range=Optional[Union[Union[str, URIorCURIE], list[Union[str, URIorCURIE]]]])
+                   model_uri=COLLECTIONS.Set_element, domain=Set, range=Optional[Union[Union[str, CoElementIri], list[Union[str, CoElementIri]]]])
 
 slots.List_item = Slot(uri=COLL.item, name="List_item", curie=COLL.curie('item'),
                    model_uri=COLLECTIONS.List_item, domain=List, range=Optional[Union[Union[dict, "ListItem"], list[Union[dict, "ListItem"]]]])
 
 slots.CoItem_itemContent = Slot(uri=COLL.itemContent, name="CoItem_itemContent", curie=COLL.curie('itemContent'),
-                   model_uri=COLLECTIONS.CoItem_itemContent, domain=CoItem, range=Union[str, URIorCURIE])
+                   model_uri=COLLECTIONS.CoItem_itemContent, domain=CoItem, range=Union[str, CoElementIri])
 
 slots.ListItem_co_index = Slot(uri=COLL.index, name="ListItem_co_index", curie=COLL.curie('index'),
                    model_uri=COLLECTIONS.ListItem_co_index, domain=ListItem, range=int)

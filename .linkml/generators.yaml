@@ -19,6 +19,9 @@ generator_args:
     mergeimports: true
   owl:
     mergeimports: true
+    # The data's IRIs are CO's, through each class_uri and slot_uri, so the
+    # ontology describes those IRIs rather than ones of the schema's own.
+    use_native_uris: false
     metaclasses: false
     type_objects: false
     add_root_classes: true

@@ -1,323 +1,398 @@
+@prefix odpce: <http://www.ontologydesignpatterns.org/cp/owl/collectionentity.owl#> .
+@prefix swan: <http://swan.mindinformatics.org/ontologies/1.2/collections/> .
+@prefix seq: <http://www.ontologydesignpatterns.org/cp/owl/sequence.owl#> .
+@prefix odplist: <http://www.ontologydesignpatterns.org/cp/owl/list.owl#> .
+@prefix odpbag: <http://www.ontologydesignpatterns.org/cp/owl/bag.owl#> .
+@prefix odpset: <http://www.ontologydesignpatterns.org/cp/owl/set.owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix ore: <http://www.openarchives.org/ore/terms/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix collections: <https://w3id.org/lmodel/collections/> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix mo: <http://purl.org/ontology/mo/> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix pav: <http://purl.org/pav/> .
 @prefix coll: <http://purl.org/co/> .
-<https://w3id.org/lmodel/collections.owl.ttl> dcterms:license "Apache-2.0" ;
-	dcterms:source <https://github.com/collections-ontology/collections-ontology> ;
-	dcterms:title "Collections Ontology (CO)" ;
-	pav:version "2.0" ;
-	a owl:Ontology ;
-	rdfs:label "collections" ;
-	rdfs:seeAlso <https://doi.org/10.3233/SW-130121> , <https://lmodel.github.io/collections> ;
-	skos:definition "The Collections Ontology (CO) 2.0 in LinkML, with CO's own names and IRIs: collections that are sets, bags or lists, and the items through which a bag or a list holds its elements." ;
-	skos:editorialNote "CO's Item and size are named CoItem and co_size, as in lmodel/uco's uco_co module, because UCO defines an Item and a size of its own. CO's index is named co_index, because gen-doc writes the page of a slot named index over the schema's index page. Their IRIs are CO's." ;
-	skos:note "Items have no IRI here, so a slot that links to an item, such as firstItem or nextItem, holds a copy of that item. docs/index.md lists the rules of CO that no validator checks and the tests check instead." , "Renders CO 2.0 by Paolo Ciccarese and Silvio Peroni, whose ontology IRI is http://purl.org/co. The source is collections.owl at the commit the co_commit annotation names, copied unchanged to upstream/collections.owl." , "The repository states no licence. The project's Google Code archive gives the Apache License 2.0 for its code, collections.owl among it, and CC BY 3.0 for its other content, such as its wiki, as the co_licence annotation says. The descriptions here are this project's own words." ;
-	collections:co_commit "619e7b02646321174635fd04be658e338bf7d1d7" ;
-	collections:co_git_object "4e19e4892212de2b1805923a7a69fa4ba8c1b424" ;
-	collections:co_licence "Apache-2.0 for code, collections.owl among it, and CC-BY-3.0 for other content, per the Google Code archive" ;
-	collections:co_ontology_iri "http://purl.org/co" .
-collections:Bag a owl:Class ;
+@prefix schema1: <http://schema.org/> .
+coll:Bag a owl:Class ;
 	rdfs:label "Bag" ;
-	rdfs:subClassOf collections:Collection , _:c14n26 , _:c14n34 ;
+	rdfs:subClassOf coll:Collection , _:c14n28 , _:c14n3 ;
 	skos:definition "A collection that may hold one element more than once, in no order." ;
-	skos:exactMatch coll:Bag ;
+	skos:exactMatch swan:Bag , odpbag:Bag , collections:Bag ;
 	skos:inScheme <https://w3id.org/lmodel/collections> .
-collections:CoItem a owl:Class ;
-	rdfs:label "CoItem" ;
-	rdfs:subClassOf _:c14n0 , _:c14n10 , _:c14n15 ;
-	skos:definition "An entry of a bag, which wraps one of the bag's elements." ;
-	skos:exactMatch coll:Item ;
-	skos:inScheme <https://w3id.org/lmodel/collections> .
-collections:Collection a owl:Class ;
+coll:Collection a owl:Class ;
 	rdfs:label "Collection" ;
-	rdfs:subClassOf _:c14n25 , _:c14n29 , _:c14n31 , _:c14n32 , _:c14n7 ;
+	rdfs:subClassOf _:c14n0 , _:c14n13 , _:c14n36 , _:c14n38 , _:c14n7 ;
 	skos:definition "A group of things that is taken as a whole." ;
-	skos:exactMatch coll:Collection ;
-	skos:inScheme <https://w3id.org/lmodel/collections> .
-collections:List a owl:Class ;
-	rdfs:label "List" ;
-	rdfs:subClassOf collections:Bag , _:c14n11 , _:c14n12 , _:c14n16 , _:c14n2 , _:c14n21 , _:c14n22 , _:c14n28 , _:c14n30 ;
-	skos:definition "A collection whose items come in order, one after another." ;
-	skos:exactMatch coll:List ;
+	skos:exactMatch swan:Collection , odpce:Collection , collections:Collection ;
 	skos:inScheme <https://w3id.org/lmodel/collections> ;
-	skos:note "No validator checks the order: that the indexes count from 1 with no gap or repeat, and that firstItem, lastItem and each item's links agree with them. The tests check it." .
-collections:ListItem a owl:Class ;
-	rdfs:label "ListItem" ;
-	rdfs:subClassOf collections:CoItem , _:c14n1 , _:c14n13 , _:c14n14 , _:c14n17 , _:c14n19 , _:c14n20 , _:c14n24 , _:c14n33 , _:c14n4 , _:c14n5 , _:c14n6 , _:c14n8 , _:c14n9 ;
-	skos:definition "An item of a list, which has a place in the list's order." ;
-	skos:exactMatch coll:ListItem ;
+	skos:narrowMatch ore:Aggregation .
+coll:Item a owl:Class ;
+	rdfs:label "CoItem" ;
+	rdfs:subClassOf _:c14n21 , _:c14n30 , _:c14n4 ;
+	skos:altLabel "Item" ;
+	skos:definition "An entry of a bag, which wraps one of the bag's elements." ;
+	skos:editorialNote "CO says that every item is an item of some bag. The schema leaves itemOf optional, since a bag holds its items inline." ;
+	skos:exactMatch swan:Item , odpbag:Item , collections:CoItem ;
 	skos:inScheme <https://w3id.org/lmodel/collections> .
-collections:Set a owl:Class ;
+coll:List a owl:Class ;
+	rdfs:label "List" ;
+	rdfs:subClassOf coll:Bag , _:c14n1 , _:c14n16 , _:c14n17 , _:c14n2 , _:c14n29 , _:c14n37 , _:c14n6 , _:c14n9 ;
+	skos:broadMatch schema1:ItemList ;
+	skos:definition "A collection whose items come in order, one after another." ;
+	skos:exactMatch swan:List , odplist:List , collections:List ;
+	skos:inScheme <https://w3id.org/lmodel/collections> ;
+	skos:narrowMatch mo:Record ;
+	skos:note "No validator checks the order: that the indexes count from 1 with no gap or repeat, and that firstItem, lastItem and each item's links agree with them. The tests check it." .
+coll:ListItem a owl:Class ;
+	rdfs:label "ListItem" ;
+	rdfs:subClassOf coll:Item , _:c14n10 , _:c14n12 , _:c14n14 , _:c14n18 , _:c14n19 , _:c14n20 , _:c14n25 , _:c14n27 , _:c14n32 , _:c14n34 , _:c14n35 , _:c14n40 , _:c14n8 ;
+	skos:closeMatch schema1:ListItem ;
+	skos:definition "An item of a list, which has a place in the list's order." ;
+	skos:exactMatch swan:ListItem , odplist:ListItem , collections:ListItem ;
+	skos:inScheme <https://w3id.org/lmodel/collections> ;
+	skos:narrowMatch mo:Track , ore:Proxy .
+coll:Set a owl:Class ;
 	rdfs:label "Set" ;
-	rdfs:subClassOf collections:Collection , _:c14n18 , _:c14n3 ;
+	rdfs:subClassOf coll:Collection , _:c14n26 , _:c14n5 ;
 	skos:definition "A collection that holds each of its elements once." ;
-	skos:exactMatch coll:Set ;
+	skos:exactMatch swan:Set , odpset:Set , collections:Set ;
 	skos:inScheme <https://w3id.org/lmodel/collections> ;
 	skos:note "No validator checks that the elements differ: LinkML 1.12.1's generators drop list_elements_unique, so the tests check it." .
-collections:co_index a owl:DatatypeProperty ;
-	rdfs:domain collections:ListItem ;
-	rdfs:label "co_index" ;
-	rdfs:range _:c14n23 ;
-	skos:definition "The place of the item in its list, counting from 1." ;
-	skos:inScheme <https://w3id.org/lmodel/collections> .
-collections:co_size a owl:DatatypeProperty ;
-	rdfs:domain collections:Collection ;
-	rdfs:label "co_size" ;
-	rdfs:range _:c14n27 ;
-	skos:definition "How many times the collection holds a thing, counting each repeat: the number of elements of a set, or of items of a bag or a list." ;
-	skos:editorialNote "CO gives every collection exactly one size. The schema leaves it optional, since a reader can count; where it is given, the tests check that it equals the count." ;
-	skos:inScheme <https://w3id.org/lmodel/collections> .
-collections:element a owl:DatatypeProperty ;
-	rdfs:domain collections:Collection ;
+coll:element a owl:ObjectProperty ;
+	rdfs:domain coll:Collection ;
 	rdfs:label "element" ;
-	rdfs:range xsd:anyURI ;
+	rdfs:range collections:CoElement ;
 	skos:definition "A thing the collection holds, named by its IRI." ;
-	skos:inScheme <https://w3id.org/lmodel/collections> .
-collections:elementOf a owl:ObjectProperty ;
+	skos:inScheme <https://w3id.org/lmodel/collections> ;
+	skos:narrowMatch swan:element , odpce:hasMember , ore:aggregates ;
+	skos:note "In a bag, each item's itemContent is also an element, as the path rule states after CO's property chain." .
+coll:elementOf a owl:ObjectProperty ;
+	rdfs:domain collections:CoElement ;
 	rdfs:label "elementOf" ;
-	rdfs:range collections:Collection ;
+	rdfs:range coll:Collection ;
+	owl:inverseOf coll:element ;
 	skos:definition "A collection that holds the thing as an element." ;
-	skos:editorialNote "CO declares it the inverse of element. LinkML's Python generator states an inverse only between slots that range over classes, and element ranges over any thing named by its IRI, so the inverse is not stated here." ;
-	skos:inScheme <https://w3id.org/lmodel/collections> .
-collections:firstItem a owl:ObjectProperty ;
-	rdfs:domain collections:List ;
+	skos:inScheme <https://w3id.org/lmodel/collections> ;
+	skos:narrowMatch odpce:isMemberOf .
+coll:firstItem a owl:ObjectProperty ;
+	rdfs:domain coll:List ;
 	rdfs:label "firstItem" ;
-	rdfs:range collections:ListItem ;
+	rdfs:range coll:ListItem ;
 	skos:definition "The first item of the list." ;
 	skos:editorialNote "CO makes it a narrower form of item, which is not stated here: a LinkML slot inherits its parent's multivalued, and this one is single." ;
 	skos:inScheme <https://w3id.org/lmodel/collections> ;
+	skos:narrowMatch swan:firstItem ;
 	skos:note "It holds a copy of the item with index 1, which has no previous item." .
-collections:firstItemOf a owl:ObjectProperty ;
-	rdfs:domain collections:ListItem ;
+coll:firstItemOf a owl:ObjectProperty ;
+	rdfs:domain coll:ListItem ;
 	rdfs:label "firstItemOf" ;
-	rdfs:range collections:List ;
-	owl:inverseOf collections:firstItem ;
+	rdfs:range coll:List ;
+	rdfs:subPropertyOf coll:itemOf ;
+	owl:inverseOf coll:firstItem ;
 	skos:definition "A list whose first item this is." ;
-	skos:inScheme <https://w3id.org/lmodel/collections> .
-collections:followedBy a owl:ObjectProperty , owl:TransitiveProperty ;
-	rdfs:domain collections:ListItem ;
+	skos:inScheme <https://w3id.org/lmodel/collections> ;
+	skos:narrowMatch odplist:firstItemOf .
+coll:followedBy a owl:ObjectProperty , owl:TransitiveProperty ;
+	rdfs:domain coll:ListItem ;
 	rdfs:label "followedBy" ;
-	rdfs:range collections:ListItem ;
+	rdfs:range coll:ListItem ;
 	skos:definition "An item that comes somewhere after this one." ;
+	skos:exactMatch swan:followedBy ;
 	skos:inScheme <https://w3id.org/lmodel/collections> ;
 	skos:note "It holds copies of items whose index is higher." .
-collections:item a owl:ObjectProperty ;
-	rdfs:domain collections:Bag ;
+coll:index a owl:DatatypeProperty ;
+	rdfs:domain coll:ListItem ;
+	rdfs:label "co_index" ;
+	rdfs:range _:c14n22 ;
+	skos:altLabel "index" ;
+	skos:closeMatch schema1:position ;
+	skos:definition "The place of the item in its list, counting from 1." ;
+	skos:inScheme <https://w3id.org/lmodel/collections> ;
+	skos:narrowMatch mo:track_number .
+coll:item a owl:ObjectProperty ;
+	rdfs:domain coll:Bag ;
 	rdfs:label "item" ;
-	rdfs:range collections:CoItem ;
+	rdfs:range coll:Item ;
 	skos:definition "An item of the bag, which holds one of its elements." ;
-	skos:inScheme <https://w3id.org/lmodel/collections> .
-collections:itemContent a owl:DatatypeProperty ;
-	rdfs:domain collections:CoItem ;
+	skos:inScheme <https://w3id.org/lmodel/collections> ;
+	skos:narrowMatch mo:track , swan:item ;
+	skos:note "In a list, the item after an item of the list is also an item of it, as the path rule states after CO's property chain." .
+coll:itemContent a owl:ObjectProperty ;
+	rdfs:domain coll:Item ;
 	rdfs:label "itemContent" ;
-	rdfs:range xsd:anyURI ;
+	rdfs:range collections:CoElement ;
 	rdfs:seeAlso <https://github.com/collections-ontology/collections-ontology/blob/58e55d956991878307d430eede7790d5e5da206f/StructureBag.md> ;
+	skos:closeMatch schema1:item ;
 	skos:definition "The element that the item wraps." ;
 	skos:editorialNote "CoItem requires it. CO's OWL file makes itemContent functional, so an item wraps at most one element, and CO's wiki page StructureBag says that an item links exactly one resource." ;
-	skos:inScheme <https://w3id.org/lmodel/collections> .
-collections:itemContentOf a owl:ObjectProperty ;
+	skos:exactMatch swan:itemContent , odpbag:itemContent ;
+	skos:inScheme <https://w3id.org/lmodel/collections> ;
+	skos:narrowMatch mo:publication_of , ore:proxyFor .
+coll:itemContentOf a owl:ObjectProperty ;
+	rdfs:domain collections:CoElement ;
 	rdfs:label "itemContentOf" ;
-	rdfs:range collections:CoItem ;
+	rdfs:range coll:Item ;
+	owl:inverseOf coll:itemContent ;
 	skos:definition "An item that wraps the thing." ;
-	skos:editorialNote "CO declares it the inverse of itemContent, which is not stated here for the reason given on elementOf." ;
-	skos:inScheme <https://w3id.org/lmodel/collections> .
-collections:itemOf a owl:ObjectProperty ;
-	rdfs:domain collections:CoItem ;
+	skos:inScheme <https://w3id.org/lmodel/collections> ;
+	skos:narrowMatch mo:published_as .
+coll:itemOf a owl:ObjectProperty ;
+	rdfs:domain coll:Item ;
 	rdfs:label "itemOf" ;
-	rdfs:range collections:Bag ;
-	owl:inverseOf collections:item ;
+	rdfs:range coll:Bag ;
+	owl:inverseOf coll:item ;
 	skos:definition "A bag that holds the item." ;
-	skos:inScheme <https://w3id.org/lmodel/collections> .
-collections:lastItem a owl:ObjectProperty ;
-	rdfs:domain collections:List ;
+	skos:inScheme <https://w3id.org/lmodel/collections> ;
+	skos:narrowMatch odpbag:itemOf , ore:proxyIn .
+coll:lastItem a owl:ObjectProperty ;
+	rdfs:domain coll:List ;
 	rdfs:label "lastItem" ;
-	rdfs:range collections:ListItem ;
+	rdfs:range coll:ListItem ;
 	skos:definition "The last item of the list." ;
 	skos:editorialNote "CO makes it a narrower form of item, which is not stated here for the reason given on firstItem." ;
 	skos:inScheme <https://w3id.org/lmodel/collections> ;
+	skos:narrowMatch swan:lastItem ;
 	skos:note "It holds a copy of the item with the highest index, which has no next item." .
-collections:lastItemOf a owl:ObjectProperty ;
-	rdfs:domain collections:ListItem ;
+coll:lastItemOf a owl:ObjectProperty ;
+	rdfs:domain coll:ListItem ;
 	rdfs:label "lastItemOf" ;
-	rdfs:range collections:List ;
-	owl:inverseOf collections:lastItem ;
+	rdfs:range coll:List ;
+	rdfs:subPropertyOf coll:itemOf ;
+	owl:inverseOf coll:lastItem ;
 	skos:definition "A list whose last item this is." ;
-	skos:inScheme <https://w3id.org/lmodel/collections> .
-collections:nextItem a owl:ObjectProperty ;
-	rdfs:domain collections:ListItem ;
+	skos:inScheme <https://w3id.org/lmodel/collections> ;
+	skos:narrowMatch odplist:lastItemOf .
+coll:nextItem a owl:ObjectProperty ;
+	rdfs:domain coll:ListItem ;
 	rdfs:label "nextItem" ;
-	rdfs:range collections:ListItem ;
+	rdfs:range coll:ListItem ;
+	skos:closeMatch schema1:nextItem ;
 	skos:definition "The item that comes straight after this one." ;
-	skos:editorialNote "CO makes it a narrower form of followedBy, which is not stated here for the reason given on firstItem." ;
+	skos:editorialNote "CO makes it a narrower form of followedBy. It is stated on followedBy, as transitive_form_of, not here as is_a, for the reason given on firstItem." ;
+	skos:exactMatch swan:nextItem ;
 	skos:inScheme <https://w3id.org/lmodel/collections> ;
 	skos:note "It holds a copy of the item whose index is one higher." .
-collections:precededBy a owl:ObjectProperty , owl:TransitiveProperty ;
-	rdfs:domain collections:ListItem ;
+coll:precededBy a owl:ObjectProperty , owl:TransitiveProperty ;
+	rdfs:domain coll:ListItem ;
 	rdfs:label "precededBy" ;
-	rdfs:range collections:ListItem ;
-	owl:inverseOf collections:followedBy ;
+	rdfs:range coll:ListItem ;
+	owl:inverseOf coll:followedBy ;
 	skos:definition "An item that comes somewhere before this one." ;
+	skos:exactMatch swan:preceededBy ;
 	skos:inScheme <https://w3id.org/lmodel/collections> ;
 	skos:note "It holds copies of items whose index is lower." .
-collections:previousItem a owl:ObjectProperty ;
-	rdfs:domain collections:ListItem ;
+coll:previousItem a owl:ObjectProperty ;
+	rdfs:domain coll:ListItem ;
 	rdfs:label "previousItem" ;
-	rdfs:range collections:ListItem ;
-	owl:inverseOf collections:nextItem ;
+	rdfs:range coll:ListItem ;
+	owl:inverseOf coll:nextItem ;
+	skos:broadMatch seq:directlyFollows ;
+	skos:closeMatch schema1:previousItem ;
 	skos:definition "The item that comes straight before this one." ;
-	skos:editorialNote "CO makes it a narrower form of precededBy, which is not stated here for the reason given on firstItem." ;
+	skos:editorialNote "CO makes it a narrower form of precededBy. It is stated on precededBy, as transitive_form_of, not here as is_a, for the reason given on firstItem." ;
+	skos:exactMatch swan:previousItem ;
 	skos:inScheme <https://w3id.org/lmodel/collections> ;
 	skos:note "It holds a copy of the item whose index is one lower." .
+coll:size a owl:DatatypeProperty ;
+	rdfs:domain coll:Collection ;
+	rdfs:label "co_size" ;
+	rdfs:range _:c14n33 ;
+	skos:altLabel "size" ;
+	skos:definition "How many times the collection holds a thing, counting each repeat: the number of elements of a set, or of items of a bag or a list." ;
+	skos:editorialNote "CO gives every collection exactly one size. The schema leaves it optional, since a reader can count; where it is given, the tests check that it equals the count." ;
+	skos:exactMatch swan:size , odpbag:size , odpset:size ;
+	skos:inScheme <https://w3id.org/lmodel/collections> ;
+	skos:narrowMatch mo:track_count , schema1:numberOfItems .
+<https://w3id.org/lmodel/collections.owl.ttl> dcterms:license "Apache-2.0"@en ;
+	dcterms:source <https://github.com/collections-ontology/collections-ontology> ;
+	dcterms:title "Collections Ontology (CO)"@en ;
+	pav:version "2.0"@en ;
+	schema1:inLanguage "en"@en ;
+	schema1:keywords "bag"@en , "collection"@en , "list"@en , "ordered list"@en , "set"@en ;
+	a owl:Ontology ;
+	rdfs:label "collections"@en ;
+	rdfs:seeAlso <https://doi.org/10.3233/SW-130121> , <https://lmodel.github.io/collections> ;
+	skos:definition "The Collections Ontology (CO) 2.0 in LinkML, with CO's own names and IRIs: collections that are sets, bags or lists, and the items through which a bag or a list holds its elements."@en ;
+	skos:editorialNote "CO's Item and size are named CoItem and co_size, as in lmodel/uco's uco_co module, because UCO defines an Item and a size of its own. CO's index is named co_index, because gen-doc writes the page of a slot named index over the schema's index page. Their IRIs are CO's."@en ;
+	skos:note "Items have no IRI here, so a slot that links to an item, such as firstItem or nextItem, holds a copy of that item. docs/index.md lists the rules of CO that no validator checks and the tests check instead."@en , "Renders CO 2.0 by Paolo Ciccarese and Silvio Peroni, whose ontology IRI is http://purl.org/co. The source is collections.owl at the commit the co_commit annotation names, copied unchanged to upstream/collections.owl."@en , "The exact, narrow and broad mappings to SWAN Collections 1.2, the ontologydesignpatterns.org patterns, the Music Ontology and OAI-ORE are those of CO's own alignment.owl, copied unchanged to upstream/alignment.owl. That file writes ORE's namespace as http://www.openarchives.org/ore/items/, where ORE defines its terms under http://www.openarchives.org/ore/terms/, which the mappings use. The mappings to schema.org are this project's own, after schema.org's ItemList and ListItem, which link list items the same way."@en , "The repository states no licence. The project's Google Code archive gives the Apache License 2.0 for its code, collections.owl among it, and CC BY 3.0 for its other content, such as its wiki, as the co_licence annotation says. The descriptions here are this project's own words."@en ;
+	collections:co_commit "619e7b02646321174635fd04be658e338bf7d1d7"@en ;
+	collections:co_git_object "4e19e4892212de2b1805923a7a69fa4ba8c1b424"@en ;
+	collections:co_licence "Apache-2.0 for code, collections.owl among it, and CC-BY-3.0 for other content, per the Google Code archive"@en ;
+	collections:co_ontology_iri "http://purl.org/co"@en .
+collections:CoElement a owl:Class ;
+	rdfs:label "CoElement" ;
+	rdfs:subClassOf _:c14n11 , _:c14n24 , _:c14n39 ;
+	skos:definition "A thing that a collection holds, named by its IRI." ;
+	skos:editorialNote "Not a term of CO, so its IRI is the schema's own. CO says that what an item wraps is not itself an item, which disjoint_with states." ;
+	skos:inScheme <https://w3id.org/lmodel/collections> ;
+	skos:note "CO puts no limit on what a collection holds. A value of element or itemContent is the IRI of a CoElement, so the RDF of a collection links to its elements rather than holding their IRIs as text." .
+collections:iri a owl:DatatypeProperty ;
+	rdfs:label "iri" ;
+	skos:definition "The IRI of the thing." ;
+	skos:inScheme <https://w3id.org/lmodel/collections> .
 _:c14n0 a owl:Restriction ;
-	owl:minCardinality 1 ;
-	owl:onProperty collections:itemContent .
+	owl:maxCardinality 1 ;
+	owl:onProperty coll:size .
 _:c14n1 a owl:Restriction ;
 	owl:minCardinality 0 ;
-	owl:onProperty collections:precededBy .
+	owl:onProperty coll:lastItem .
 _:c14n10 a owl:Restriction ;
-	owl:allValuesFrom xsd:anyURI ;
-	owl:onProperty collections:itemContent .
+	owl:allValuesFrom _:c14n54 ;
+	owl:onProperty coll:index .
 _:c14n11 a owl:Restriction ;
 	owl:maxCardinality 1 ;
-	owl:onProperty collections:lastItem .
+	owl:onProperty collections:iri .
 _:c14n12 a owl:Restriction ;
 	owl:minCardinality 0 ;
-	owl:onProperty collections:lastItem .
+	owl:onProperty coll:precededBy .
 _:c14n13 a owl:Restriction ;
-	owl:minCardinality 1 ;
-	owl:onProperty collections:co_index .
+	owl:allValuesFrom _:c14n60 ;
+	owl:onProperty coll:size .
 _:c14n14 a owl:Restriction ;
-	owl:allValuesFrom collections:ListItem ;
-	owl:onProperty collections:precededBy .
-_:c14n15 a owl:Restriction ;
 	owl:maxCardinality 1 ;
-	owl:onProperty collections:itemContent .
+	owl:onProperty coll:index .
+_:c14n15 rdf:first coll:Set ;
+	rdf:rest rdf:nil .
 _:c14n16 a owl:Restriction ;
-	owl:allValuesFrom collections:ListItem ;
-	owl:onProperty collections:item .
+	owl:maxCardinality 1 ;
+	owl:onProperty coll:firstItem .
 _:c14n17 a owl:Restriction ;
-	owl:allValuesFrom collections:ListItem ;
-	owl:onProperty collections:previousItem .
+	owl:allValuesFrom coll:ListItem ;
+	owl:onProperty collections:item .
 _:c14n18 a owl:Restriction ;
-	owl:minCardinality 0 ;
-	owl:onProperty collections:element .
+	owl:allValuesFrom coll:ListItem ;
+	owl:onProperty coll:nextItem .
 _:c14n19 a owl:Restriction ;
 	owl:minCardinality 0 ;
-	owl:onProperty collections:nextItem .
+	owl:onProperty coll:nextItem .
 _:c14n2 a owl:Restriction ;
-	owl:maxCardinality 1 ;
-	owl:onProperty collections:firstItem .
-_:c14n20 a owl:Restriction ;
-	owl:minCardinality 0 ;
-	owl:onProperty collections:followedBy .
-_:c14n21 a owl:Restriction ;
-	owl:allValuesFrom collections:ListItem ;
-	owl:onProperty collections:firstItem .
-_:c14n22 a owl:Restriction ;
-	owl:minCardinality 0 ;
-	owl:onProperty collections:firstItem .
-_:c14n23 a rdfs:Datatype ;
-	owl:intersectionOf _:c14n49 .
-_:c14n24 a owl:Restriction ;
-	owl:maxCardinality 1 ;
-	owl:onProperty collections:co_index .
-_:c14n25 a owl:Restriction ;
-	owl:allValuesFrom _:c14n44 ;
-	owl:onProperty collections:co_size .
-_:c14n26 a owl:Restriction ;
 	owl:minCardinality 0 ;
 	owl:onProperty collections:item .
-_:c14n27 a rdfs:Datatype ;
-	owl:intersectionOf _:c14n54 .
+_:c14n20 a owl:Restriction ;
+	owl:allValuesFrom coll:ListItem ;
+	owl:onProperty coll:followedBy .
+_:c14n21 a owl:Restriction ;
+	owl:minCardinality 1 ;
+	owl:onProperty coll:itemContent .
+_:c14n22 a rdfs:Datatype ;
+	owl:intersectionOf _:c14n43 .
+_:c14n23 a owl:AllDisjointClasses ;
+	owl:members _:c14n31 .
+_:c14n24 a owl:Restriction ;
+	owl:allValuesFrom xsd:anyURI ;
+	owl:onProperty collections:iri .
+_:c14n25 a owl:Restriction ;
+	owl:allValuesFrom coll:ListItem ;
+	owl:onProperty coll:previousItem .
+_:c14n26 a owl:Restriction ;
+	owl:allValuesFrom owl:Thing ;
+	owl:onProperty collections:element .
+_:c14n27 a owl:Restriction ;
+	owl:allValuesFrom coll:ListItem ;
+	owl:onProperty coll:precededBy .
 _:c14n28 a owl:Restriction ;
 	owl:minCardinality 0 ;
-	owl:onProperty collections:item .
+	owl:onProperty coll:item .
 _:c14n29 a owl:Restriction ;
-	owl:minCardinality 0 ;
-	owl:onProperty collections:element .
+	owl:allValuesFrom coll:ListItem ;
+	owl:onProperty coll:firstItem .
 _:c14n3 a owl:Restriction ;
-	owl:allValuesFrom xsd:string ;
-	owl:onProperty collections:element .
+	owl:allValuesFrom coll:Item ;
+	owl:onProperty coll:item .
 _:c14n30 a owl:Restriction ;
-	owl:allValuesFrom collections:ListItem ;
-	owl:onProperty collections:lastItem .
-_:c14n31 a owl:Restriction ;
-	owl:maxCardinality 1 ;
-	owl:onProperty collections:co_size .
+	owl:allValuesFrom collections:CoElement ;
+	owl:onProperty coll:itemContent .
+_:c14n31 rdf:first coll:Bag ;
+	rdf:rest _:c14n15 .
 _:c14n32 a owl:Restriction ;
 	owl:minCardinality 0 ;
-	owl:onProperty collections:co_size .
-_:c14n33 a owl:Restriction ;
-	owl:allValuesFrom collections:ListItem ;
-	owl:onProperty collections:nextItem .
+	owl:onProperty coll:previousItem .
+_:c14n33 a rdfs:Datatype ;
+	owl:intersectionOf _:c14n48 .
 _:c14n34 a owl:Restriction ;
-	owl:allValuesFrom collections:CoItem ;
-	owl:onProperty collections:item .
-_:c14n35 a rdfs:Datatype ;
-	owl:onDatatype xsd:integer ;
-	owl:withRestrictions _:c14n39 .
-_:c14n36 rdf:first _:c14n35 ;
-	rdf:rest rdf:nil .
-_:c14n37 rdf:first xsd:integer ;
-	rdf:rest _:c14n36 .
-_:c14n38 a rdfs:Datatype ;
-	owl:intersectionOf _:c14n37 .
-_:c14n39 rdf:first _:c14n40 ;
-	rdf:rest rdf:nil .
-_:c14n4 a owl:Restriction ;
+	owl:minCardinality 1 ;
+	owl:onProperty coll:index .
+_:c14n35 a owl:Restriction ;
 	owl:minCardinality 0 ;
-	owl:onProperty collections:previousItem .
-_:c14n40 xsd:minInclusive 1 .
+	owl:onProperty coll:followedBy .
+_:c14n36 a owl:Restriction ;
+	owl:minCardinality 0 ;
+	owl:onProperty coll:element .
+_:c14n37 a owl:Restriction ;
+	owl:maxCardinality 1 ;
+	owl:onProperty coll:lastItem .
+_:c14n38 a owl:Restriction ;
+	owl:allValuesFrom collections:CoElement ;
+	owl:onProperty coll:element .
+_:c14n39 a owl:Restriction ;
+	owl:minCardinality 1 ;
+	owl:onProperty collections:iri .
+_:c14n4 a owl:Restriction ;
+	owl:maxCardinality 1 ;
+	owl:onProperty coll:itemContent .
+_:c14n40 a owl:Restriction ;
+	owl:maxCardinality 1 ;
+	owl:onProperty coll:nextItem .
 _:c14n41 a rdfs:Datatype ;
 	owl:onDatatype xsd:integer ;
-	owl:withRestrictions _:c14n45 .
+	owl:withRestrictions _:c14n44 .
 _:c14n42 rdf:first _:c14n41 ;
 	rdf:rest rdf:nil .
 _:c14n43 rdf:first xsd:integer ;
 	rdf:rest _:c14n42 .
-_:c14n44 a rdfs:Datatype ;
-	owl:intersectionOf _:c14n43 .
-_:c14n45 rdf:first _:c14n46 ;
+_:c14n44 rdf:first _:c14n45 ;
 	rdf:rest rdf:nil .
-_:c14n46 xsd:minInclusive 0 .
-_:c14n47 a rdfs:Datatype ;
+_:c14n45 xsd:minInclusive 1 .
+_:c14n46 a rdfs:Datatype ;
 	owl:onDatatype xsd:integer ;
-	owl:withRestrictions _:c14n50 .
-_:c14n48 rdf:first _:c14n47 ;
+	owl:withRestrictions _:c14n49 .
+_:c14n47 rdf:first _:c14n46 ;
 	rdf:rest rdf:nil .
-_:c14n49 rdf:first xsd:integer ;
-	rdf:rest _:c14n48 .
+_:c14n48 rdf:first xsd:integer ;
+	rdf:rest _:c14n47 .
+_:c14n49 rdf:first _:c14n50 ;
+	rdf:rest rdf:nil .
 _:c14n5 a owl:Restriction ;
-	owl:allValuesFrom _:c14n38 ;
-	owl:onProperty collections:co_index .
-_:c14n50 rdf:first _:c14n51 ;
-	rdf:rest rdf:nil .
-_:c14n51 xsd:minInclusive 1 .
-_:c14n52 a rdfs:Datatype ;
+	owl:minCardinality 0 ;
+	owl:onProperty collections:element .
+_:c14n50 xsd:minInclusive 0 .
+_:c14n51 a rdfs:Datatype ;
 	owl:onDatatype xsd:integer ;
 	owl:withRestrictions _:c14n55 .
-_:c14n53 rdf:first _:c14n52 ;
+_:c14n52 rdf:first _:c14n51 ;
 	rdf:rest rdf:nil .
-_:c14n54 rdf:first xsd:integer ;
-	rdf:rest _:c14n53 .
+_:c14n53 rdf:first xsd:integer ;
+	rdf:rest _:c14n52 .
+_:c14n54 a rdfs:Datatype ;
+	owl:intersectionOf _:c14n53 .
 _:c14n55 rdf:first _:c14n56 ;
 	rdf:rest rdf:nil .
-_:c14n56 xsd:minInclusive 0 .
+_:c14n56 xsd:minInclusive 1 .
+_:c14n57 a rdfs:Datatype ;
+	owl:onDatatype xsd:integer ;
+	owl:withRestrictions _:c14n61 .
+_:c14n58 rdf:first _:c14n57 ;
+	rdf:rest rdf:nil .
+_:c14n59 rdf:first xsd:integer ;
+	rdf:rest _:c14n58 .
 _:c14n6 a owl:Restriction ;
-	owl:maxCardinality 1 ;
-	owl:onProperty collections:previousItem .
+	owl:allValuesFrom coll:ListItem ;
+	owl:onProperty coll:lastItem .
+_:c14n60 a rdfs:Datatype ;
+	owl:intersectionOf _:c14n59 .
+_:c14n61 rdf:first _:c14n62 ;
+	rdf:rest rdf:nil .
+_:c14n62 xsd:minInclusive 0 .
 _:c14n7 a owl:Restriction ;
-	owl:allValuesFrom xsd:anyURI ;
-	owl:onProperty collections:element .
+	owl:minCardinality 0 ;
+	owl:onProperty coll:size .
 _:c14n8 a owl:Restriction ;
-	owl:allValuesFrom collections:ListItem ;
-	owl:onProperty collections:followedBy .
-_:c14n9 a owl:Restriction ;
 	owl:maxCardinality 1 ;
-	owl:onProperty collections:nextItem .
+	owl:onProperty coll:previousItem .
+_:c14n9 a owl:Restriction ;
+	owl:minCardinality 0 ;
+	owl:onProperty coll:firstItem .
 

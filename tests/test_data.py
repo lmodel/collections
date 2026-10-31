@@ -45,7 +45,7 @@ def test_the_example_folders_hold_examples():
     """The parametrized tests below pass on an empty folder, so this one does not."""
     counts = [len(VALID_EXAMPLE_FILES), len(INVALID_EXAMPLE_FILES)]
     counts.append(len(RULE_EXAMPLE_FILES))
-    assert all(n >= least for n, least in zip(counts, (12, 11, 14))), counts
+    assert all(n >= least for n, least in zip(counts, (13, 12, 14))), counts
 
 
 @pytest.mark.parametrize("filepath", VALID_EXAMPLE_FILES)
@@ -108,7 +108,8 @@ def test_committed_json_schema_agrees(filepath):
 
 def test_every_class_has_an_example():
     """Each class has a valid example: the four a knowledge-bundle concept may
-    name as its type, and the two item classes they hold."""
+    name as its type, the two item classes they hold, and the CoElement an item
+    wraps."""
     classes = set(yaml.safe_load(SCHEMA.read_text())["classes"])
     examples = {_class(f) for f in VALID_EXAMPLE_FILES}
     assert classes <= examples, sorted(classes - examples)

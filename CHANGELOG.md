@@ -6,6 +6,16 @@ The `v0.0.0` tag is a baseline, not a release: it marks where versioning starts 
 
 ## [Unreleased]
 
+### Added
+
+- **Mappings from CO's own `alignment.owl`**, copied unchanged and matched by hash: equivalents in SWAN Collections 1.2 and the ontologydesignpatterns.org patterns, narrower terms in the Music Ontology and OAI-ORE. Close mappings to schema.org's `ItemList` and `ListItem` are the project's own.
+- **`CoElement`, the thing a collection holds.** `element` and `itemContent` range over it, so in RDF a collection links to its elements as resources, not as text. The `lokf adapt` copy roots it on `Concept` beside `Collection`.
+- **More of CO's axioms:** `firstItemOf` and `lastItemOf` under `itemOf`, `transitive_form_of` on `followedBy` and `precededBy`, CO's property chains as `path_rule`s, the rule that a set is never a bag, for the ontology, and CO's names for the three renamed terms as aliases.
+
+### Changed
+
+- **The generated ontology describes CO's IRIs**, `coll:Bag` and the rest, in place of IRIs of the schema's own linked to CO's by `skos:exactMatch`.
+
 ## [0.1.0] - 2026-10-31
 
 ### Added

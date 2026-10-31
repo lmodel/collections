@@ -35,6 +35,13 @@ text. The file differs from the copy in the archived Subversion trunk in
 one line, the address of the error ontology it imports, which Silvio
 Peroni changed on GitHub in 2019.
 
+src/collections/schema/upstream/alignment.owl is CO's alignment file,
+unchanged, from the same commit (git object
+f6d6457b9b323e3e4bdf54ffeec5bc59f878f7ac), read on 2026-10-31. It is the
+same file as in the archived Subversion trunk, so this repository copies
+it under the Apache License, with the same credit. The schema's mappings
+follow it.
+
 linkml-project-copier
 ---------------------
 

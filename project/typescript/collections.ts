@@ -1,3 +1,4 @@
+export type CoElementIri = string;
 
 
 /**
@@ -7,7 +8,7 @@ export interface Collection {
     /** How many times the collection holds a thing, counting each repeat: the number of elements of a set, or of items of a bag or a list. */
     co_size?: number,
     /** A thing the collection holds, named by its IRI. */
-    element?: string[],
+    element?: CoElementIri[],
 }
 
 
@@ -39,11 +40,20 @@ export interface List extends Bag {
 
 
 /**
+ * A thing that a collection holds, named by its IRI.
+ */
+export interface CoElement {
+    /** The IRI of the thing. */
+    iri: string,
+}
+
+
+/**
  * An entry of a bag, which wraps one of the bag's elements.
  */
 export interface CoItem {
     /** The element that the item wraps. */
-    itemContent: string,
+    itemContent: CoElementIri,
 }
 
 

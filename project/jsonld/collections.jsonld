@@ -26,12 +26,21 @@
   "comments": [
     "Renders CO 2.0 by Paolo Ciccarese and Silvio Peroni, whose ontology IRI is http://purl.org/co. The source is collections.owl at the commit the co_commit annotation names, copied unchanged to upstream/collections.owl.",
     "The repository states no licence. The project's Google Code archive gives the Apache License 2.0 for its code, collections.owl among it, and CC BY 3.0 for its other content, such as its wiki, as the co_licence annotation says. The descriptions here are this project's own words.",
-    "Items have no IRI here, so a slot that links to an item, such as firstItem or nextItem, holds a copy of that item. docs/index.md lists the rules of CO that no validator checks and the tests check instead."
+    "Items have no IRI here, so a slot that links to an item, such as firstItem or nextItem, holds a copy of that item. docs/index.md lists the rules of CO that no validator checks and the tests check instead.",
+    "The exact, narrow and broad mappings to SWAN Collections 1.2, the ontologydesignpatterns.org patterns, the Music Ontology and OAI-ORE are those of CO's own alignment.owl, copied unchanged to upstream/alignment.owl. That file writes ORE's namespace as http://www.openarchives.org/ore/items/, where ORE defines its terms under http://www.openarchives.org/ore/terms/, which the mappings use. The mappings to schema.org are this project's own, after schema.org's ItemList and ListItem, which link list items the same way."
   ],
   "source": "https://github.com/collections-ontology/collections-ontology",
+  "in_language": "en",
   "see_also": [
     "https://lmodel.github.io/collections",
     "https://doi.org/10.3233/SW-130121"
+  ],
+  "keywords": [
+    "collection",
+    "set",
+    "bag",
+    "list",
+    "ordered list"
   ],
   "id": "https://w3id.org/lmodel/collections",
   "version": "2.0",
@@ -51,6 +60,42 @@
     {
       "prefix_prefix": "linkml",
       "prefix_reference": "https://w3id.org/linkml/"
+    },
+    {
+      "prefix_prefix": "schema",
+      "prefix_reference": "http://schema.org/"
+    },
+    {
+      "prefix_prefix": "swan",
+      "prefix_reference": "http://swan.mindinformatics.org/ontologies/1.2/collections/"
+    },
+    {
+      "prefix_prefix": "odpbag",
+      "prefix_reference": "http://www.ontologydesignpatterns.org/cp/owl/bag.owl#"
+    },
+    {
+      "prefix_prefix": "odpce",
+      "prefix_reference": "http://www.ontologydesignpatterns.org/cp/owl/collectionentity.owl#"
+    },
+    {
+      "prefix_prefix": "odplist",
+      "prefix_reference": "http://www.ontologydesignpatterns.org/cp/owl/list.owl#"
+    },
+    {
+      "prefix_prefix": "seq",
+      "prefix_reference": "http://www.ontologydesignpatterns.org/cp/owl/sequence.owl#"
+    },
+    {
+      "prefix_prefix": "odpset",
+      "prefix_reference": "http://www.ontologydesignpatterns.org/cp/owl/set.owl#"
+    },
+    {
+      "prefix_prefix": "mo",
+      "prefix_reference": "http://purl.org/ontology/mo/"
+    },
+    {
+      "prefix_prefix": "ore",
+      "prefix_reference": "http://www.openarchives.org/ore/terms/"
     }
   ],
   "default_prefix": "collections",
@@ -370,9 +415,17 @@
       "name": "element",
       "definition_uri": "https://w3id.org/lmodel/collections/element",
       "description": "A thing the collection holds, named by its IRI.",
+      "comments": [
+        "In a bag, each item's itemContent is also an element, as the path rule states after CO's property chain."
+      ],
       "from_schema": "https://w3id.org/lmodel/collections",
       "mappings": [
         "http://purl.org/co/element"
+      ],
+      "narrow_mappings": [
+        "http://swan.mindinformatics.org/ontologies/1.2/collections/element",
+        "http://www.ontologydesignpatterns.org/cp/owl/collectionentity.owl#hasMember",
+        "http://www.openarchives.org/ore/terms/aggregates"
       ],
       "domain": "Collection",
       "slot_uri": "http://purl.org/co/element",
@@ -380,7 +433,16 @@
       "domain_of": [
         "Collection"
       ],
-      "range": "uriorcurie",
+      "inverse": "elementOf",
+      "path_rule": {
+        "followed_by": {
+          "traverse": "itemContent",
+          "@type": "PathExpression"
+        },
+        "traverse": "item",
+        "@type": "PathExpression"
+      },
+      "range": "CoElement",
       "multivalued": true,
       "@type": "SlotDefinition"
     },
@@ -388,14 +450,17 @@
       "name": "elementOf",
       "definition_uri": "https://w3id.org/lmodel/collections/elementOf",
       "description": "A collection that holds the thing as an element.",
-      "notes": [
-        "CO declares it the inverse of element. LinkML's Python generator states an inverse only between slots that range over classes, and element ranges over any thing named by its IRI, so the inverse is not stated here."
-      ],
       "from_schema": "https://w3id.org/lmodel/collections",
       "mappings": [
         "http://purl.org/co/elementOf"
       ],
+      "narrow_mappings": [
+        "http://www.ontologydesignpatterns.org/cp/owl/collectionentity.owl#isMemberOf"
+      ],
+      "domain": "CoElement",
       "slot_uri": "http://purl.org/co/elementOf",
+      "owner": "elementOf",
+      "inverse": "element",
       "range": "Collection",
       "multivalued": true,
       "inlined": true,
@@ -410,8 +475,20 @@
         "CO gives every collection exactly one size. The schema leaves it optional, since a reader can count; where it is given, the tests check that it equals the count."
       ],
       "from_schema": "https://w3id.org/lmodel/collections",
+      "aliases": [
+        "size"
+      ],
       "mappings": [
         "http://purl.org/co/size"
+      ],
+      "exact_mappings": [
+        "http://swan.mindinformatics.org/ontologies/1.2/collections/size",
+        "http://www.ontologydesignpatterns.org/cp/owl/bag.owl#size",
+        "http://www.ontologydesignpatterns.org/cp/owl/set.owl#size"
+      ],
+      "narrow_mappings": [
+        "http://purl.org/ontology/mo/track_count",
+        "http://schema.org/numberOfItems"
       ],
       "domain": "Collection",
       "slot_uri": "http://purl.org/co/size",
@@ -427,9 +504,16 @@
       "name": "item",
       "definition_uri": "https://w3id.org/lmodel/collections/item",
       "description": "An item of the bag, which holds one of its elements.",
+      "comments": [
+        "In a list, the item after an item of the list is also an item of it, as the path rule states after CO's property chain."
+      ],
       "from_schema": "https://w3id.org/lmodel/collections",
       "mappings": [
         "http://purl.org/co/item"
+      ],
+      "narrow_mappings": [
+        "http://swan.mindinformatics.org/ontologies/1.2/collections/item",
+        "http://purl.org/ontology/mo/track"
       ],
       "domain": "Bag",
       "slot_uri": "http://purl.org/co/item",
@@ -438,6 +522,14 @@
         "Bag"
       ],
       "inverse": "itemOf",
+      "path_rule": {
+        "followed_by": {
+          "traverse": "nextItem",
+          "@type": "PathExpression"
+        },
+        "traverse": "item",
+        "@type": "PathExpression"
+      },
       "range": "CoItem",
       "multivalued": true,
       "inlined": true,
@@ -451,6 +543,10 @@
       "from_schema": "https://w3id.org/lmodel/collections",
       "mappings": [
         "http://purl.org/co/itemOf"
+      ],
+      "narrow_mappings": [
+        "http://www.ontologydesignpatterns.org/cp/owl/bag.owl#itemOf",
+        "http://www.openarchives.org/ore/terms/proxyIn"
       ],
       "domain": "CoItem",
       "slot_uri": "http://purl.org/co/itemOf",
@@ -476,27 +572,42 @@
       "mappings": [
         "http://purl.org/co/itemContent"
       ],
+      "exact_mappings": [
+        "http://swan.mindinformatics.org/ontologies/1.2/collections/itemContent",
+        "http://www.ontologydesignpatterns.org/cp/owl/bag.owl#itemContent"
+      ],
+      "close_mappings": [
+        "http://schema.org/item"
+      ],
+      "narrow_mappings": [
+        "http://purl.org/ontology/mo/publication_of",
+        "http://www.openarchives.org/ore/terms/proxyFor"
+      ],
       "domain": "CoItem",
       "slot_uri": "http://purl.org/co/itemContent",
       "owner": "CoItem",
       "domain_of": [
         "CoItem"
       ],
-      "range": "uriorcurie",
+      "inverse": "itemContentOf",
+      "range": "CoElement",
       "@type": "SlotDefinition"
     },
     {
       "name": "itemContentOf",
       "definition_uri": "https://w3id.org/lmodel/collections/itemContentOf",
       "description": "An item that wraps the thing.",
-      "notes": [
-        "CO declares it the inverse of itemContent, which is not stated here for the reason given on elementOf."
-      ],
       "from_schema": "https://w3id.org/lmodel/collections",
       "mappings": [
         "http://purl.org/co/itemContentOf"
       ],
+      "narrow_mappings": [
+        "http://purl.org/ontology/mo/published_as"
+      ],
+      "domain": "CoElement",
       "slot_uri": "http://purl.org/co/itemContentOf",
+      "owner": "itemContentOf",
+      "inverse": "itemContent",
       "range": "CoItem",
       "multivalued": true,
       "inlined": true,
@@ -508,8 +619,17 @@
       "definition_uri": "https://w3id.org/lmodel/collections/co_index",
       "description": "The place of the item in its list, counting from 1.",
       "from_schema": "https://w3id.org/lmodel/collections",
+      "aliases": [
+        "index"
+      ],
       "mappings": [
         "http://purl.org/co/index"
+      ],
+      "close_mappings": [
+        "http://schema.org/position"
+      ],
+      "narrow_mappings": [
+        "http://purl.org/ontology/mo/track_number"
       ],
       "domain": "ListItem",
       "slot_uri": "http://purl.org/co/index",
@@ -535,6 +655,9 @@
       "mappings": [
         "http://purl.org/co/firstItem"
       ],
+      "narrow_mappings": [
+        "http://swan.mindinformatics.org/ontologies/1.2/collections/firstItem"
+      ],
       "domain": "List",
       "slot_uri": "http://purl.org/co/firstItem",
       "owner": "List",
@@ -555,6 +678,10 @@
       "mappings": [
         "http://purl.org/co/firstItemOf"
       ],
+      "narrow_mappings": [
+        "http://www.ontologydesignpatterns.org/cp/owl/list.owl#firstItemOf"
+      ],
+      "is_a": "itemOf",
       "domain": "ListItem",
       "slot_uri": "http://purl.org/co/firstItemOf",
       "owner": "firstItemOf",
@@ -579,6 +706,9 @@
       "mappings": [
         "http://purl.org/co/lastItem"
       ],
+      "narrow_mappings": [
+        "http://swan.mindinformatics.org/ontologies/1.2/collections/lastItem"
+      ],
       "domain": "List",
       "slot_uri": "http://purl.org/co/lastItem",
       "owner": "List",
@@ -599,6 +729,10 @@
       "mappings": [
         "http://purl.org/co/lastItemOf"
       ],
+      "narrow_mappings": [
+        "http://www.ontologydesignpatterns.org/cp/owl/list.owl#lastItemOf"
+      ],
+      "is_a": "itemOf",
       "domain": "ListItem",
       "slot_uri": "http://purl.org/co/lastItemOf",
       "owner": "lastItemOf",
@@ -614,7 +748,7 @@
       "definition_uri": "https://w3id.org/lmodel/collections/nextItem",
       "description": "The item that comes straight after this one.",
       "notes": [
-        "CO makes it a narrower form of followedBy, which is not stated here for the reason given on firstItem."
+        "CO makes it a narrower form of followedBy. It is stated on followedBy, as transitive_form_of, not here as is_a, for the reason given on firstItem."
       ],
       "comments": [
         "It holds a copy of the item whose index is one higher."
@@ -622,6 +756,12 @@
       "from_schema": "https://w3id.org/lmodel/collections",
       "mappings": [
         "http://purl.org/co/nextItem"
+      ],
+      "exact_mappings": [
+        "http://swan.mindinformatics.org/ontologies/1.2/collections/nextItem"
+      ],
+      "close_mappings": [
+        "http://schema.org/nextItem"
       ],
       "domain": "ListItem",
       "slot_uri": "http://purl.org/co/nextItem",
@@ -640,7 +780,7 @@
       "definition_uri": "https://w3id.org/lmodel/collections/previousItem",
       "description": "The item that comes straight before this one.",
       "notes": [
-        "CO makes it a narrower form of precededBy, which is not stated here for the reason given on firstItem."
+        "CO makes it a narrower form of precededBy. It is stated on precededBy, as transitive_form_of, not here as is_a, for the reason given on firstItem."
       ],
       "comments": [
         "It holds a copy of the item whose index is one lower."
@@ -648,6 +788,15 @@
       "from_schema": "https://w3id.org/lmodel/collections",
       "mappings": [
         "http://purl.org/co/previousItem"
+      ],
+      "exact_mappings": [
+        "http://swan.mindinformatics.org/ontologies/1.2/collections/previousItem"
+      ],
+      "close_mappings": [
+        "http://schema.org/previousItem"
+      ],
+      "broad_mappings": [
+        "http://www.ontologydesignpatterns.org/cp/owl/sequence.owl#directlyFollows"
       ],
       "domain": "ListItem",
       "slot_uri": "http://purl.org/co/previousItem",
@@ -672,6 +821,9 @@
       "mappings": [
         "http://purl.org/co/followedBy"
       ],
+      "exact_mappings": [
+        "http://swan.mindinformatics.org/ontologies/1.2/collections/followedBy"
+      ],
       "domain": "ListItem",
       "slot_uri": "http://purl.org/co/followedBy",
       "owner": "ListItem",
@@ -680,6 +832,7 @@
       ],
       "transitive": true,
       "inverse": "precededBy",
+      "transitive_form_of": "nextItem",
       "range": "ListItem",
       "multivalued": true,
       "inlined": true,
@@ -697,6 +850,9 @@
       "mappings": [
         "http://purl.org/co/precededBy"
       ],
+      "exact_mappings": [
+        "http://swan.mindinformatics.org/ontologies/1.2/collections/preceededBy"
+      ],
       "domain": "ListItem",
       "slot_uri": "http://purl.org/co/precededBy",
       "owner": "ListItem",
@@ -705,6 +861,7 @@
       ],
       "transitive": true,
       "inverse": "followedBy",
+      "transitive_form_of": "previousItem",
       "range": "ListItem",
       "multivalued": true,
       "inlined": true,
@@ -712,12 +869,35 @@
       "@type": "SlotDefinition"
     },
     {
+      "name": "coElement__iri",
+      "description": "The IRI of the thing.",
+      "from_schema": "https://w3id.org/lmodel/collections",
+      "slot_uri": "https://w3id.org/lmodel/collections/iri",
+      "identifier": true,
+      "alias": "iri",
+      "owner": "CoElement",
+      "domain_of": [
+        "CoElement"
+      ],
+      "range": "uriorcurie",
+      "required": true,
+      "@type": "SlotDefinition"
+    },
+    {
       "name": "Set_element",
       "definition_uri": "https://w3id.org/lmodel/collections/element",
       "description": "A thing the collection holds, named by its IRI.",
+      "comments": [
+        "In a bag, each item's itemContent is also an element, as the path rule states after CO's property chain."
+      ],
       "from_schema": "https://w3id.org/lmodel/collections",
       "mappings": [
         "http://purl.org/co/element"
+      ],
+      "narrow_mappings": [
+        "http://swan.mindinformatics.org/ontologies/1.2/collections/element",
+        "http://www.ontologydesignpatterns.org/cp/owl/collectionentity.owl#hasMember",
+        "http://www.openarchives.org/ore/terms/aggregates"
       ],
       "is_a": "element",
       "domain": "Set",
@@ -730,7 +910,15 @@
       ],
       "is_usage_slot": true,
       "usage_slot_name": "element",
-      "range": "uriorcurie",
+      "path_rule": {
+        "followed_by": {
+          "traverse": "itemContent",
+          "@type": "PathExpression"
+        },
+        "traverse": "item",
+        "@type": "PathExpression"
+      },
+      "range": "CoElement",
       "multivalued": true,
       "@type": "SlotDefinition"
     },
@@ -738,9 +926,16 @@
       "name": "List_item",
       "definition_uri": "https://w3id.org/lmodel/collections/item",
       "description": "An item of the bag, which holds one of its elements.",
+      "comments": [
+        "In a list, the item after an item of the list is also an item of it, as the path rule states after CO's property chain."
+      ],
       "from_schema": "https://w3id.org/lmodel/collections",
       "mappings": [
         "http://purl.org/co/item"
+      ],
+      "narrow_mappings": [
+        "http://swan.mindinformatics.org/ontologies/1.2/collections/item",
+        "http://purl.org/ontology/mo/track"
       ],
       "is_a": "item",
       "domain": "List",
@@ -752,6 +947,14 @@
       ],
       "is_usage_slot": true,
       "usage_slot_name": "item",
+      "path_rule": {
+        "followed_by": {
+          "traverse": "nextItem",
+          "@type": "PathExpression"
+        },
+        "traverse": "item",
+        "@type": "PathExpression"
+      },
       "range": "ListItem",
       "multivalued": true,
       "inlined": true,
@@ -772,6 +975,17 @@
       "mappings": [
         "http://purl.org/co/itemContent"
       ],
+      "exact_mappings": [
+        "http://swan.mindinformatics.org/ontologies/1.2/collections/itemContent",
+        "http://www.ontologydesignpatterns.org/cp/owl/bag.owl#itemContent"
+      ],
+      "close_mappings": [
+        "http://schema.org/item"
+      ],
+      "narrow_mappings": [
+        "http://purl.org/ontology/mo/publication_of",
+        "http://www.openarchives.org/ore/terms/proxyFor"
+      ],
       "is_a": "itemContent",
       "domain": "CoItem",
       "slot_uri": "http://purl.org/co/itemContent",
@@ -782,7 +996,7 @@
       ],
       "is_usage_slot": true,
       "usage_slot_name": "itemContent",
-      "range": "uriorcurie",
+      "range": "CoElement",
       "required": true,
       "@type": "SlotDefinition"
     },
@@ -791,8 +1005,17 @@
       "definition_uri": "https://w3id.org/lmodel/collections/co_index",
       "description": "The place of the item in its list, counting from 1.",
       "from_schema": "https://w3id.org/lmodel/collections",
+      "aliases": [
+        "index"
+      ],
       "mappings": [
         "http://purl.org/co/index"
+      ],
+      "close_mappings": [
+        "http://schema.org/position"
+      ],
+      "narrow_mappings": [
+        "http://purl.org/ontology/mo/track_number"
       ],
       "is_a": "co_index",
       "domain": "ListItem",
@@ -817,7 +1040,12 @@
       "description": "A group of things that is taken as a whole.",
       "from_schema": "https://w3id.org/lmodel/collections",
       "exact_mappings": [
-        "coll:Collection"
+        "coll:Collection",
+        "swan:Collection",
+        "odpce:Collection"
+      ],
+      "narrow_mappings": [
+        "ore:Aggregation"
       ],
       "slots": [
         "co_size",
@@ -828,6 +1056,7 @@
       "disjoint_with": [
         "CoItem"
       ],
+      "children_are_mutually_disjoint": true,
       "@type": "ClassDefinition"
     },
     {
@@ -839,7 +1068,9 @@
       ],
       "from_schema": "https://w3id.org/lmodel/collections",
       "exact_mappings": [
-        "coll:Set"
+        "coll:Set",
+        "swan:Set",
+        "odpset:Set"
       ],
       "is_a": "Collection",
       "slots": [
@@ -856,7 +1087,9 @@
       "description": "A collection that may hold one element more than once, in no order.",
       "from_schema": "https://w3id.org/lmodel/collections",
       "exact_mappings": [
-        "coll:Bag"
+        "coll:Bag",
+        "swan:Bag",
+        "odpbag:Bag"
       ],
       "is_a": "Collection",
       "slots": [
@@ -880,7 +1113,15 @@
       ],
       "from_schema": "https://w3id.org/lmodel/collections",
       "exact_mappings": [
-        "coll:List"
+        "coll:List",
+        "swan:List",
+        "odplist:List"
+      ],
+      "narrow_mappings": [
+        "mo:Record"
+      ],
+      "broad_mappings": [
+        "schema:ItemList"
       ],
       "is_a": "Bag",
       "slots": [
@@ -895,12 +1136,50 @@
       "@type": "ClassDefinition"
     },
     {
+      "name": "CoElement",
+      "definition_uri": "https://w3id.org/lmodel/collections/CoElement",
+      "description": "A thing that a collection holds, named by its IRI.",
+      "notes": [
+        "Not a term of CO, so its IRI is the schema's own. CO says that what an item wraps is not itself an item, which disjoint_with states."
+      ],
+      "comments": [
+        "CO puts no limit on what a collection holds. A value of element or itemContent is the IRI of a CoElement, so the RDF of a collection links to its elements rather than holding their IRIs as text."
+      ],
+      "from_schema": "https://w3id.org/lmodel/collections",
+      "slots": [
+        "coElement__iri"
+      ],
+      "slot_usage": {},
+      "attributes": [
+        {
+          "name": "iri",
+          "description": "The IRI of the thing.",
+          "identifier": true,
+          "range": "uriorcurie",
+          "@type": "SlotDefinition"
+        }
+      ],
+      "class_uri": "https://w3id.org/lmodel/collections/CoElement",
+      "disjoint_with": [
+        "CoItem"
+      ],
+      "@type": "ClassDefinition"
+    },
+    {
       "name": "CoItem",
       "definition_uri": "https://w3id.org/lmodel/collections/CoItem",
       "description": "An entry of a bag, which wraps one of the bag's elements.",
+      "notes": [
+        "CO says that every item is an item of some bag. The schema leaves itemOf optional, since a bag holds its items inline."
+      ],
       "from_schema": "https://w3id.org/lmodel/collections",
+      "aliases": [
+        "Item"
+      ],
       "exact_mappings": [
-        "coll:Item"
+        "coll:Item",
+        "swan:Item",
+        "odpbag:Item"
       ],
       "slots": [
         "CoItem_itemContent"
@@ -915,7 +1194,16 @@
       "description": "An item of a list, which has a place in the list's order.",
       "from_schema": "https://w3id.org/lmodel/collections",
       "exact_mappings": [
-        "coll:ListItem"
+        "coll:ListItem",
+        "swan:ListItem",
+        "odplist:ListItem"
+      ],
+      "close_mappings": [
+        "schema:ListItem"
+      ],
+      "narrow_mappings": [
+        "mo:Track",
+        "ore:Proxy"
       ],
       "is_a": "CoItem",
       "slots": [
@@ -933,8 +1221,8 @@
   ],
   "metamodel_version": "1.12.0",
   "source_file": "collections.yaml",
-  "source_file_date": "2026-10-31T18:08:14",
-  "source_file_size": 8920,
+  "source_file_date": "2026-10-31T23:58:24",
+  "source_file_size": 13177,
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/collections.context.jsonld",
