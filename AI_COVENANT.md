@@ -19,7 +19,7 @@ Do not submit anything you cannot fully stand behind.
 
 ## A note specific to this project
 
-This repository renders someone else's ontology. Paolo Ciccarese and Silvio Peroni publish the Collections Ontology (CO): sets, bags and lists, and the items that hold a bag's or a list's elements in order. This project renders CO 2.0 as a LinkML schema, with CO's own names and Internationalized Resource Identifiers (IRIs).
+This repository renders someone else's ontology. Paolo Ciccarese and Silvio Peroni publish the Collections Ontology (CO): sets, bags and lists, and the items that hold a bag's elements, in order for a list. This project renders CO 2.0 as a LinkML schema, with CO's own names and Internationalized Resource Identifiers (IRIs).
 
 The failure mode that matters most here is a rule or element that a model produced, presented as what CO says. A reader cannot tell it from CO's own work, and a host that types its data by this schema inherits it.
 

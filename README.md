@@ -44,7 +44,7 @@ None. CO's own `alignment.owl` aligns it with older collection vocabularies, whi
 
 ## Not modelled here
 
-* The links back from an element or an item to its collection (`elementOf`, `itemOf`, `itemContentOf`, `firstItemOf`, `lastItemOf`): they are declared, and no class uses them.
+* The links back from an element or an item to its collection (`elementOf`, `itemOf`, `itemContentOf`, `firstItemOf`, `lastItemOf`): the schema declares them, but no class uses them.
 * CO's property chains, SWRL rules and narrower-property axioms. The tests check what they imply.
 * CO's alignments and its example files.
 
@@ -74,7 +74,7 @@ Collection, Set, Bag, List
 
 A concept of one of these types writes its `element`, `co_size` and, for a bag or a list, its `item` entries inline. A name and a description are the concept's own `title` and `description`.
 
-A host imports the copy beside LOKF's schema, `lokf.yaml`, and beside other adapt copies. LinkML merges them into one namespace, where the last definition of a name wins silently. So no class, enum or type shares a name with LOKF's or with the released copies of slsa, github-actions, oscal, spdx, nist-sp-800-218, nist-sp-800-53, nist-sp-800-171, nist-csf-v2, in-toto, cis-controls, iso27001, stix and attack.
+A host imports the copy beside LOKF's schema, `lokf.yaml`, and beside other adapt copies. LinkML merges them into one namespace, where the last definition of a name wins silently. So no class, enum or type shares a name with LOKF's or with the thirteen released lmodel copies in `tests/neighbours/`.
 
 One key is shared: `element`, which the spdx copy uses for an SPDX element's members under SPDX's IRI. A host that imports both copies has one `element` project under the other's IRI, until `lokf adapt` can rename a key that a neighbour defines ([lokf issue #169](https://github.com/nicholsn/lokf/issues/169), `--beside`). `tests/test_schema_rules.py` lists that key and fails on a new one. lmodel/uco's `uco_co` module renders the CO terms UCO uses, with the same IRIs and the same names but one, `index`, which is `co_index` here. Import that copy or this one, not both, until uco imports this schema in its place.
 
@@ -84,7 +84,7 @@ The schema and the code are under the Apache License 2.0 ([LICENSE](LICENSE)).
 
 The knowledge bundle in `.lokf/knowledge/` is under the Creative Commons Attribution 4.0 International licence (CC BY 4.0), as its `index.md` declares.
 
-CO's repository states no licence. The project's Google Code archive gives the Apache License 2.0 for its code, which held CO's OWL file, and CC BY 3.0 for its other content, such as its wiki, so this repository copies the OWL file under the Apache License. [NOTICE](NOTICE) gives the credit. This is not an official CO project, and its use implies no endorsement by CO's authors.
+CO's repository states no licence. The project's Google Code archive gives the Apache License 2.0 for its code, which held CO's OWL file, and CC BY 3.0 for its other content, such as its wiki. So this repository copies the OWL file under the Apache License. [NOTICE](NOTICE) gives the credit. This is not an official CO project, and its use implies no endorsement by CO's authors.
 
 ## Contributing and security
 

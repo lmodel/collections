@@ -25,10 +25,10 @@ https://github.com/collections-ontology/collections-ontology at commit
 repository is an export of the project's Google Code site and states no
 licence of its own. The Google Code archive's record of the project,
 https://code.google.com/archive/p/collections-ontology, gives its
-licences: the Apache License, Version 2.0 for its code, the files of its
-Subversion repository, and Creative Commons Attribution 3.0
-(https://creativecommons.org/licenses/by/3.0/) for its other content,
-such as its wiki. collections.owl is in that repository's trunk, so this
+licences. Its code, the files of its Subversion repository, is under the
+Apache License, Version 2.0. Its other content, such as its wiki, is
+under Creative Commons Attribution 3.0
+(https://creativecommons.org/licenses/by/3.0/). collections.owl is in that repository's trunk, so this
 repository copies it under the Apache License, with this credit. The
 schema cites one page of the wiki for a fact and copies none of its
 text. The file differs from the copy in the archived Subversion trunk in

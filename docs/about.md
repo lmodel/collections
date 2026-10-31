@@ -14,8 +14,8 @@ the class `CoItem` and CO's `size` is the slot `co_size`, as in the `uco_co`
 module of lmodel/uco, because UCO defines terms of the same name. CO's
 `index` is the slot `co_index`, because LinkML's documentation generator
 writes the page of a slot named `index` over the schema's index page.
-The prefix is `coll`, the one the LinkML prefix map gives CO's namespace;
-that map gives `co` to another vocabulary. The descriptions are this
+The prefix is `coll`, the one the LinkML prefix map gives CO's namespace.
+That map gives `co` to another vocabulary. The descriptions are this
 project's own words.
 
 ## What is left out

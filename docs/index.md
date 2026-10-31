@@ -23,8 +23,8 @@ over every example:
   a set, and of its items for a bag or a list.
 - Where a bag gives its elements, each item's content is one of them.
 - A list's items are its `item` entries, its `firstItem` and `lastItem`, and
-  the `nextItem` of each, since CO makes the first and the last item narrower
-  forms of `item`, and the next item of an item an item of the same list.
+  the `nextItem` of each. CO makes the first and the last item narrower forms
+  of `item`, and the next item of an item is an item of the same list.
 - A list's indexes count 1, 2, 3 and on, with no gap or repeat.
 - `firstItem` is a copy of the item with index 1, which has no previous item.
   `lastItem` is a copy of the item with the highest index, which has no next
