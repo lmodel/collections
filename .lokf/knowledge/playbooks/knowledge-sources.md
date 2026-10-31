@@ -126,4 +126,4 @@ Each concept derived from a file or folder of this repository names it by its pa
 | `AI_COVENANT.md` | `policies/ai-covenant` | re-read the project note and the section on agent automation |
 | <https://github.com/collections-ontology/collections-ontology>, <https://doi.org/10.3233/SW-130121>, the Google Code archive's project record | `references/collections-ontology` | re-read them when the upstream watch reports a change |
 
-The paths under `exclusions` were looked at and left out, each for the reason it gives: governance text, tooling settings, template text, package plumbing, the pointer for agents, and the sidecar's own files.
+The paths under `exclusions` are left out, each for the reason it gives: governance text, tooling settings, template text, package plumbing, the pointer for agents, and the sidecar's own files.

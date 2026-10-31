@@ -17,7 +17,7 @@ status: draft
 
 # AI covenant
 
-`AI_COVENANT.md` says that whoever submits a change owns it, whatever tools helped. Its note for this project names the worst failure: a rule or element a model produced, presented as what CO says. So every class and slot renders a class or property of CO 2.0, cited by the part of `collections.owl` it rests on, CO's IRIs are kept, and the copied file stays CO's.[^ai_covenant.md]
+`AI_COVENANT.md` says that whoever submits a change owns it, whatever tools helped. Its note for this project names the worst failure: a rule or element a model produced, presented as what CO says. So every class and slot renders a class or property of CO 2.0 and cites the part of `collections.owl` it rests on. CO's IRIs are kept, and the copied file stays CO's.[^ai_covenant.md]
 
 The scheduled librarian commits as a labelled bot, its job holds no write credential, and a person approves its pull request before the merge. A verdict a skill records must be what that person said.
 

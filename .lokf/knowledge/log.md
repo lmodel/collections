@@ -2,6 +2,7 @@
 
 ## 2026-10-31
 
+* **Prose**: reworded 7 concept bodies in plain English. No fact, link, number or frontmatter changed.
 * **Changed**: NOTICE now says the copied OWL file falls under CO's code licence, Apache-2.0, and that CC BY 3.0 covers CO's other content.
 * **Changed**: SECURITY.md now says the watch's token can also write issues, and that the watch follows a redirect only to GitHub.
 * **Changed**: `tests/data/valid/` now holds 12 examples, two of them lists whose items are written only as a first, a last or a next item.

@@ -21,7 +21,7 @@ status: draft
 
 # Semantic release (semantic-release.yml)
 
-`.github/workflows/semantic-release.yml` has two jobs. On a pull request into `main`, `plan` previews with `--dry-run` what a merge would release, and needs no write scope. On a push to `main`, `release` runs in the `release` Environment with `contents: write` and `actions: write`, promotes CHANGELOG.md, tags the release, and dispatches Knowledge Release once `KNOWLEDGE_RELEASE_ENABLED` is `true`.[^semantic-release.yml] Both install semantic-release from `.github/release/package-lock.json` with `npm ci --ignore-scripts`.[^package.json]
+`.github/workflows/semantic-release.yml` has two jobs. On a pull request into `main`, `plan` previews what a merge would release, with `--dry-run`, and needs no write scope. On a push to `main`, `release` runs in the `release` Environment with `contents: write` and `actions: write`, promotes CHANGELOG.md, tags the release, and dispatches Knowledge Release once `KNOWLEDGE_RELEASE_ENABLED` is `true`.[^semantic-release.yml] Both install semantic-release from `.github/release/package-lock.json` with `npm ci --ignore-scripts`.[^package.json]
 
 [^semantic-release.yml]: .github/workflows/semantic-release.yml, the plan and release jobs
 [^package.json]: .github/release/package.json, the release tools

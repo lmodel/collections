@@ -50,7 +50,7 @@ Every slot keeps CO's local name, except `co_size` for CO's `size` and `co_index
 
 ## As the bundle's domain schema
 
-`project.justfile` passes one root to `lokf adapt`, `Collection`, so a concept may be a `Collection`, a `Set`, a `Bag` or a `List`. Its comment says that the schema has no identifier slot, so the recipe names the root, and that the items stay plain classes.[^project.justfile] The copy's notes say that `lokf adapt` re-rooted `Collection` on `lokf:Concept` and renamed nothing.[^lokf-collections.yaml] The `schema :=` line of `.lokf/justfile` and the `[tool.lokf]` table of `.lokf/pyproject.toml` both name the copy.
+`project.justfile` passes one root to `lokf adapt`, `Collection`, so a concept may be a `Collection`, a `Set`, a `Bag` or a `List`. Its comment says that the recipe names the root because the schema has no identifier slot, and that the items stay plain classes.[^project.justfile] The copy's notes say that `lokf adapt` re-rooted `Collection` on `lokf:Concept` and renamed nothing.[^lokf-collections.yaml] The `schema :=` line of `.lokf/justfile` and the `[tool.lokf]` table of `.lokf/pyproject.toml` both name the copy.
 
 [Names and IRIs](../explanations/names-and-iris.md) says why three names differ from CO's, and [Scope and rules](../explanations/scope-and-rules.md) lists the rules the tests check instead of the validator.
 
