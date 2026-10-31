@@ -1,0 +1,7 @@
+# Fails at: /item/1/index
+# Invalid: two items cannot share a place.
+item:
+  - index: 1
+    itemContent: https://example.org/a
+  - index: 1
+    itemContent: https://example.org/b

@@ -1,0 +1,5 @@
+# Fails at: /element/1
+# Invalid: a set holds each element once. No validator checks it.
+element:
+  - https://example.org/a
+  - https://example.org/a

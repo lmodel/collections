@@ -1,0 +1,32 @@
+# Three people in order, as in CO's own example of a list, with every link a
+# list's items can have. Each link holds a copy of the item it names.
+co_size: 3
+element:
+  - https://example.org/person/paolo
+  - https://example.org/person/marco
+  - https://example.org/person/silvio
+item:
+  - index: 1
+    itemContent: https://example.org/person/paolo
+    nextItem:
+      index: 2
+      itemContent: https://example.org/person/marco
+  - index: 2
+    itemContent: https://example.org/person/marco
+    previousItem:
+      index: 1
+      itemContent: https://example.org/person/paolo
+    nextItem:
+      index: 3
+      itemContent: https://example.org/person/silvio
+  - index: 3
+    itemContent: https://example.org/person/silvio
+    previousItem:
+      index: 2
+      itemContent: https://example.org/person/marco
+firstItem:
+  index: 1
+  itemContent: https://example.org/person/paolo
+lastItem:
+  index: 3
+  itemContent: https://example.org/person/silvio

@@ -1,0 +1,7 @@
+# Fails at: /co_size
+# Invalid: a bag of three items has the size 3, counting each repeat.
+co_size: 2
+item:
+  - itemContent: https://example.org/a
+  - itemContent: https://example.org/a
+  - itemContent: https://example.org/b

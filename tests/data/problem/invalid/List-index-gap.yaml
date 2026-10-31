@@ -1,0 +1,7 @@
+# Fails at: /item/1/index
+# Invalid: the indexes of two items count 1 and 2, with no gap.
+item:
+  - index: 1
+    itemContent: https://example.org/a
+  - index: 3
+    itemContent: https://example.org/b

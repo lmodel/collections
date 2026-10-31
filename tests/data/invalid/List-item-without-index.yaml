@@ -1,0 +1,4 @@
+# Fails at: /item/0
+# Invalid: every item of a list has an index.
+item:
+  - itemContent: https://example.org/a

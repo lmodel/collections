@@ -1,0 +1,6 @@
+# Fails at: /nextItem
+# Invalid: the copy of the next item lacks its index, as any list item would.
+index: 1
+itemContent: https://example.org/a
+nextItem:
+  itemContent: https://example.org/b

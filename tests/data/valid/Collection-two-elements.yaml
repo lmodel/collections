@@ -1,0 +1,5 @@
+# A collection of two things, taken as a whole, that is neither a set nor a bag.
+co_size: 2
+element:
+  - https://example.org/report
+  - https://example.org/dataset

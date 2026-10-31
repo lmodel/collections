@@ -1,0 +1,6 @@
+# Fails at: /co_size
+# Invalid: a size is a whole number, not a word.
+co_size: two
+element:
+  - https://example.org/a
+  - https://example.org/b

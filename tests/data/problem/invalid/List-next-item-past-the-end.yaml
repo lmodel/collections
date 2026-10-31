@@ -1,0 +1,8 @@
+# Fails at: /item/0/nextItem
+# Invalid: the last item has no next item, so no item comes after it.
+item:
+  - index: 1
+    itemContent: https://example.org/a
+    nextItem:
+      index: 2
+      itemContent: https://example.org/b

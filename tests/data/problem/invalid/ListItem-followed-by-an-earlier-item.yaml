@@ -1,0 +1,7 @@
+# Fails at: /followedBy/0
+# Invalid: an item is followed only by items with a higher index.
+index: 2
+itemContent: https://example.org/b
+followedBy:
+  - index: 1
+    itemContent: https://example.org/a

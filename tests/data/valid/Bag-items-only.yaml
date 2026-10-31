@@ -1,0 +1,4 @@
+# The size and the elements are optional: the items say what the bag holds.
+item:
+  - itemContent: https://example.org/a
+  - itemContent: https://example.org/a
