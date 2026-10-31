@@ -1,0 +1,6 @@
+# Datasets
+
+* [collections LinkML schema](collections-linkml-schema.md) - The LinkML schema of the Collections Ontology (CO) 2.0, `src/collections/schema/collections.yaml` (schema id `https://w3id.org/lmodel/collections`, version 2.0): six classes and sixteen slots, each with CO's name and IRI. Its `lokf adapt` copy `.lokf/collections.yaml`, rooted on `Collection`, is the bundle's domain schema.
+* [Copy of CO's OWL file](collections-ontology-copy.md) - `src/collections/schema/upstream/collections.owl`, the Collections Ontology 2.0's OWL file copied unchanged from commit `619e7b0` of its GitHub repository and matched by its git object hash, which the tests hold the schema to.
+* [Generated artefacts](generated-artefacts.md) - What `just gen-project` and `just gen-doc` generate from the schema: the twelve formats in `project/`, the Python dataclasses and Pydantic models in `src/collections_linkml/datamodel/`, the merged schema in `docs/schema/` and the element pages in `docs/elements/`.
+* [Tests and example data](test-data.md) - The tests under `tests/`: 10 valid examples, 11 counter-examples the validator rejects and 14 that break a rule only a test checks, the checks against CO's OWL file and the watch's stubbed answers, and the 13 released neighbour copies the adapt copy is held apart from.

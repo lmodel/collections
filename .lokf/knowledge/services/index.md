@@ -1,4 +1,3 @@
 # Services
 
-* [Example Service A](example-service-a.md) - Placeholder service; replace with a real service of collections.
-* [Example Service B](example-service-b.md) - Placeholder service; replace with a real service of collections.
+* [Documentation website](documentation-site.md) - The knowledge website at `https://lmodel.github.io/collections`, an Astro Starlight site in `website/` built from the README, `docs/`, the schema's pages and the bundle, which redirects the 2023 mkdocs site's element pages and `/about` to their successors.
