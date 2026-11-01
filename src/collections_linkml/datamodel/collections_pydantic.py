@@ -152,6 +152,9 @@ class Collection(ConfiguredBaseModel):
     """
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'children_are_mutually_disjoint': True,
          'class_uri': 'coll:Collection',
+         'comments': ['Its children are marked mutually disjoint because gen-owl drops '
+                      'disjoint_with (linkml issue 3950), so this is how the generated '
+                      'ontology states that a set is never a bag.'],
          'disjoint_with': ['CoItem'],
          'exact_mappings': ['swan:Collection', 'odpce:Collection'],
          'from_schema': 'https://w3id.org/lmodel/collections',
@@ -258,9 +261,9 @@ class List(Bag):
          'domain': 'List',
          'domain_of': ['List'],
          'narrow_mappings': ['swan:firstItem'],
-         'notes': ['CO makes it a narrower form of item, which is not stated here: a '
-                   "LinkML slot inherits its parent's multivalued, and this one is "
-                   'single.'],
+         'notes': ['CO makes it a narrower form of item, which is not stated here. '
+                   "LinkML's inheritance is monotonic, so a slot under item would be "
+                   'multivalued, as item is, and this one holds one item.'],
          'slot_uri': 'coll:firstItem'} })
     lastItem: Optional[ListItem] = Field(default=None, description="""The last item of the list.""", json_schema_extra = { "linkml_meta": {'comments': ['It holds a copy of the item with the highest index, which has '
                       'no next item.'],
@@ -359,8 +362,10 @@ class ListItem(CoItem):
          'domain_of': ['ListItem'],
          'exact_mappings': ['swan:nextItem'],
          'notes': ['CO makes it a narrower form of followedBy. It is stated on '
-                   'followedBy, as transitive_form_of, not here as is_a, for the '
-                   'reason given on firstItem.'],
+                   "followedBy, as transitive_form_of, not here as is_a: LinkML's "
+                   'inheritance is monotonic, so a slot under followedBy would be '
+                   'multivalued and transitive, as followedBy is, and this one is '
+                   'neither.'],
          'slot_uri': 'coll:nextItem'} })
     previousItem: Optional[ListItem] = Field(default=None, description="""The item that comes straight before this one.""", json_schema_extra = { "linkml_meta": {'broad_mappings': ['seq:directlyFollows'],
          'close_mappings': ['schema:previousItem'],
@@ -371,7 +376,7 @@ class ListItem(CoItem):
          'inverse': 'nextItem',
          'notes': ['CO makes it a narrower form of precededBy. It is stated on '
                    'precededBy, as transitive_form_of, not here as is_a, for the '
-                   'reason given on firstItem.'],
+                   'reason given on nextItem.'],
          'slot_uri': 'coll:previousItem'} })
     followedBy: Optional[list[ListItem]] = Field(default=None, description="""An item that comes somewhere after this one.""", json_schema_extra = { "linkml_meta": {'comments': ['It holds copies of items whose index is higher.'],
          'domain': 'ListItem',

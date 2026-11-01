@@ -131,8 +131,8 @@ CREATE TABLE "Bag_element" (
 	FOREIGN KEY("Bag_id") REFERENCES "Bag" (id),
 	FOREIGN KEY(element_iri) REFERENCES "CoElement" (iri)
 );
-CREATE INDEX "ix_Bag_element_element_iri" ON "Bag_element" (element_iri);
 CREATE INDEX "ix_Bag_element_Bag_id" ON "Bag_element" ("Bag_id");
+CREATE INDEX "ix_Bag_element_element_iri" ON "Bag_element" (element_iri);
 
 CREATE TABLE "List_element" (
 	"List_id" INTEGER,
@@ -141,5 +141,5 @@ CREATE TABLE "List_element" (
 	FOREIGN KEY("List_id") REFERENCES "List" (id),
 	FOREIGN KEY(element_iri) REFERENCES "CoElement" (iri)
 );
-CREATE INDEX "ix_List_element_element_iri" ON "List_element" (element_iri);
 CREATE INDEX "ix_List_element_List_id" ON "List_element" ("List_id");
+CREATE INDEX "ix_List_element_element_iri" ON "List_element" (element_iri);

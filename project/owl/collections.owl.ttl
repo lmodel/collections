@@ -28,7 +28,8 @@ coll:Collection a owl:Class ;
 	skos:definition "A group of things that is taken as a whole." ;
 	skos:exactMatch swan:Collection , odpce:Collection , collections:Collection ;
 	skos:inScheme <https://w3id.org/lmodel/collections> ;
-	skos:narrowMatch ore:Aggregation .
+	skos:narrowMatch ore:Aggregation ;
+	skos:note "Its children are marked mutually disjoint because gen-owl drops disjoint_with (linkml issue 3950), so this is how the generated ontology states that a set is never a bag." .
 coll:Item a owl:Class ;
 	rdfs:label "CoItem" ;
 	rdfs:subClassOf _:c14n21 , _:c14n30 , _:c14n4 ;
@@ -82,7 +83,7 @@ coll:firstItem a owl:ObjectProperty ;
 	rdfs:label "firstItem" ;
 	rdfs:range coll:ListItem ;
 	skos:definition "The first item of the list." ;
-	skos:editorialNote "CO makes it a narrower form of item, which is not stated here: a LinkML slot inherits its parent's multivalued, and this one is single." ;
+	skos:editorialNote "CO makes it a narrower form of item, which is not stated here. LinkML's inheritance is monotonic, so a slot under item would be multivalued, as item is, and this one holds one item." ;
 	skos:inScheme <https://w3id.org/lmodel/collections> ;
 	skos:narrowMatch swan:firstItem ;
 	skos:note "It holds a copy of the item with index 1, which has no previous item." .
@@ -171,7 +172,7 @@ coll:nextItem a owl:ObjectProperty ;
 	rdfs:range coll:ListItem ;
 	skos:closeMatch schema1:nextItem ;
 	skos:definition "The item that comes straight after this one." ;
-	skos:editorialNote "CO makes it a narrower form of followedBy. It is stated on followedBy, as transitive_form_of, not here as is_a, for the reason given on firstItem." ;
+	skos:editorialNote "CO makes it a narrower form of followedBy. It is stated on followedBy, as transitive_form_of, not here as is_a: LinkML's inheritance is monotonic, so a slot under followedBy would be multivalued and transitive, as followedBy is, and this one is neither." ;
 	skos:exactMatch swan:nextItem ;
 	skos:inScheme <https://w3id.org/lmodel/collections> ;
 	skos:note "It holds a copy of the item whose index is one higher." .
@@ -192,7 +193,7 @@ coll:previousItem a owl:ObjectProperty ;
 	skos:broadMatch seq:directlyFollows ;
 	skos:closeMatch schema1:previousItem ;
 	skos:definition "The item that comes straight before this one." ;
-	skos:editorialNote "CO makes it a narrower form of precededBy. It is stated on precededBy, as transitive_form_of, not here as is_a, for the reason given on firstItem." ;
+	skos:editorialNote "CO makes it a narrower form of precededBy. It is stated on precededBy, as transitive_form_of, not here as is_a, for the reason given on nextItem." ;
 	skos:exactMatch swan:previousItem ;
 	skos:inScheme <https://w3id.org/lmodel/collections> ;
 	skos:note "It holds a copy of the item whose index is one lower." .

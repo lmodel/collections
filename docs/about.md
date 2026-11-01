@@ -34,7 +34,8 @@ few close mappings to schema.org's lists, which are this project's own.
   declared, but no class uses them, since each collection holds its items.
 - CO's SWRL rules, which derive one link from others, and the
   narrower-property axioms on single-valued slots, such as `firstItem` under
-  `item`, since LinkML makes a narrower slot multivalued when its parent is.
+  `item`. LinkML's inheritance is monotonic, so a slot under a multivalued
+  parent is multivalued too.
   CO's two property chains are stated as `path_rule`s, which no generator
   reads. The tests check what the chains and rules imply, as the index page
   lists.

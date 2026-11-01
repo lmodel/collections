@@ -646,7 +646,7 @@
       "definition_uri": "https://w3id.org/lmodel/collections/firstItem",
       "description": "The first item of the list.",
       "notes": [
-        "CO makes it a narrower form of item, which is not stated here: a LinkML slot inherits its parent's multivalued, and this one is single."
+        "CO makes it a narrower form of item, which is not stated here. LinkML's inheritance is monotonic, so a slot under item would be multivalued, as item is, and this one holds one item."
       ],
       "comments": [
         "It holds a copy of the item with index 1, which has no previous item."
@@ -748,7 +748,7 @@
       "definition_uri": "https://w3id.org/lmodel/collections/nextItem",
       "description": "The item that comes straight after this one.",
       "notes": [
-        "CO makes it a narrower form of followedBy. It is stated on followedBy, as transitive_form_of, not here as is_a, for the reason given on firstItem."
+        "CO makes it a narrower form of followedBy. It is stated on followedBy, as transitive_form_of, not here as is_a: LinkML's inheritance is monotonic, so a slot under followedBy would be multivalued and transitive, as followedBy is, and this one is neither."
       ],
       "comments": [
         "It holds a copy of the item whose index is one higher."
@@ -780,7 +780,7 @@
       "definition_uri": "https://w3id.org/lmodel/collections/previousItem",
       "description": "The item that comes straight before this one.",
       "notes": [
-        "CO makes it a narrower form of precededBy. It is stated on precededBy, as transitive_form_of, not here as is_a, for the reason given on firstItem."
+        "CO makes it a narrower form of precededBy. It is stated on precededBy, as transitive_form_of, not here as is_a, for the reason given on nextItem."
       ],
       "comments": [
         "It holds a copy of the item whose index is one lower."
@@ -1038,6 +1038,9 @@
       "name": "Collection",
       "definition_uri": "https://w3id.org/lmodel/collections/Collection",
       "description": "A group of things that is taken as a whole.",
+      "comments": [
+        "Its children are marked mutually disjoint because gen-owl drops disjoint_with (linkml issue 3950), so this is how the generated ontology states that a set is never a bag."
+      ],
       "from_schema": "https://w3id.org/lmodel/collections",
       "exact_mappings": [
         "coll:Collection",
@@ -1221,8 +1224,8 @@
   ],
   "metamodel_version": "1.12.0",
   "source_file": "collections.yaml",
-  "source_file_date": "2026-10-31T23:58:24",
-  "source_file_size": 13177,
+  "source_file_date": "2026-11-01T00:10:19",
+  "source_file_size": 13573,
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/collections.context.jsonld",

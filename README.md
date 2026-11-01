@@ -48,7 +48,7 @@ The close and broad mappings to schema.org's `ItemList` and `ListItem`, with `it
 ## Not modelled here
 
 * The links back from an element or an item to its collection (`elementOf`, `itemOf`, `itemContentOf`, `firstItemOf`, `lastItemOf`): the schema declares them, but no class uses them.
-* CO's SWRL rules, and the narrower-property axioms on single-valued slots, such as `firstItem` under `item` and `nextItem` under `followedBy`: LinkML 1.12.1 makes a narrower slot multivalued when its parent is. `followedBy` and `precededBy` name `nextItem` and `previousItem` as their `transitive_form_of`, and `firstItemOf` and `lastItemOf` are narrower forms of `itemOf`. CO's two property chains are `path_rule`s on `element` and `item`, which no generator reads. The tests check what the chains and rules imply.
+* CO's SWRL rules, and the narrower-property axioms on single-valued slots, such as `firstItem` under `item` and `nextItem` under `followedBy`: LinkML's inheritance is monotonic, so a slot under a multivalued parent is multivalued too. `followedBy` and `precededBy` name `nextItem` and `previousItem` as their `transitive_form_of`, and `firstItemOf` and `lastItemOf` are narrower forms of `itemOf`. CO's two property chains are `path_rule`s on `element` and `item`, which no generator reads. The tests check what the chains and rules imply.
 * CO's example files.
 
 ## Repository Structure

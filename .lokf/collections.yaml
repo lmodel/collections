@@ -185,8 +185,8 @@ slots:
     comments:
     - It holds a copy of the item with index 1, which has no previous item.
     notes:
-    - 'CO makes it a narrower form of item, which is not stated here: a LinkML slot inherits its parent''s
-      multivalued, and this one is single.'
+    - CO makes it a narrower form of item, which is not stated here. LinkML's inheritance is monotonic,
+      so a slot under item would be multivalued, as item is, and this one holds one item.
     slot_uri: coll:firstItem
     narrow_mappings:
     - swan:firstItem
@@ -234,8 +234,9 @@ slots:
     comments:
     - It holds a copy of the item whose index is one higher.
     notes:
-    - CO makes it a narrower form of followedBy. It is stated on followedBy, as transitive_form_of, not
-      here as is_a, for the reason given on firstItem.
+    - 'CO makes it a narrower form of followedBy. It is stated on followedBy, as transitive_form_of, not
+      here as is_a: LinkML''s inheritance is monotonic, so a slot under followedBy would be multivalued
+      and transitive, as followedBy is, and this one is neither.'
     slot_uri: coll:nextItem
     exact_mappings:
     - swan:nextItem
@@ -250,7 +251,7 @@ slots:
     - It holds a copy of the item whose index is one lower.
     notes:
     - CO makes it a narrower form of precededBy. It is stated on precededBy, as transitive_form_of, not
-      here as is_a, for the reason given on firstItem.
+      here as is_a, for the reason given on nextItem.
     slot_uri: coll:previousItem
     exact_mappings:
     - swan:previousItem
@@ -300,6 +301,9 @@ classes:
     narrow_mappings:
     - ore:Aggregation
     description: A group of things that is taken as a whole.
+    comments:
+    - Its children are marked mutually disjoint because gen-owl drops disjoint_with (linkml issue 3950),
+      so this is how the generated ontology states that a set is never a bag.
     children_are_mutually_disjoint: true
     slots:
     - co_size
