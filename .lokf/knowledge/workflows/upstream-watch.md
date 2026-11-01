@@ -11,8 +11,10 @@ sources:
     title: the header comment, the on key and the job
 generated:
   by: process:ktl-librarian
-  at: "2026-10-31T12:56:19Z"
+  at: "2026-11-01T00:02:57Z"
 status: draft
+references:
+  - https://w3id.org/lmodel/collections/knowledge/playbooks/update-upstream-pins
 ---
 
 # Upstream watch (upstream-watch.yaml)

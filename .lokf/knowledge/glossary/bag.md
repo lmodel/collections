@@ -7,14 +7,19 @@ description: "A bag in the Collections Ontology (`coll:Bag`): a collection that 
 resource: src/collections/schema/collections.yaml
 definedBy:
   - http://purl.org/co/Bag
+  - https://w3id.org/lmodel/collections/knowledge/datasets/collections-linkml-schema
 sources:
   - id: schema-collections.yaml
     resource: src/collections/schema/collections.yaml
     title: Bag and item
 generated:
   by: process:ktl-librarian
-  at: "2026-10-31T12:56:19Z"
+  at: "2026-11-01T00:01:52Z"
 status: draft
+references:
+  - https://w3id.org/lmodel/collections/knowledge/glossary/collection
+  - https://w3id.org/lmodel/collections/knowledge/glossary/item
+  - https://w3id.org/lmodel/collections/knowledge/glossary/list
 ---
 
 # Bag

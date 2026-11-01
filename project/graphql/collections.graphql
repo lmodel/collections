@@ -3,25 +3,30 @@
 type Bag
   {
     coSize: Int
-    element: [String]
+    element: [CoElement]
     item: [CoItem]
+  }
+
+type CoElement
+  {
+    iri: String!
   }
 
 type CoItem
   {
-    itemContent: String!
+    itemContent: CoElement!
   }
 
 type Collection
   {
     coSize: Int
-    element: [String]
+    element: [CoElement]
   }
 
 type List
   {
     coSize: Int
-    element: [String]
+    element: [CoElement]
     firstItem: ListItem
     lastItem: ListItem
     item: [ListItem]
@@ -29,7 +34,7 @@ type List
 
 type ListItem
   {
-    itemContent: String!
+    itemContent: CoElement!
     coIndex: Int!
     nextItem: ListItem
     previousItem: ListItem
@@ -40,5 +45,5 @@ type ListItem
 type Set
   {
     coSize: Int
-    element: [String]
+    element: [CoElement]
   }

@@ -24,11 +24,12 @@ Collections Ontology (CO) 2.0 (LinkML)
 
 ## What it models
 
-The schema renders the [Collections Ontology (CO)](https://github.com/collections-ontology/collections-ontology) 2.0 by Paolo Ciccarese and Silvio Peroni, as its OWL file `collections.owl` gives it at commit `619e7b0` of its repository. Every class and slot keeps CO's name and its IRI under `http://purl.org/co/`. The schema holds:
+The schema renders the [Collections Ontology (CO)](https://github.com/collections-ontology/collections-ontology) 2.0 by Paolo Ciccarese and Silvio Peroni, as its OWL file `collections.owl` gives it at commit `619e7b0` of its repository. Every class and slot of CO keeps CO's name and its IRI under `http://purl.org/co/`. The schema holds:
 
 * **Collections** (`Collection`): a group of things taken as a whole, with its elements and its size. A collection is a **set** (`Set`), which holds each element once, or a **bag** (`Bag`), which may hold an element more than once through its items.
 * **Lists** (`List`): a bag whose items are in order, with a first and a last item.
 * **Items** (`CoItem`, `ListItem`): the entries of a bag, each wrapping one element. A list's item also has its place (`co_index`, from 1) and may link to the items before and after it.
+* **Elements** (`CoElement`): a thing a collection holds, named by its IRI. It is the schema's one class that CO lacks: `element` and `itemContent` range over it, so in RDF a collection links to its elements rather than holding their IRIs as text.
 
 Three names differ from CO's: `CoItem` for CO's `Item` and `co_size` for its `size`, as in lmodel/uco, and `co_index` for its `index`. [docs/about.md](docs/about.md) says why. The schema header's `version` is 2.0, CO's `owl:versionInfo`, and its `source` is CO's repository. `src/collections/schema/upstream/collections.owl` is CO's file, unchanged and matched by hash, and `tests/test_upstream.py` holds the schema to it. A weekly workflow reports when the repository moves, the file changes or a licence appears.
 
@@ -40,13 +41,15 @@ None beyond CO: the schema renders one ontology, and its release asset and gover
 
 ## Mappings
 
-None. CO's own `alignment.owl` aligns it with older collection vocabularies, which this repository does not render. CO states no mapping to RDF's containers, `rdf:Bag`, `rdf:Seq` and `rdf:List`, which hold their members another way, so the schema names none either.
+The exact, narrow and broad mappings are those of CO's own `alignment.owl`, copied unchanged to `src/collections/schema/upstream/` and held to by `tests/test_upstream.py`. They name the older SWAN Collections 1.2 and the ontologydesignpatterns.org Bag, Set, List, Collection Entity and Sequence patterns as equivalent or broader, and terms of the Music Ontology and OAI-ORE as narrower. `alignment.owl` writes ORE's namespace as `http://www.openarchives.org/ore/items/`; the mappings use `http://www.openarchives.org/ore/terms/`, where ORE defines those terms.
+
+The close and broad mappings to schema.org's `ItemList` and `ListItem`, with `item`, `position`, `nextItem` and `previousItem`, are this project's own: schema.org links list items the same way. CO states no mapping to RDF's containers, `rdf:Bag`, `rdf:Seq` and `rdf:List`, which hold their members another way, so the schema names none either.
 
 ## Not modelled here
 
 * The links back from an element or an item to its collection (`elementOf`, `itemOf`, `itemContentOf`, `firstItemOf`, `lastItemOf`): the schema declares them, but no class uses them.
-* CO's property chains, SWRL rules and narrower-property axioms. The tests check what they imply.
-* CO's alignments and its example files.
+* CO's SWRL rules, and the narrower-property axioms on single-valued slots, such as `firstItem` under `item` and `nextItem` under `followedBy`: LinkML's inheritance is monotonic, so a slot under a multivalued parent is multivalued too. `followedBy` and `precededBy` name `nextItem` and `previousItem` as their `transitive_form_of`, and `firstItemOf` and `lastItemOf` are narrower forms of `itemOf`. CO's two property chains are `path_rule`s on `element` and `item`, which no generator reads. The tests check what the chains and rules imply.
+* CO's example files.
 
 ## Repository Structure
 
@@ -66,10 +69,10 @@ Run `just` to list the project's [just](https://github.com/casey/just/) recipes.
 
 `.lokf/` holds this project's [KTL](https://w3id.org/ktl/) knowledge bundle, in the Linked Open Knowledge Format (LOKF). Its domain schema is `.lokf/collections.yaml`, which `lokf adapt` writes from `src/collections/schema/collections.yaml`. Edit the source, never the copy. A release carries the copy as `schema-<tag>-collections.yaml`, on the terms [CONTRIBUTING.md](CONTRIBUTING.md#releasing-maintainers) gives.
 
-`just lokf-adapt` rewrites the copy, and `just lokf-adapt-check` says when it is stale. The copy roots `Collection` on `Concept`, so a concept may name it or any of its subclasses as its `type`. In Obsidian, add these classes to the KTL Registrar and KTL Curator plugins' *Known LOKF types* setting:
+`just lokf-adapt` rewrites the copy, and `just lokf-adapt-check` says when it is stale. The copy roots `Collection` and `CoElement` on `Concept`, so a concept may name either, or a subclass of `Collection`, as its `type`, and an element is the IRI of a concept or of anything else. In Obsidian, add these classes to the KTL Registrar and KTL Curator plugins' *Known LOKF types* setting:
 
 ```text
-Collection, Set, Bag, List
+Collection, Set, Bag, List, CoElement
 ```
 
 A concept of one of these types writes its `element`, `co_size` and, for a bag or a list, its `item` entries inline. A name and a description are the concept's own `title` and `description`.

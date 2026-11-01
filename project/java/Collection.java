@@ -17,7 +17,7 @@ import lombok.*;
 public class Collection  {
 
   private Integer coSize;
-  private List<URI> element;
+  private List<CoElement> element;
 
 
 }

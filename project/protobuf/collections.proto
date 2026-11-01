@@ -7,28 +7,33 @@ message Bag {
   // How many times the collection holds a thing, counting each repeat: the number of elements of a set, or of items of a bag or a list.
   int32 co_size = 1;
   // A thing the collection holds, named by its IRI.
-  repeated string element = 2;
+  repeated CoElement element = 2;
   // An item of the bag, which holds one of its elements.
   repeated CoItem item = 3;
+}
+// A thing that a collection holds, named by its IRI.
+message CoElement {
+  // The IRI of the thing.
+  string iri = 1;
 }
 // An entry of a bag, which wraps one of the bag's elements.
 message CoItem {
   // The element that the item wraps.
-  string itemContent = 1;
+  CoElement itemContent = 1;
 }
 // A group of things that is taken as a whole.
 message Collection {
   // How many times the collection holds a thing, counting each repeat: the number of elements of a set, or of items of a bag or a list.
   int32 co_size = 1;
   // A thing the collection holds, named by its IRI.
-  repeated string element = 2;
+  repeated CoElement element = 2;
 }
 // A collection whose items come in order, one after another.
 message List {
   // How many times the collection holds a thing, counting each repeat: the number of elements of a set, or of items of a bag or a list.
   int32 co_size = 1;
   // A thing the collection holds, named by its IRI.
-  repeated string element = 2;
+  repeated CoElement element = 2;
   // The first item of the list.
   ListItem firstItem = 3;
   // The last item of the list.
@@ -39,7 +44,7 @@ message List {
 // An item of a list, which has a place in the list's order.
 message ListItem {
   // The element that the item wraps.
-  string itemContent = 1;
+  CoElement itemContent = 1;
   // The place of the item in its list, counting from 1.
   int32 co_index = 2;
   // The item that comes straight after this one.
@@ -56,5 +61,5 @@ message Set {
   // How many times the collection holds a thing, counting each repeat: the number of elements of a set, or of items of a bag or a list.
   int32 co_size = 1;
   // A thing the collection holds, named by its IRI.
-  repeated string element = 2;
+  repeated CoElement element = 2;
 }

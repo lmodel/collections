@@ -1,5 +1,26 @@
 # Change Log
 
+## 2026-11-01
+
+* **Changed**: Scope and rules now gives monotonic inheritance as the reason the single-valued narrower-property axioms are left out, as the README and docs/about.md now say.
+* **Changed**: Validate data now states its link to Scope and rules as a typed reference, so the graph draws it.
+* **Changed**: Knowledge Website now states its link to the documentation website as a typed reference.
+* **Changed**: Upstream watch now states its link to Update the upstream pins as a typed reference.
+* **Changed**: Collection now links to the schema concept and to the element, bag and item terms, and says that an element is a `CoElement` and which classes CO's alignment matches it with.
+* **Changed**: Bag now links to the schema concept and to the collection, item and list terms.
+* **Changed**: List now links to the schema concept and to the bag and item terms, and names the transitive forms and the schema.org mappings.
+* **Changed**: Item now links to the schema concept and to the bag, element and list terms, and says that what it wraps is a `CoElement`.
+* **Added**: Element, the schema's `CoElement`, from `src/collections/schema/collections.yaml` and `docs/about.md`.
+* **Added**: Copy of CO's alignment file, from `src/collections/schema/upstream/alignment.owl`, NOTICE and the tests.
+* **Changed**: the schema concept now counts seven classes with `CoElement`, gives the mappings from CO's alignment, the stated inverses, narrower slots and path rules, and the two adapt roots, and links to the alignment copy and the two explanations.
+* **Changed**: Scope and rules now says what `CoElement` adds, that the mappings come from CO's alignment file and schema.org, and that only the SWRL rules, the single-valued narrower-property axioms and the examples are left out.
+* **Changed**: Names and IRIs now says that `CoElement` has an IRI of the schema's own, that the generated ontology describes CO's IRIs, and that the three renamed terms carry CO's names as aliases.
+* **Changed**: Generated artefacts now says that gen-owl writes the ontology under CO's IRIs, as `config.public.mk` and `.linkml/generators.yaml` set it.
+* **Changed**: Tests and example data now counts 13 examples and 12 counter-examples, with the `CoElement` pair, and names the check of the mappings against CO's alignment file.
+* **Changed**: Licence and attribution now names the copied alignment file, which NOTICE puts under the same terms as CO's OWL file.
+* **Changed**: The Collections Ontology reference now says that the repository copies CO's alignment file as well as its OWL file.
+* **Changed**: the source map now names CO's alignment file and its concept, and counts five glossary terms.
+
 ## 2026-10-31
 
 * **Changed**: the README now says `uco_co` keeps the same names but `index`, which is `co_index` here, and the schema gives its naming reasons in the header notes.

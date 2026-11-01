@@ -1,44 +1,51 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix collections: <https://w3id.org/lmodel/collections/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix coll: <http://purl.org/co/> .
 coll:Bag a sh:NodeShape ;
 	rdfs:comment "A collection that may hold one element more than once, in no order." ;
 	sh:closed true ;
-	sh:ignoredProperties _:c14n19 ;
-	sh:property _:c14n0 , _:c14n10 , _:c14n20 ;
+	sh:ignoredProperties _:c14n20 ;
+	sh:property _:c14n0 , _:c14n10 , _:c14n22 ;
 	sh:targetClass coll:Bag .
 coll:Collection a sh:NodeShape ;
 	rdfs:comment "A group of things that is taken as a whole." ;
 	sh:closed true ;
-	sh:ignoredProperties _:c14n7 ;
-	sh:property _:c14n21 , _:c14n9 ;
+	sh:ignoredProperties _:c14n6 ;
+	sh:property _:c14n23 , _:c14n24 ;
 	sh:targetClass coll:Collection .
 coll:Item a sh:NodeShape ;
 	rdfs:comment "An entry of a bag, which wraps one of the bag's elements." ;
 	sh:closed true ;
 	sh:ignoredProperties _:c14n12 ;
-	sh:property _:c14n3 ;
+	sh:property _:c14n31 ;
 	sh:targetClass coll:Item .
 coll:List a sh:NodeShape ;
 	rdfs:comment "A collection whose items come in order, one after another." ;
 	sh:closed true ;
-	sh:ignoredProperties _:c14n6 ;
-	sh:property _:c14n17 , _:c14n23 , _:c14n25 , _:c14n27 , _:c14n4 ;
+	sh:ignoredProperties _:c14n4 ;
+	sh:property _:c14n18 , _:c14n2 , _:c14n21 , _:c14n26 , _:c14n29 ;
 	sh:targetClass coll:List .
 coll:ListItem a sh:NodeShape ;
 	rdfs:comment "An item of a list, which has a place in the list's order." ;
 	sh:closed true ;
-	sh:ignoredProperties _:c14n5 ;
-	sh:property _:c14n1 , _:c14n16 , _:c14n22 , _:c14n26 , _:c14n28 , _:c14n8 ;
+	sh:ignoredProperties _:c14n3 ;
+	sh:property _:c14n17 , _:c14n25 , _:c14n28 , _:c14n30 , _:c14n5 , _:c14n8 ;
 	sh:targetClass coll:ListItem .
 coll:Set a sh:NodeShape ;
 	rdfs:comment "A collection that holds each of its elements once." ;
 	sh:closed true ;
-	sh:ignoredProperties _:c14n24 ;
-	sh:property _:c14n18 , _:c14n29 ;
+	sh:ignoredProperties _:c14n27 ;
+	sh:property _:c14n16 , _:c14n19 ;
 	sh:targetClass coll:Set .
+collections:CoElement a sh:NodeShape ;
+	rdfs:comment "A thing that a collection holds, named by its IRI." ;
+	sh:closed true ;
+	sh:ignoredProperties _:c14n9 ;
+	sh:property _:c14n7 ;
+	sh:targetClass collections:CoElement .
 _:c14n0 sh:datatype xsd:integer ;
 	sh:description "How many times the collection holds a thing, counting each repeat: the number of elements of a set, or of items of a bag or a list." ;
 	sh:maxCount 1 ;
@@ -46,127 +53,142 @@ _:c14n0 sh:datatype xsd:integer ;
 	sh:nodeKind sh:Literal ;
 	sh:order 1 ;
 	sh:path coll:size .
-_:c14n1 sh:description "The element that the item wraps." ;
-	sh:maxCount 1 ;
-	sh:minCount 1 ;
-	sh:nodeKind sh:IRI ;
-	sh:order 5 ;
-	sh:path coll:itemContent .
-_:c14n10 sh:description "A thing the collection holds, named by its IRI." ;
+_:c14n1 rdf:first coll:nextItem ;
+	rdf:rest _:c14n15 .
+_:c14n10 sh:class collections:CoElement ;
+	sh:description "A thing the collection holds, named by its IRI." ;
 	sh:nodeKind sh:IRI ;
 	sh:order 2 ;
 	sh:path coll:element .
 _:c14n11 rdf:first coll:index ;
-	rdf:rest _:c14n2 .
+	rdf:rest _:c14n1 .
 _:c14n12 rdf:first coll:followedBy ;
 	rdf:rest _:c14n11 .
 _:c14n13 rdf:first coll:item ;
-	rdf:rest _:c14n32 .
-_:c14n14 rdf:first coll:previousItem ;
 	rdf:rest _:c14n34 .
+_:c14n14 rdf:first coll:previousItem ;
+	rdf:rest _:c14n36 .
 _:c14n15 rdf:first coll:precededBy ;
 	rdf:rest _:c14n14 .
-_:c14n16 sh:class coll:ListItem ;
+_:c14n16 sh:class collections:CoElement ;
+	sh:description "A thing the collection holds, named by its IRI." ;
+	sh:nodeKind sh:IRI ;
+	sh:order 1 ;
+	sh:path coll:element .
+_:c14n17 sh:class coll:ListItem ;
 	sh:description "The item that comes straight after this one." ;
 	sh:maxCount 1 ;
 	sh:nodeKind sh:BlankNodeOrIRI ;
 	sh:order 1 ;
 	sh:path coll:nextItem .
-_:c14n17 sh:class coll:ListItem ;
+_:c14n18 sh:class coll:ListItem ;
 	sh:description "The last item of the list." ;
 	sh:maxCount 1 ;
 	sh:nodeKind sh:BlankNodeOrIRI ;
 	sh:order 1 ;
 	sh:path coll:lastItem .
-_:c14n18 sh:datatype xsd:integer ;
+_:c14n19 sh:datatype xsd:integer ;
 	sh:description "How many times the collection holds a thing, counting each repeat: the number of elements of a set, or of items of a bag or a list." ;
 	sh:maxCount 1 ;
 	sh:minInclusive 0 ;
 	sh:nodeKind sh:Literal ;
 	sh:order 0 ;
 	sh:path coll:size .
-_:c14n19 rdf:first coll:firstItem ;
-	rdf:rest _:c14n30 .
-_:c14n2 rdf:first coll:nextItem ;
-	rdf:rest _:c14n15 .
-_:c14n20 sh:class coll:Item ;
+_:c14n2 sh:class coll:ListItem ;
+	sh:description "An item of the bag, which holds one of its elements." ;
+	sh:nodeKind sh:BlankNodeOrIRI ;
+	sh:order 2 ;
+	sh:path coll:item .
+_:c14n20 rdf:first coll:firstItem ;
+	rdf:rest _:c14n32 .
+_:c14n21 sh:class collections:CoElement ;
+	sh:description "A thing the collection holds, named by its IRI." ;
+	sh:nodeKind sh:IRI ;
+	sh:order 4 ;
+	sh:path coll:element .
+_:c14n22 sh:class coll:Item ;
 	sh:description "An item of the bag, which holds one of its elements." ;
 	sh:nodeKind sh:BlankNodeOrIRI ;
 	sh:order 0 ;
 	sh:path coll:item .
-_:c14n21 sh:datatype xsd:integer ;
+_:c14n23 sh:class collections:CoElement ;
+	sh:description "A thing the collection holds, named by its IRI." ;
+	sh:nodeKind sh:IRI ;
+	sh:order 1 ;
+	sh:path coll:element .
+_:c14n24 sh:datatype xsd:integer ;
 	sh:description "How many times the collection holds a thing, counting each repeat: the number of elements of a set, or of items of a bag or a list." ;
 	sh:maxCount 1 ;
 	sh:minInclusive 0 ;
 	sh:nodeKind sh:Literal ;
 	sh:order 0 ;
 	sh:path coll:size .
-_:c14n22 sh:class coll:ListItem ;
+_:c14n25 sh:class coll:ListItem ;
 	sh:description "The item that comes straight before this one." ;
 	sh:maxCount 1 ;
 	sh:nodeKind sh:BlankNodeOrIRI ;
 	sh:order 2 ;
 	sh:path coll:previousItem .
-_:c14n23 sh:class coll:ListItem ;
+_:c14n26 sh:class coll:ListItem ;
 	sh:description "The first item of the list." ;
 	sh:maxCount 1 ;
 	sh:nodeKind sh:BlankNodeOrIRI ;
 	sh:order 0 ;
 	sh:path coll:firstItem .
-_:c14n24 rdf:first rdf:type ;
+_:c14n27 rdf:first rdf:type ;
 	rdf:rest rdf:nil .
-_:c14n25 sh:description "A thing the collection holds, named by its IRI." ;
-	sh:nodeKind sh:IRI ;
-	sh:order 4 ;
-	sh:path coll:element .
-_:c14n26 sh:class coll:ListItem ;
+_:c14n28 sh:class coll:ListItem ;
 	sh:description "An item that comes somewhere after this one." ;
 	sh:nodeKind sh:BlankNodeOrIRI ;
 	sh:order 3 ;
 	sh:path coll:followedBy .
-_:c14n27 sh:datatype xsd:integer ;
+_:c14n29 sh:datatype xsd:integer ;
 	sh:description "How many times the collection holds a thing, counting each repeat: the number of elements of a set, or of items of a bag or a list." ;
 	sh:maxCount 1 ;
 	sh:minInclusive 0 ;
 	sh:nodeKind sh:Literal ;
 	sh:order 3 ;
 	sh:path coll:size .
-_:c14n28 sh:class coll:ListItem ;
+_:c14n3 rdf:first rdf:type ;
+	rdf:rest rdf:nil .
+_:c14n30 sh:class coll:ListItem ;
 	sh:description "An item that comes somewhere before this one." ;
 	sh:nodeKind sh:BlankNodeOrIRI ;
 	sh:order 4 ;
 	sh:path coll:precededBy .
-_:c14n29 sh:description "A thing the collection holds, named by its IRI." ;
-	sh:nodeKind sh:IRI ;
-	sh:order 1 ;
-	sh:path coll:element .
-_:c14n3 sh:description "The element that the item wraps." ;
+_:c14n31 sh:class collections:CoElement ;
+	sh:description "The element that the item wraps." ;
 	sh:maxCount 1 ;
 	sh:minCount 1 ;
 	sh:nodeKind sh:IRI ;
 	sh:order 0 ;
 	sh:path coll:itemContent .
-_:c14n30 rdf:first coll:lastItem ;
-	rdf:rest _:c14n31 .
-_:c14n31 rdf:first rdf:type ;
-	rdf:rest rdf:nil .
 _:c14n32 rdf:first coll:lastItem ;
 	rdf:rest _:c14n33 .
 _:c14n33 rdf:first rdf:type ;
 	rdf:rest rdf:nil .
-_:c14n34 rdf:first rdf:type ;
+_:c14n34 rdf:first coll:lastItem ;
+	rdf:rest _:c14n35 .
+_:c14n35 rdf:first rdf:type ;
 	rdf:rest rdf:nil .
-_:c14n4 sh:class coll:ListItem ;
-	sh:description "An item of the bag, which holds one of its elements." ;
-	sh:nodeKind sh:BlankNodeOrIRI ;
-	sh:order 2 ;
-	sh:path coll:item .
-_:c14n5 rdf:first rdf:type ;
+_:c14n36 rdf:first rdf:type ;
 	rdf:rest rdf:nil .
-_:c14n6 rdf:first rdf:type ;
+_:c14n4 rdf:first rdf:type ;
 	rdf:rest rdf:nil .
-_:c14n7 rdf:first coll:firstItem ;
+_:c14n5 sh:class collections:CoElement ;
+	sh:description "The element that the item wraps." ;
+	sh:maxCount 1 ;
+	sh:minCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:order 5 ;
+	sh:path coll:itemContent .
+_:c14n6 rdf:first coll:firstItem ;
 	rdf:rest _:c14n13 .
+_:c14n7 sh:description "The IRI of the thing." ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:order 0 ;
+	sh:path collections:iri .
 _:c14n8 sh:datatype xsd:integer ;
 	sh:description "The place of the item in its list, counting from 1." ;
 	sh:maxCount 1 ;
@@ -175,7 +197,5 @@ _:c14n8 sh:datatype xsd:integer ;
 	sh:nodeKind sh:Literal ;
 	sh:order 0 ;
 	sh:path coll:index .
-_:c14n9 sh:description "A thing the collection holds, named by its IRI." ;
-	sh:nodeKind sh:IRI ;
-	sh:order 1 ;
-	sh:path coll:element .
+_:c14n9 rdf:first rdf:type ;
+	rdf:rest rdf:nil .

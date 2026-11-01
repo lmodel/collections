@@ -12,6 +12,8 @@
 --     * Slot: co_size Description: How many times the collection holds a thing, counting each repeat: the number of elements of a set, or of items of a bag or a list.
 --     * Slot: firstItem_id Description: The first item of the list.
 --     * Slot: lastItem_id Description: The last item of the list.
+-- # Class: CoElement Description: A thing that a collection holds, named by its IRI.
+--     * Slot: iri Description: The IRI of the thing.
 -- # Class: CoItem Description: An entry of a bag, which wraps one of the bag's elements.
 --     * Slot: id
 --     * Slot: itemContent Description: The element that the item wraps.
@@ -26,16 +28,16 @@
 --     * Slot: previousItem_id Description: The item that comes straight before this one.
 -- # Class: Collection_element
 --     * Slot: Collection_id Description: Autocreated FK slot
---     * Slot: element Description: A thing the collection holds, named by its IRI.
+--     * Slot: element_iri Description: A thing the collection holds, named by its IRI.
 -- # Class: Set_element
 --     * Slot: Set_id Description: Autocreated FK slot
---     * Slot: element Description: A thing the collection holds, named by its IRI.
+--     * Slot: element_iri Description: A thing the collection holds, named by its IRI.
 -- # Class: Bag_element
 --     * Slot: Bag_id Description: Autocreated FK slot
---     * Slot: element Description: A thing the collection holds, named by its IRI.
+--     * Slot: element_iri Description: A thing the collection holds, named by its IRI.
 -- # Class: List_element
 --     * Slot: List_id Description: Autocreated FK slot
---     * Slot: element Description: A thing the collection holds, named by its IRI.
+--     * Slot: element_iri Description: A thing the collection holds, named by its IRI.
 
 CREATE TABLE "Collection" (
 	id INTEGER NOT NULL,
@@ -69,6 +71,12 @@ CREATE TABLE "List" (
 );
 CREATE INDEX "ix_List_id" ON "List" (id);
 
+CREATE TABLE "CoElement" (
+	iri TEXT NOT NULL,
+	PRIMARY KEY (iri)
+);
+CREATE INDEX "ix_CoElement_iri" ON "CoElement" (iri);
+
 CREATE TABLE "ListItem" (
 	id INTEGER NOT NULL,
 	co_index INTEGER NOT NULL,
@@ -78,6 +86,7 @@ CREATE TABLE "ListItem" (
 	"nextItem_id" INTEGER,
 	"previousItem_id" INTEGER,
 	PRIMARY KEY (id),
+	FOREIGN KEY("itemContent") REFERENCES "CoElement" (iri),
 	FOREIGN KEY("List_id") REFERENCES "List" (id),
 	FOREIGN KEY("ListItem_id") REFERENCES "ListItem" (id),
 	FOREIGN KEY("nextItem_id") REFERENCES "ListItem" (id),
@@ -90,42 +99,47 @@ CREATE TABLE "CoItem" (
 	"itemContent" TEXT NOT NULL,
 	"Bag_id" INTEGER,
 	PRIMARY KEY (id),
+	FOREIGN KEY("itemContent") REFERENCES "CoElement" (iri),
 	FOREIGN KEY("Bag_id") REFERENCES "Bag" (id)
 );
 CREATE INDEX "ix_CoItem_id" ON "CoItem" (id);
 
 CREATE TABLE "Collection_element" (
 	"Collection_id" INTEGER,
-	element TEXT,
-	PRIMARY KEY ("Collection_id", element),
-	FOREIGN KEY("Collection_id") REFERENCES "Collection" (id)
+	element_iri TEXT,
+	PRIMARY KEY ("Collection_id", element_iri),
+	FOREIGN KEY("Collection_id") REFERENCES "Collection" (id),
+	FOREIGN KEY(element_iri) REFERENCES "CoElement" (iri)
 );
-CREATE INDEX "ix_Collection_element_element" ON "Collection_element" (element);
 CREATE INDEX "ix_Collection_element_Collection_id" ON "Collection_element" ("Collection_id");
+CREATE INDEX "ix_Collection_element_element_iri" ON "Collection_element" (element_iri);
 
 CREATE TABLE "Set_element" (
 	"Set_id" INTEGER,
-	element TEXT,
-	PRIMARY KEY ("Set_id", element),
-	FOREIGN KEY("Set_id") REFERENCES "Set" (id)
+	element_iri TEXT,
+	PRIMARY KEY ("Set_id", element_iri),
+	FOREIGN KEY("Set_id") REFERENCES "Set" (id),
+	FOREIGN KEY(element_iri) REFERENCES "CoElement" (iri)
 );
-CREATE INDEX "ix_Set_element_element" ON "Set_element" (element);
+CREATE INDEX "ix_Set_element_element_iri" ON "Set_element" (element_iri);
 CREATE INDEX "ix_Set_element_Set_id" ON "Set_element" ("Set_id");
 
 CREATE TABLE "Bag_element" (
 	"Bag_id" INTEGER,
-	element TEXT,
-	PRIMARY KEY ("Bag_id", element),
-	FOREIGN KEY("Bag_id") REFERENCES "Bag" (id)
+	element_iri TEXT,
+	PRIMARY KEY ("Bag_id", element_iri),
+	FOREIGN KEY("Bag_id") REFERENCES "Bag" (id),
+	FOREIGN KEY(element_iri) REFERENCES "CoElement" (iri)
 );
-CREATE INDEX "ix_Bag_element_element" ON "Bag_element" (element);
 CREATE INDEX "ix_Bag_element_Bag_id" ON "Bag_element" ("Bag_id");
+CREATE INDEX "ix_Bag_element_element_iri" ON "Bag_element" (element_iri);
 
 CREATE TABLE "List_element" (
 	"List_id" INTEGER,
-	element TEXT,
-	PRIMARY KEY ("List_id", element),
-	FOREIGN KEY("List_id") REFERENCES "List" (id)
+	element_iri TEXT,
+	PRIMARY KEY ("List_id", element_iri),
+	FOREIGN KEY("List_id") REFERENCES "List" (id),
+	FOREIGN KEY(element_iri) REFERENCES "CoElement" (iri)
 );
-CREATE INDEX "ix_List_element_element" ON "List_element" (element);
 CREATE INDEX "ix_List_element_List_id" ON "List_element" ("List_id");
+CREATE INDEX "ix_List_element_element_iri" ON "List_element" (element_iri);

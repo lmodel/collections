@@ -77,12 +77,15 @@ skip = [
 ]
 
 # Reminder: words have to be lowercased for the ignore-words-list
-ignore-words-list = "linke"
+# ore is OAI-ORE's prefix, which the schema's mappings use.
+ignore-words-list = "linke,ore"
 quiet-level = 3
 
 # Ref.: https://github.com/crate-ci/typos (spell checker)
 [tool.typos.default.extend-words]
 linke = "linke"
+# SWAN Collections 1.2 spells its property preceededBy, as its IRI keeps.
+preceeded = "preceeded"
 
 [tool.typos.files]
 extend-exclude = [

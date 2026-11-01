@@ -43,6 +43,21 @@
             "title": "Bag",
             "type": "object"
         },
+        "CoElement": {
+            "additionalProperties": false,
+            "description": "A thing that a collection holds, named by its IRI.",
+            "properties": {
+                "iri": {
+                    "description": "The IRI of the thing.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "iri"
+            ],
+            "title": "CoElement",
+            "type": "object"
+        },
         "CoItem": {
             "additionalProperties": false,
             "description": "An entry of a bag, which wraps one of the bag's elements.",

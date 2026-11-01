@@ -55,9 +55,10 @@ ELEMENT_KINDS = ("classes", "enums", "types", "subsets")
 SHARED_WITH_NEIGHBOURS = {name: set() for name in NEIGHBOURS}
 SHARED_WITH_NEIGHBOURS["spdx.yaml"] = {"element"}
 
-# The class `just lokf-adapt` re-roots on Concept. It and its subclasses are
-# the types the README lists for the plugins' Known LOKF types setting.
-ROOTS = {"Collection"}
+# The classes `just lokf-adapt` re-roots on Concept. They and Collection's
+# subclasses are the types the README lists for the plugins' Known LOKF types
+# setting.
+ROOTS = {"Collection", "CoElement"}
 CONCEPT_TYPES = {"Collection", "Set", "Bag", "List"}
 
 MAPPING_KEYS = (
@@ -149,9 +150,9 @@ def test_names_apart_from_neighbours():
 
 
 def test_copy_roots_the_collection_classes():
-    """The copy re-roots Collection on Concept, so its four kinds of
-    collection are concept types, and imports nothing but the LinkML types
-    and LOKF."""
+    """The copy re-roots Collection and CoElement on Concept, so its four
+    kinds of collection are concept types and an element is a concept's IRI,
+    and imports nothing but the LinkML types and LOKF."""
     doc = _load(COPY)
     classes = doc["classes"]
     rooted = {name for name, cls in classes.items() if cls.get("is_a") == "Concept"}
