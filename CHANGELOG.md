@@ -6,6 +6,8 @@ The `v0.0.0` tag is a baseline, not a release: it marks where versioning starts 
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-11-01
+
 ### Added
 
 - **Mappings from CO's own `alignment.owl`**, copied unchanged and matched by hash: equivalents in SWAN Collections 1.2 and the ontologydesignpatterns.org patterns, narrower terms in the Music Ontology and OAI-ORE. Close mappings to schema.org's `ItemList` and `ListItem` are the project's own.
