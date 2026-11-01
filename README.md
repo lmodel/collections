@@ -4,19 +4,9 @@
 
 Collections Ontology (CO) 2.0 (LinkML)
 
-> **Two ways in.** This README is one; the other is a docent, a museum's name
-> for a guide. Install
-> [`ktl-docent`](https://github.com/noelmcloughlin/knowledge-trust-ladder) into
-> whatever agent you already use, by a route from
-> [the install page](https://w3id.org/ktl/docs/install/), and ask it anything
-> about this project. It answers from `.lokf/knowledge/`,
-> the checked part of what the project knows, and says how far each answer has
-> been trusted (still a draft, checked by automation only, or confirmed by a
-> named person). It opens the source for exact values, and records what it
-> could not answer so the gap gets filled. The same docent serves a person at a
-> prompt, an agent reading this file, or a chatbot that can load a skill.
-> **Agents:** if `.lokf/knowledge/index.md` exists, read it first. `llms.txt`
-> says how to weigh it.
+> **Only want to ask?** Install `ktl-docent` into any agent you use, by a route from [the install page](https://w3id.org/ktl/docs/install/), and ask it about this project. It answers from the bundle and says how far each answer has been checked.
+>
+> **Agents:** if `.lokf/knowledge/index.md` exists, read it first. `llms.txt` says how to weigh it.
 
 ## Documentation Website
 
@@ -24,26 +14,14 @@ Collections Ontology (CO) 2.0 (LinkML)
 
 ## What it models
 
-The schema renders the [Collections Ontology (CO)](https://github.com/collections-ontology/collections-ontology) 2.0 by Paolo Ciccarese and Silvio Peroni, as its OWL file `collections.owl` gives it at commit `619e7b0` of its repository. Every class and slot of CO keeps CO's name and its IRI under `http://purl.org/co/`. The schema holds:
+The schema renders the [Collections Ontology (CO)](https://github.com/collections-ontology/collections-ontology) 2.0 by Paolo Ciccarese and Silvio Peroni, from its OWL file `collections.owl` at commit `619e7b0`. It holds collections, sets, bags and lists, their items, and the elements they hold (`CoElement`, the one class CO lacks, so that in RDF a collection links to its elements). Every class and slot keeps CO's IRI under `http://purl.org/co/`, and [docs/about.md](docs/about.md) says why three names differ from CO's.
 
-* **Collections** (`Collection`): a group of things taken as a whole, with its elements and its size. A collection is a **set** (`Set`), which holds each element once, or a **bag** (`Bag`), which may hold an element more than once through its items.
-* **Lists** (`List`): a bag whose items are in order, with a first and a last item.
-* **Items** (`CoItem`, `ListItem`): the entries of a bag, each wrapping one element. A list's item also has its place (`co_index`, from 1) and may link to the items before and after it.
-* **Elements** (`CoElement`): a thing a collection holds, named by its IRI. It is the schema's one class that CO lacks: `element` and `itemContent` range over it, so in RDF a collection links to its elements rather than holding their IRIs as text.
-
-Three names differ from CO's: `CoItem` for CO's `Item` and `co_size` for its `size`, as in lmodel/uco, and `co_index` for its `index`. [docs/about.md](docs/about.md) says why. The schema header's `version` is 2.0, CO's `owl:versionInfo`, and its `source` is CO's repository. `src/collections/schema/upstream/collections.owl` is CO's file, unchanged and matched by hash, and `tests/test_upstream.py` holds the schema to it. A weekly workflow reports when the repository moves, the file changes or a licence appears.
-
-A link to an item, such as `firstItem` or `nextItem`, holds a copy of that item, since items have no IRI here. No validator checks a list's order or a collection's size; `tests/test_data.py` checks both over the examples, and [docs/index.md](docs/index.md) lists the rules.
-
-## Influences
-
-None beyond CO: the schema renders one ontology, and its release asset and governance files follow [lmodel/slsa](https://github.com/lmodel/slsa).
+`src/collections/schema/upstream/collections.owl` is CO's file, unchanged, and `tests/test_upstream.py` holds the schema to it. A weekly workflow reports when the repository moves, the file changes or a licence appears. No validator checks a list's order or a collection's size, so `tests/test_data.py` checks both over the examples.
 
 ## Mappings
 
-The exact, narrow and broad mappings are those of CO's own `alignment.owl`, copied unchanged to `src/collections/schema/upstream/` and held to by `tests/test_upstream.py`. They name the older SWAN Collections 1.2 and the ontologydesignpatterns.org Bag, Set, List, Collection Entity and Sequence patterns as equivalent or broader, and terms of the Music Ontology and OAI-ORE as narrower. `alignment.owl` writes ORE's namespace as `http://www.openarchives.org/ore/items/`; the mappings use `http://www.openarchives.org/ore/terms/`, where ORE defines those terms.
-
-The close and broad mappings to schema.org's `ItemList` and `ListItem`, with `item`, `position`, `nextItem` and `previousItem`, are this project's own: schema.org links list items the same way. CO states no mapping to RDF's containers, `rdf:Bag`, `rdf:Seq` and `rdf:List`, which hold their members another way, so the schema names none either.
+* **CO's alignment**: the exact, narrow and broad mappings to SWAN Collections 1.2, the ontologydesignpatterns.org patterns, the Music Ontology and OAI-ORE come from CO's own `alignment.owl`, copied unchanged to `src/collections/schema/upstream/`. The ORE mappings use `http://www.openarchives.org/ore/terms/`, where ORE defines those terms.
+* **schema.org**: the close and broad mappings to `ItemList` and `ListItem` are this project's own.
 
 ## Not modelled here
 
@@ -67,27 +45,23 @@ Run `just` to list the project's [just](https://github.com/casey/just/) recipes.
 
 ## Knowledge Trust Ladder (KTL)
 
-`.lokf/` holds this project's [KTL](https://w3id.org/ktl/) knowledge bundle, in the Linked Open Knowledge Format (LOKF). Its domain schema is `.lokf/collections.yaml`, which `lokf adapt` writes from `src/collections/schema/collections.yaml`. Edit the source, never the copy. A release carries the copy as `schema-<tag>-collections.yaml`, on the terms [CONTRIBUTING.md](CONTRIBUTING.md#releasing-maintainers) gives.
+`.lokf/` holds this project's [KTL](https://w3id.org/ktl/) knowledge bundle. Its domain schema, `.lokf/collections.yaml`, is the copy `just lokf-adapt` writes from `src/collections/schema/collections.yaml`, and `just lokf-adapt-check` says when it is stale. Edit the source, never the copy. A release carries the copy as `schema-<tag>-collections.yaml`, on the terms [CONTRIBUTING.md](CONTRIBUTING.md#releasing-maintainers) gives.
 
-`just lokf-adapt` rewrites the copy, and `just lokf-adapt-check` says when it is stale. The copy roots `Collection` and `CoElement` on `Concept`, so a concept may name either, or a subclass of `Collection`, as its `type`, and an element is the IRI of a concept or of anything else. In Obsidian, add these classes to the KTL Registrar and KTL Curator plugins' *Known LOKF types* setting:
+The copy roots `Collection` and `CoElement` on `Concept`, so a concept may name either, or a subclass of `Collection`, as its `type`. In Obsidian, add these classes to the *Known LOKF types* setting of the KTL Registrar and KTL Curator plugins:
 
 ```text
 Collection, Set, Bag, List, CoElement
 ```
 
-A concept of one of these types writes its `element`, `co_size` and, for a bag or a list, its `item` entries inline. A name and a description are the concept's own `title` and `description`.
+A concept of one of these types writes its `element`, `co_size` and, for a bag or a list, its `item` entries inline.
 
-A host imports the copy beside LOKF's schema, `lokf.yaml`, and beside other adapt copies. LinkML merges them into one namespace, where the last definition of a name wins silently. So no class, enum or type shares a name with LOKF's or with the thirteen released lmodel copies in `tests/neighbours/`.
-
-One key is shared: `element`, which the spdx copy uses for an SPDX element's members under SPDX's IRI. A host that imports both copies has one `element` project under the other's IRI, until `lokf adapt` can rename a key that a neighbour defines ([lokf issue #169](https://github.com/nicholsn/lokf/issues/169), `--beside`). `tests/test_schema_rules.py` lists that key and fails on a new one. lmodel/uco's `uco_co` module renders the CO terms UCO uses, with the same IRIs and the same names but one, `index`, which is `co_index` here. Import that copy or this one, not both, until uco imports this schema in its place.
+No class, enum or type of the copy shares a name with LOKF's schema or with the lmodel copies in `tests/neighbours/`. One key is shared: spdx's copy also defines `element`, under SPDX's IRI, so a host that imports both has one `element` project under the other's IRI. `tests/test_schema_rules.py` lists that key and fails on a new one, and [lokf #169](https://github.com/nicholsn/lokf/issues/169) asks `adapt` for a `--beside` option that would rename it. lmodel/uco's `uco_co` module renders the CO terms UCO uses: import that copy or this one, not both.
 
 ## License
 
-The schema and the code are under the Apache License 2.0 ([LICENSE](LICENSE)).
+The schema and the code are under the Apache License 2.0 ([LICENSE](LICENSE)), and the knowledge bundle in `.lokf/knowledge/` is under CC BY 4.0.
 
-The knowledge bundle in `.lokf/knowledge/` is under the Creative Commons Attribution 4.0 International licence (CC BY 4.0), as its `index.md` declares.
-
-CO's repository states no licence. The project's Google Code archive gives the Apache License 2.0 for its code, which held CO's OWL file, and CC BY 3.0 for its other content, such as its wiki. So this repository copies the OWL file under the Apache License. [NOTICE](NOTICE) gives the credit. This is not an official CO project, and its use implies no endorsement by CO's authors.
+CO's repository states no licence, and its Google Code archive gave the Apache License 2.0 for the code that held the OWL file, so this repository copies that file under the Apache License. [NOTICE](NOTICE) gives the credit. This is not an official CO project, and its use implies no endorsement by CO's authors.
 
 ## Contributing and security
 
