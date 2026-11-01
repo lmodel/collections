@@ -22,10 +22,11 @@ A [LOKF](https://lokf.nolan-nichols.com) knowledge base for collections. Every M
 
 # Datasets
 
-* [collections LinkML schema](datasets/collections-linkml-schema.md) - The LinkML schema of the Collections Ontology (CO) 2.0, `src/collections/schema/collections.yaml` (schema id `https://w3id.org/lmodel/collections`, version 2.0): six classes and sixteen slots, each with CO's name and IRI. Its `lokf adapt` copy `.lokf/collections.yaml`, rooted on `Collection`, is the bundle's domain schema.
+* [collections LinkML schema](datasets/collections-linkml-schema.md) - The LinkML schema of the Collections Ontology (CO) 2.0, `src/collections/schema/collections.yaml` (schema id `https://w3id.org/lmodel/collections`, version 2.0): seven classes, six with CO's name and IRI and `CoElement` its own, sixteen slots, and mappings from CO's alignment file. Its `lokf adapt` copy `.lokf/collections.yaml`, rooted on `Collection` and `CoElement`, is the bundle's domain schema.
 * [Copy of CO's OWL file](datasets/collections-ontology-copy.md) - `src/collections/schema/upstream/collections.owl`, the Collections Ontology 2.0's OWL file copied unchanged from commit `619e7b0` of its GitHub repository and matched by its git object hash, which the tests hold the schema to.
 * [Generated artefacts](datasets/generated-artefacts.md) - What `just gen-project` and `just gen-doc` generate from the schema: the twelve formats in `project/`, the Python dataclasses and Pydantic models in `src/collections_linkml/datamodel/`, the merged schema in `docs/schema/` and the element pages in `docs/elements/`.
-* [Tests and example data](datasets/test-data.md) - The tests under `tests/`: 12 valid examples, 11 counter-examples the validator rejects and 14 that break a rule only a test checks, the checks against CO's OWL file and the watch's stubbed answers, and the 13 released neighbour copies the adapt copy is held apart from.
+* [Tests and example data](datasets/test-data.md) - The tests under `tests/`: 13 valid examples, 12 counter-examples the validator rejects and 14 that break a rule only a test checks, the checks against CO's OWL and alignment files and the watch's stubbed answers, and the 13 released neighbour copies the adapt copy is held apart from.
+* [Copy of CO's alignment file](datasets/collections-alignment-copy.md) - `src/collections/schema/upstream/alignment.owl`, CO's alignment with SWAN Collections 1.2, the ontologydesignpatterns.org patterns, the Music Ontology and OAI-ORE, copied unchanged from commit `619e7b0` and matched by its git object hash; the schema's exact, narrow and broad mappings follow it.
 
 # References
 
@@ -36,12 +37,13 @@ A [LOKF](https://lokf.nolan-nichols.com) knowledge base for collections. Every M
 * [Collection](glossary/collection.md) - A collection in the Collections Ontology (`coll:Collection`): a group of things taken as a whole, with its elements and its size; a set holds each element once, and a bag may hold one more than once.
 * [Bag](glossary/bag.md) - A bag in the Collections Ontology (`coll:Bag`): a collection that may hold one element more than once, in no order, through items that each wrap one element.
 * [List](glossary/list.md) - A list in the Collections Ontology (`coll:List`): a bag whose items are in order, each with its place from 1, a first and a last item, and links to the items before and after it.
-* [Item](glossary/item.md) - An item in the Collections Ontology (`coll:Item`, the schema's `CoItem`): an entry of a bag that wraps one of the bag's elements in `itemContent`.
+* [Item](glossary/item.md) - An item in the Collections Ontology (`coll:Item`, the schema's `CoItem`): an entry of a bag that wraps one of the bag's elements, a `CoElement`, in `itemContent`.
+* [Element](glossary/element.md) - An element in the schema (`CoElement`): a thing that a collection holds or an item wraps, named by its IRI, so that in RDF a collection links to its elements as resources; the one class that is not CO's.
 
 # Explanations
 
-* [Names and IRIs](explanations/names-and-iris.md) - Why the schema keeps CO's names and IRIs under the `coll` prefix, why `CoItem`, `co_size` and `co_index` differ from CO's names, how the terms match lmodel/uco's `uco_co` module, and the one key, `element`, the adapt copy shares with spdx's.
-* [Scope and rules](explanations/scope-and-rules.md) - What the schema renders of CO and leaves out, why a link to an item holds a copy of it, why it names no mapping, and the rules of CO that no validator checks, which the tests check over the examples instead.
+* [Names and IRIs](explanations/names-and-iris.md) - Why the schema keeps CO's names and IRIs under the `coll` prefix, why `CoItem`, `co_size` and `co_index` differ from CO's names, why `CoElement` has an IRI of its own, how the terms match lmodel/uco's `uco_co` module, and the one key, `element`, the adapt copy shares with spdx's.
+* [Scope and rules](explanations/scope-and-rules.md) - What the schema renders of CO, adds to it (`CoElement`) and leaves out, why a link to an item holds a copy of it, where its mappings come from, and the rules of CO that no validator checks, which the tests check over the examples instead.
 
 # Playbooks
 
@@ -53,7 +55,7 @@ A [LOKF](https://lokf.nolan-nichols.com) knowledge base for collections. Every M
 
 # Policies
 
-* [Licence and attribution](policies/license-and-attribution.md) - The licences: Apache-2.0 for the schema and code, CC BY 4.0 for the knowledge bundle, Apache-2.0 for the copied CO file, which CO's Google Code archive gives for the project's code, and MIT for the copier template's scaffolding.
+* [Licence and attribution](policies/license-and-attribution.md) - The licences: Apache-2.0 for the schema and code, CC BY 4.0 for the knowledge bundle, Apache-2.0 for the copied CO files, the OWL file and the alignment file, which CO's Google Code archive gives for the project's code, and MIT for the copier template's scaffolding.
 * [Security policy](policies/security-policy.md) - How to report a vulnerability (GitHub's private vulnerability reporting), which release receives fixes (the latest), what executes in the repository and what holds each surface, the ruleset on `main`, and the two repository settings that are not yet in force.
 * [AI covenant](policies/ai-covenant.md) - The rules for AI-assisted work in this repository: the contributor owns what they submit, every element renders a class or property of CO 2.0 cited by its axiom, CO's IRIs are kept, the copied OWL file stays CO's, and the scheduled librarian's changes go through a reviewed pull request.
 

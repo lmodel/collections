@@ -13,6 +13,9 @@ generated:
   by: process:ktl-librarian
   at: "2026-10-31T12:56:19Z"
 status: draft
+verified:
+  - by: process:ktl-librarian
+    at: "2026-11-01T00:01:52Z"
 ---
 
 # Knowledge Registrar (knowledge-registrar.yaml)

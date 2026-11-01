@@ -11,8 +11,10 @@ sources:
     title: the Validating data section
 generated:
   by: process:ktl-librarian
-  at: "2026-10-31T12:56:19Z"
+  at: "2026-11-01T00:02:57Z"
 status: draft
+references:
+  - https://w3id.org/lmodel/collections/knowledge/explanations/scope-and-rules
 ---
 
 # Validate data
