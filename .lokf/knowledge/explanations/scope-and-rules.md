@@ -17,7 +17,7 @@ sources:
     title: the What it models, Influences, Mappings and Not modelled here sections
 generated:
   by: process:ktl-librarian
-  at: "2026-11-01T00:01:52Z"
+  at: "2026-11-01T00:10:55Z"
 status: draft
 ---
 
@@ -34,7 +34,7 @@ No validator checks the rest of CO's rules, so `tests/test_data.py` checks them 
 - an item's content is one of its bag's elements, where they are given;
 - a list's indexes count from 1 with no gap or repeat, and `firstItem`, `lastItem` and each item's links agree with them.
 
-The schema leaves out CO's SWRL rules and the narrower-property axioms on single-valued slots, such as `firstItem` under `item`, because LinkML makes a narrower slot multivalued when its parent is. It states CO's two property chains as path rules, which no generator reads. It also leaves out CO's example files.[^about.md]
+The schema leaves out CO's SWRL rules and the narrower-property axioms on single-valued slots, such as `firstItem` under `item`. LinkML's inheritance is monotonic, so a slot under a multivalued parent is multivalued too. It states CO's two property chains as path rules, which no generator reads. It also leaves out CO's example files.[^about.md]
 
 The exact, narrow and broad mappings come from CO's own alignment file, and the mappings to schema.org are the project's own. CO states no mapping to RDF's containers, so the schema names none.[^readme.md]
 

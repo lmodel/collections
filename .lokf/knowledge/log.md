@@ -2,6 +2,7 @@
 
 ## 2026-11-01
 
+* **Changed**: Scope and rules now gives monotonic inheritance as the reason the single-valued narrower-property axioms are left out, as the README and docs/about.md now say.
 * **Changed**: Validate data now states its link to Scope and rules as a typed reference, so the graph draws it.
 * **Changed**: Knowledge Website now states its link to the documentation website as a typed reference.
 * **Changed**: Upstream watch now states its link to Update the upstream pins as a typed reference.
