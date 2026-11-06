@@ -37,7 +37,7 @@ npx skills add noelmcloughlin/knowledge-trust-ladder --skill ktl-curator --yes  
 
 ## Before opening a pull request
 
-- **Edit the schema, then regenerate.** Edit `src/collections/schema/collections.yaml`, run `just gen-project`, `just gen-doc` and `just lokf-adapt`, and commit the output. `project/`, `src/collections_linkml/datamodel/`, `docs/schema/` and `.lokf/collections.yaml` are generated.
+- **Edit the schema, then regenerate.** Edit `src/collections/schema/collections.yaml`, run `just gen-project`, `just gen-doc` and `just lokf-adapt`, and commit the output. `project/`, `src/collections_linkml/datamodel/`, `docs/schema/` and `.lokf/schema/collections.yaml` are generated.
 - **Render CO, in your own words.** Every class and slot keeps its CO local name and its IRI under `coll:`. Cite the axiom of `collections.owl` it renders in the pull request. [AI_COVENANT.md](AI_COVENANT.md) says why.
 - **Render the pinned edition.** The schema header, `scripts/check_upstream_release.py` and the copy in `src/collections/schema/upstream/` name the same commit, and `tests/test_upstream.py` holds them equal.
 - **Keep names apart.** A host imports this adapt copy beside the Linked Open Knowledge Format (LOKF) schema and the released neighbours' copies in `tests/neighbours/`, so a shared name carries one Internationalized Resource Identifier (IRI). `tests/test_schema_rules.py` checks this.
