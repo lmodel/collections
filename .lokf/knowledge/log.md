@@ -1,5 +1,9 @@
 # Change Log
 
+## 2026-11-06
+
+* **Changed**: `lokf.yaml` and `collections.yaml` moved into `.lokf/schema/`, where KTL v0.62.0 keeps a sidecar's schema files, and the concepts that name them follow.
+
 ## 2026-11-01
 
 * **Changed**: Scope and rules now gives monotonic inheritance as the reason the single-valued narrower-property axioms are left out, as the README and docs/about.md now say.

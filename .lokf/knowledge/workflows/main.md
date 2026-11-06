@@ -11,12 +11,12 @@ sources:
     title: the on key and the test job
 generated:
   by: process:ktl-librarian
-  at: "2026-10-31T12:56:19Z"
+  at: "2026-11-06T21:17:24Z"
 status: draft
 ---
 
 # Build and test (main.yaml)
 
-`.github/workflows/main.yaml` runs on a push to `main` and on every pull request, with `contents: read`. Its `test` job installs `just` 1.47.0 and the project with `uv sync --locked --group dev`, and runs `just test` on Python 3.10 to 3.14. On Python 3.13 it also runs `just lint` and `just lokf-adapt-check`, which fails when `.lokf/collections.yaml` is stale.[^main.yaml]
+`.github/workflows/main.yaml` runs on a push to `main` and on every pull request, with `contents: read`. Its `test` job installs `just` 1.47.0 and the project with `uv sync --locked --group dev`, and runs `just test` on Python 3.10 to 3.14. On Python 3.13 it also runs `just lint` and `just lokf-adapt-check`, which fails when `.lokf/schema/collections.yaml` is stale.[^main.yaml]
 
 [^main.yaml]: .github/workflows/main.yaml, the on key and the test job

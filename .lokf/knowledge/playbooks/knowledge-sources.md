@@ -12,7 +12,7 @@ sources:
   - resource: src/collections/schema
   - resource: src/collections_linkml/datamodel
   - resource: project.justfile
-  - resource: .lokf/collections.yaml
+  - resource: .lokf/schema/collections.yaml
   - resource: .lokf/justfile
   - resource: .lokf/pyproject.toml
   - resource: NOTICE
@@ -78,7 +78,7 @@ exclusions:
     reason: The pointer that sends agents to this bundle.
   - resource: knowledge_bundle
     reason: The sidecar's link to the bundle.
-  - resource: .lokf/lokf.yaml
+  - resource: .lokf/schema/lokf.yaml
     reason: LOKF's schema, pinned by the sidecar.
   - resource: .lokf/scripts
     reason: The sidecar's scripts, which the weekly sync replaces.
@@ -98,7 +98,7 @@ exclusions:
     reason: The sidecar's git settings.
 generated:
   by: process:ktl-librarian
-  at: "2026-11-01T00:01:52Z"
+  at: "2026-11-06T21:17:24Z"
 status: draft
 ---
 
@@ -111,7 +111,7 @@ Each concept derived from a file or folder of this repository names it by its pa
 | Source | Yields | Re-check by |
 | --- | --- | --- |
 | `src/collections/schema/collections.yaml`, `.linkmllint.yaml` | `datasets/collections-linkml-schema`, the five `glossary/` terms | re-read the header, each class's slots and the slots' ranges, IRIs and comments |
-| `project.justfile`, `.lokf/collections.yaml`, `.lokf/justfile`, `.lokf/pyproject.toml` | the domain-schema section of `datasets/collections-linkml-schema` | re-read the `--root` list, the copy's notes, the `schema :=` line and the `[tool.lokf]` table |
+| `project.justfile`, `.lokf/schema/collections.yaml`, `.lokf/justfile`, `.lokf/pyproject.toml` | the domain-schema section of `datasets/collections-linkml-schema` | re-read the `--root` list, the copy's notes, the `schema :=` line and the `[tool.lokf]` table |
 | `src/collections/schema/upstream/collections.owl`, NOTICE | `datasets/collections-ontology-copy` | re-read the header and the pins NOTICE names |
 | `src/collections/schema/upstream/alignment.owl`, NOTICE, the Mappings section of `README.md` | `datasets/collections-alignment-copy` | re-read the header, the alignment axioms and the pin in `tests/test_upstream.py` |
 | `scripts/check_upstream_release.py`, `.github/scripts/` | `playbooks/update-upstream-pins`, `workflows/upstream-watch` | re-read the pins, the docstring and the issue title |
