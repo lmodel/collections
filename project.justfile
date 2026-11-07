@@ -6,8 +6,8 @@
 
 # ============ Knowledge bundle: the adapted domain schema ============
 
-# `.lokf/collections.yaml` is the copy `lokf adapt` writes from the schema
-# so that it can sit beside `.lokf/lokf.yaml` (`lokf adapt --help` lists the
+# `.lokf/schema/collections.yaml` is the copy `lokf adapt` writes from the schema
+# so that it can sit beside `.lokf/schema/lokf.yaml` (`lokf adapt --help` lists the
 # moves). The roots are the classes a knowledge concept may name as its
 # type: Collection, so that a concept may be a Collection, a Set, a Bag or a
 # List, and CoElement, the thing a collection holds, whose iri becomes LOKF's
@@ -19,12 +19,12 @@
 lokf_cmd := env_var_or_default("LOKF_CMD", "uv run --project .lokf lokf")
 lokf_adapt_roots := "--root Collection --root CoElement"
 
-# Rewrite .lokf/collections.yaml from the schema (run after every schema change)
+# Rewrite .lokf/schema/collections.yaml from the schema (run after every schema change)
 [group('knowledge bundle')]
 lokf-adapt:
-  {{lokf_cmd}} adapt {{source_schema_path}} {{lokf_adapt_roots}} --lokf .lokf/lokf.yaml -o .lokf/collections.yaml
+  {{lokf_cmd}} adapt {{source_schema_path}} {{lokf_adapt_roots}} --lokf .lokf/schema/lokf.yaml -o .lokf/schema/collections.yaml
 
-# Fail when .lokf/collections.yaml is stale against the schema or .lokf/lokf.yaml
+# Fail when .lokf/schema/collections.yaml is stale against the schema or .lokf/schema/lokf.yaml
 [group('knowledge bundle')]
 lokf-adapt-check:
-  {{lokf_cmd}} adapt {{source_schema_path}} {{lokf_adapt_roots}} --lokf .lokf/lokf.yaml -o .lokf/collections.yaml --check
+  {{lokf_cmd}} adapt {{source_schema_path}} {{lokf_adapt_roots}} --lokf .lokf/schema/lokf.yaml -o .lokf/schema/collections.yaml --check

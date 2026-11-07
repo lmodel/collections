@@ -3,7 +3,7 @@ type: Dataset
 id: https://w3id.org/lmodel/collections/knowledge/datasets/collections-linkml-schema
 genre: reference
 title: collections LinkML schema
-description: "The LinkML schema of the Collections Ontology (CO) 2.0, `src/collections/schema/collections.yaml` (schema id `https://w3id.org/lmodel/collections`, version 2.0): seven classes, six with CO's name and IRI and `CoElement` its own, sixteen slots, and mappings from CO's alignment file. Its `lokf adapt` copy `.lokf/collections.yaml`, rooted on `Collection` and `CoElement`, is the bundle's domain schema."
+description: "The LinkML schema of the Collections Ontology (CO) 2.0, `src/collections/schema/collections.yaml` (schema id `https://w3id.org/lmodel/collections`, version 2.0): seven classes, six with CO's name and IRI and `CoElement` its own, sixteen slots, and mappings from CO's alignment file. Its `lokf adapt` copy `.lokf/schema/collections.yaml`, rooted on `Collection` and `CoElement`, is the bundle's domain schema."
 resource: src/collections/schema/collections.yaml
 version: "2.0"
 license: Apache-2.0
@@ -18,7 +18,7 @@ sources:
     resource: project.justfile
     title: the lokf-adapt recipes and their root
   - id: lokf-collections.yaml
-    resource: .lokf/collections.yaml
+    resource: .lokf/schema/collections.yaml
     title: the notes lokf adapt wrote
   - resource: .lokf/justfile
     title: the schema line
@@ -28,7 +28,7 @@ sources:
     title: the naming rule
 generated:
   by: process:ktl-librarian
-  at: "2026-11-01T00:01:52Z"
+  at: "2026-11-06T21:17:24Z"
 status: draft
 references:
   - https://w3id.org/lmodel/collections/knowledge/explanations/names-and-iris
@@ -65,4 +65,4 @@ The exact, narrow and broad mappings are those of CO's alignment file, which the
 
 [^schema-collections.yaml]: src/collections/schema/collections.yaml, the header, the slots and the classes
 [^project.justfile]: project.justfile, the knowledge bundle recipes
-[^lokf-collections.yaml]: .lokf/collections.yaml, the notes
+[^lokf-collections.yaml]: .lokf/schema/collections.yaml, the notes
