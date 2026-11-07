@@ -1,0 +1,691 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix linkml: <https://w3id.org/linkml/> .
+@prefix pav: <http://purl.org/pav/> .
+@prefix schema1: <http://schema.org/> .
+<https://w3id.org/lmodel/collections/Bag> a linkml:ClassDefinition ;
+	skos:exactMatch "coll:Bag"^^xsd:anyURI , "odpbag:Bag"^^xsd:anyURI , "swan:Bag"^^xsd:anyURI ;
+	skos:inScheme "https://w3id.org/lmodel/collections"^^xsd:anyURI ;
+	linkml:class_uri "http://purl.org/co/Bag"^^xsd:anyURI ;
+	linkml:definition_uri "https://w3id.org/lmodel/collections/Bag"^^xsd:anyURI ;
+	linkml:description "A collection that may hold one element more than once, in no order." ;
+	linkml:disjoint_with <https://w3id.org/lmodel/collections/Set> ;
+	linkml:is_a <https://w3id.org/lmodel/collections/Collection> ;
+	linkml:slot_usage _:c14n19 ;
+	linkml:slots <https://w3id.org/lmodel/collections/co_size> , <https://w3id.org/lmodel/collections/element> , <https://w3id.org/lmodel/collections/item> .
+<https://w3id.org/lmodel/collections/CoElement> a linkml:ClassDefinition ;
+	skos:editorialNote "Not a term of CO, so its IRI is the schema's own. CO says that what an item wraps is not itself an item, which disjoint_with states." ;
+	skos:inScheme "https://w3id.org/lmodel/collections"^^xsd:anyURI ;
+	skos:note "CO puts no limit on what a collection holds. A value of element or itemContent is the IRI of a CoElement, so the RDF of a collection links to its elements rather than holding their IRIs as text." ;
+	linkml:attributes <https://w3id.org/lmodel/collections/iri> ;
+	linkml:class_uri "https://w3id.org/lmodel/collections/CoElement"^^xsd:anyURI ;
+	linkml:definition_uri "https://w3id.org/lmodel/collections/CoElement"^^xsd:anyURI ;
+	linkml:description "A thing that a collection holds, named by its IRI." ;
+	linkml:disjoint_with <https://w3id.org/lmodel/collections/CoItem> ;
+	linkml:slot_usage _:c14n17 ;
+	linkml:slots <https://w3id.org/lmodel/collections/coElement__iri> .
+<https://w3id.org/lmodel/collections/CoItem> a linkml:ClassDefinition ;
+	skos:altLabel "Item" ;
+	skos:editorialNote "CO says that every item is an item of some bag. The schema leaves itemOf optional, since a bag holds its items inline." ;
+	skos:exactMatch "coll:Item"^^xsd:anyURI , "odpbag:Item"^^xsd:anyURI , "swan:Item"^^xsd:anyURI ;
+	skos:inScheme "https://w3id.org/lmodel/collections"^^xsd:anyURI ;
+	linkml:class_uri "http://purl.org/co/Item"^^xsd:anyURI ;
+	linkml:definition_uri "https://w3id.org/lmodel/collections/CoItem"^^xsd:anyURI ;
+	linkml:description "An entry of a bag, which wraps one of the bag's elements." ;
+	linkml:slot_usage _:c14n8 ;
+	linkml:slots <https://w3id.org/lmodel/collections/CoItem_itemContent> .
+<https://w3id.org/lmodel/collections/CoItem_itemContent> a linkml:SlotDefinition ;
+	rdfs:seeAlso "https://github.com/collections-ontology/collections-ontology/blob/58e55d956991878307d430eede7790d5e5da206f/StructureBag.md"^^xsd:anyURI ;
+	skos:closeMatch "http://schema.org/item"^^xsd:anyURI ;
+	skos:editorialNote "CoItem requires it. CO's OWL file makes itemContent functional, so an item wraps at most one element, and CO's wiki page StructureBag says that an item links exactly one resource." ;
+	skos:exactMatch "http://swan.mindinformatics.org/ontologies/1.2/collections/itemContent"^^xsd:anyURI , "http://www.ontologydesignpatterns.org/cp/owl/bag.owl#itemContent"^^xsd:anyURI ;
+	skos:inScheme "https://w3id.org/lmodel/collections"^^xsd:anyURI ;
+	skos:mappingRelation "http://purl.org/co/itemContent"^^xsd:anyURI ;
+	skos:narrowMatch "http://purl.org/ontology/mo/publication_of"^^xsd:anyURI , "http://www.openarchives.org/ore/terms/proxyFor"^^xsd:anyURI ;
+	skos:prefLabel "itemContent" ;
+	linkml:definition_uri "https://w3id.org/lmodel/collections/itemContent"^^xsd:anyURI ;
+	linkml:description "The element that the item wraps." ;
+	linkml:domain <https://w3id.org/lmodel/collections/CoItem> ;
+	linkml:domain_of <https://w3id.org/lmodel/collections/CoItem> ;
+	linkml:is_a <https://w3id.org/lmodel/collections/itemContent> ;
+	linkml:is_usage_slot true ;
+	linkml:owner <https://w3id.org/lmodel/collections/CoItem> ;
+	linkml:range <https://w3id.org/lmodel/collections/CoElement> ;
+	linkml:required true ;
+	linkml:slot_uri "http://purl.org/co/itemContent"^^xsd:anyURI ;
+	linkml:usage_slot_name "itemContent" .
+<https://w3id.org/lmodel/collections/Collection> a linkml:ClassDefinition ;
+	skos:exactMatch "coll:Collection"^^xsd:anyURI , "odpce:Collection"^^xsd:anyURI , "swan:Collection"^^xsd:anyURI ;
+	skos:inScheme "https://w3id.org/lmodel/collections"^^xsd:anyURI ;
+	skos:narrowMatch "ore:Aggregation"^^xsd:anyURI ;
+	skos:note "Its children are marked mutually disjoint because gen-owl drops disjoint_with (linkml issue 3950), so this is how the generated ontology states that a set is never a bag." ;
+	linkml:children_are_mutually_disjoint true ;
+	linkml:class_uri "http://purl.org/co/Collection"^^xsd:anyURI ;
+	linkml:definition_uri "https://w3id.org/lmodel/collections/Collection"^^xsd:anyURI ;
+	linkml:description "A group of things that is taken as a whole." ;
+	linkml:disjoint_with <https://w3id.org/lmodel/collections/CoItem> ;
+	linkml:slot_usage _:c14n21 ;
+	linkml:slots <https://w3id.org/lmodel/collections/co_size> , <https://w3id.org/lmodel/collections/element> .
+<https://w3id.org/lmodel/collections/List> a linkml:ClassDefinition ;
+	skos:broadMatch "schema:ItemList"^^xsd:anyURI ;
+	skos:exactMatch "coll:List"^^xsd:anyURI , "odplist:List"^^xsd:anyURI , "swan:List"^^xsd:anyURI ;
+	skos:inScheme "https://w3id.org/lmodel/collections"^^xsd:anyURI ;
+	skos:narrowMatch "mo:Record"^^xsd:anyURI ;
+	skos:note "No validator checks the order: that the indexes count from 1 with no gap or repeat, and that firstItem, lastItem and each item's links agree with them. The tests check it." ;
+	linkml:class_uri "http://purl.org/co/List"^^xsd:anyURI ;
+	linkml:definition_uri "https://w3id.org/lmodel/collections/List"^^xsd:anyURI ;
+	linkml:description "A collection whose items come in order, one after another." ;
+	linkml:is_a <https://w3id.org/lmodel/collections/Bag> ;
+	linkml:slot_usage _:c14n23 ;
+	linkml:slots <https://w3id.org/lmodel/collections/List_item> , <https://w3id.org/lmodel/collections/co_size> , <https://w3id.org/lmodel/collections/element> , <https://w3id.org/lmodel/collections/firstItem> , <https://w3id.org/lmodel/collections/lastItem> .
+<https://w3id.org/lmodel/collections/ListItem> a linkml:ClassDefinition ;
+	skos:closeMatch "schema:ListItem"^^xsd:anyURI ;
+	skos:exactMatch "coll:ListItem"^^xsd:anyURI , "odplist:ListItem"^^xsd:anyURI , "swan:ListItem"^^xsd:anyURI ;
+	skos:inScheme "https://w3id.org/lmodel/collections"^^xsd:anyURI ;
+	skos:narrowMatch "mo:Track"^^xsd:anyURI , "ore:Proxy"^^xsd:anyURI ;
+	linkml:class_uri "http://purl.org/co/ListItem"^^xsd:anyURI ;
+	linkml:definition_uri "https://w3id.org/lmodel/collections/ListItem"^^xsd:anyURI ;
+	linkml:description "An item of a list, which has a place in the list's order." ;
+	linkml:is_a <https://w3id.org/lmodel/collections/CoItem> ;
+	linkml:slot_usage _:c14n26 ;
+	linkml:slots <https://w3id.org/lmodel/collections/CoItem_itemContent> , <https://w3id.org/lmodel/collections/ListItem_co_index> , <https://w3id.org/lmodel/collections/followedBy> , <https://w3id.org/lmodel/collections/nextItem> , <https://w3id.org/lmodel/collections/precededBy> , <https://w3id.org/lmodel/collections/previousItem> .
+<https://w3id.org/lmodel/collections/ListItem_co_index> a linkml:SlotDefinition ;
+	skos:altLabel "index" ;
+	skos:closeMatch "http://schema.org/position"^^xsd:anyURI ;
+	skos:inScheme "https://w3id.org/lmodel/collections"^^xsd:anyURI ;
+	skos:mappingRelation "http://purl.org/co/index"^^xsd:anyURI ;
+	skos:narrowMatch "http://purl.org/ontology/mo/track_number"^^xsd:anyURI ;
+	skos:prefLabel "co_index" ;
+	linkml:definition_uri "https://w3id.org/lmodel/collections/co_index"^^xsd:anyURI ;
+	linkml:description "The place of the item in its list, counting from 1." ;
+	linkml:domain <https://w3id.org/lmodel/collections/ListItem> ;
+	linkml:domain_of <https://w3id.org/lmodel/collections/ListItem> ;
+	linkml:is_a <https://w3id.org/lmodel/collections/co_index> ;
+	linkml:is_usage_slot true ;
+	linkml:minimum_value "1"^^linkml:\@id ;
+	linkml:owner <https://w3id.org/lmodel/collections/ListItem> ;
+	linkml:range <https://w3id.org/lmodel/collections/integer> ;
+	linkml:required true ;
+	linkml:slot_uri "http://purl.org/co/index"^^xsd:anyURI ;
+	linkml:usage_slot_name "co_index" .
+<https://w3id.org/lmodel/collections/List_item> a linkml:SlotDefinition ;
+	skos:inScheme "https://w3id.org/lmodel/collections"^^xsd:anyURI ;
+	skos:mappingRelation "http://purl.org/co/item"^^xsd:anyURI ;
+	skos:narrowMatch "http://purl.org/ontology/mo/track"^^xsd:anyURI , "http://swan.mindinformatics.org/ontologies/1.2/collections/item"^^xsd:anyURI ;
+	skos:note "In a list, the item after an item of the list is also an item of it, as the path rule states after CO's property chain." ;
+	skos:prefLabel "item" ;
+	linkml:definition_uri "https://w3id.org/lmodel/collections/item"^^xsd:anyURI ;
+	linkml:description "An item of the bag, which holds one of its elements." ;
+	linkml:domain <https://w3id.org/lmodel/collections/List> ;
+	linkml:domain_of <https://w3id.org/lmodel/collections/List> ;
+	linkml:inlined true ;
+	linkml:inlined_as_list true ;
+	linkml:is_a <https://w3id.org/lmodel/collections/item> ;
+	linkml:is_usage_slot true ;
+	linkml:multivalued true ;
+	linkml:owner <https://w3id.org/lmodel/collections/List> ;
+	linkml:path_rule _:c14n2 ;
+	linkml:range <https://w3id.org/lmodel/collections/ListItem> ;
+	linkml:slot_uri "http://purl.org/co/item"^^xsd:anyURI ;
+	linkml:usage_slot_name "item" .
+<https://w3id.org/lmodel/collections/Set> a linkml:ClassDefinition ;
+	skos:exactMatch "coll:Set"^^xsd:anyURI , "odpset:Set"^^xsd:anyURI , "swan:Set"^^xsd:anyURI ;
+	skos:inScheme "https://w3id.org/lmodel/collections"^^xsd:anyURI ;
+	skos:note "No validator checks that the elements differ: LinkML 1.12.1's generators drop list_elements_unique, so the tests check it." ;
+	linkml:class_uri "http://purl.org/co/Set"^^xsd:anyURI ;
+	linkml:definition_uri "https://w3id.org/lmodel/collections/Set"^^xsd:anyURI ;
+	linkml:description "A collection that holds each of its elements once." ;
+	linkml:is_a <https://w3id.org/lmodel/collections/Collection> ;
+	linkml:slot_usage _:c14n10 ;
+	linkml:slots <https://w3id.org/lmodel/collections/Set_element> , <https://w3id.org/lmodel/collections/co_size> .
+<https://w3id.org/lmodel/collections/Set_element> a linkml:SlotDefinition ;
+	skos:inScheme "https://w3id.org/lmodel/collections"^^xsd:anyURI ;
+	skos:mappingRelation "http://purl.org/co/element"^^xsd:anyURI ;
+	skos:narrowMatch "http://swan.mindinformatics.org/ontologies/1.2/collections/element"^^xsd:anyURI , "http://www.ontologydesignpatterns.org/cp/owl/collectionentity.owl#hasMember"^^xsd:anyURI , "http://www.openarchives.org/ore/terms/aggregates"^^xsd:anyURI ;
+	skos:note "In a bag, each item's itemContent is also an element, as the path rule states after CO's property chain." ;
+	skos:prefLabel "element" ;
+	linkml:definition_uri "https://w3id.org/lmodel/collections/element"^^xsd:anyURI ;
+	linkml:description "A thing the collection holds, named by its IRI." ;
+	linkml:domain <https://w3id.org/lmodel/collections/Set> ;
+	linkml:domain_of <https://w3id.org/lmodel/collections/Set> ;
+	linkml:is_a <https://w3id.org/lmodel/collections/element> ;
+	linkml:is_usage_slot true ;
+	linkml:list_elements_unique true ;
+	linkml:multivalued true ;
+	linkml:owner <https://w3id.org/lmodel/collections/Set> ;
+	linkml:path_rule _:c14n16 ;
+	linkml:range <https://w3id.org/lmodel/collections/CoElement> ;
+	linkml:slot_uri "http://purl.org/co/element"^^xsd:anyURI ;
+	linkml:usage_slot_name "element" .
+<https://w3id.org/lmodel/collections/boolean> a linkml:TypeDefinition ;
+	skos:editorialNote "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"boolean\"." ;
+	skos:exactMatch "schema:Boolean"^^xsd:anyURI ;
+	skos:inScheme "https://w3id.org/linkml/types"^^xsd:anyURI ;
+	linkml:base "Bool" ;
+	linkml:definition_uri "https://w3id.org/linkml/Boolean"^^xsd:anyURI ;
+	linkml:description "A binary (true or false) value" ;
+	linkml:imported_from "linkml:types" ;
+	linkml:repr "bool" ;
+	linkml:uri "http://www.w3.org/2001/XMLSchema#boolean"^^xsd:anyURI .
+<https://w3id.org/lmodel/collections/coElement__iri> a linkml:SlotDefinition ;
+	skos:inScheme "https://w3id.org/lmodel/collections"^^xsd:anyURI ;
+	skos:prefLabel "iri" ;
+	linkml:description "The IRI of the thing." ;
+	linkml:domain_of <https://w3id.org/lmodel/collections/CoElement> ;
+	linkml:identifier true ;
+	linkml:owner <https://w3id.org/lmodel/collections/CoElement> ;
+	linkml:range <https://w3id.org/lmodel/collections/uriorcurie> ;
+	linkml:required true ;
+	linkml:slot_uri "https://w3id.org/lmodel/collections/iri"^^xsd:anyURI .
+<https://w3id.org/lmodel/collections/co_index> a linkml:SlotDefinition ;
+	skos:altLabel "index" ;
+	skos:closeMatch "http://schema.org/position"^^xsd:anyURI ;
+	skos:inScheme "https://w3id.org/lmodel/collections"^^xsd:anyURI ;
+	skos:mappingRelation "http://purl.org/co/index"^^xsd:anyURI ;
+	skos:narrowMatch "http://purl.org/ontology/mo/track_number"^^xsd:anyURI ;
+	linkml:definition_uri "https://w3id.org/lmodel/collections/co_index"^^xsd:anyURI ;
+	linkml:description "The place of the item in its list, counting from 1." ;
+	linkml:domain <https://w3id.org/lmodel/collections/ListItem> ;
+	linkml:domain_of <https://w3id.org/lmodel/collections/ListItem> ;
+	linkml:minimum_value "1"^^linkml:\@id ;
+	linkml:owner <https://w3id.org/lmodel/collections/ListItem> ;
+	linkml:range <https://w3id.org/lmodel/collections/integer> ;
+	linkml:slot_uri "http://purl.org/co/index"^^xsd:anyURI .
+<https://w3id.org/lmodel/collections/co_size> a linkml:SlotDefinition ;
+	skos:altLabel "size" ;
+	skos:editorialNote "CO gives every collection exactly one size. The schema leaves it optional, since a reader can count; where it is given, the tests check that it equals the count." ;
+	skos:exactMatch "http://swan.mindinformatics.org/ontologies/1.2/collections/size"^^xsd:anyURI , "http://www.ontologydesignpatterns.org/cp/owl/bag.owl#size"^^xsd:anyURI , "http://www.ontologydesignpatterns.org/cp/owl/set.owl#size"^^xsd:anyURI ;
+	skos:inScheme "https://w3id.org/lmodel/collections"^^xsd:anyURI ;
+	skos:mappingRelation "http://purl.org/co/size"^^xsd:anyURI ;
+	skos:narrowMatch "http://purl.org/ontology/mo/track_count"^^xsd:anyURI , "http://schema.org/numberOfItems"^^xsd:anyURI ;
+	linkml:definition_uri "https://w3id.org/lmodel/collections/co_size"^^xsd:anyURI ;
+	linkml:description "How many times the collection holds a thing, counting each repeat: the number of elements of a set, or of items of a bag or a list." ;
+	linkml:domain <https://w3id.org/lmodel/collections/Collection> ;
+	linkml:domain_of <https://w3id.org/lmodel/collections/Collection> ;
+	linkml:minimum_value "0"^^linkml:\@id ;
+	linkml:owner <https://w3id.org/lmodel/collections/Collection> ;
+	linkml:range <https://w3id.org/lmodel/collections/integer> ;
+	linkml:slot_uri "http://purl.org/co/size"^^xsd:anyURI .
+<https://w3id.org/lmodel/collections/collections> dcterms:license "Apache-2.0" ;
+	dcterms:source "https://github.com/collections-ontology/collections-ontology"^^xsd:anyURI ;
+	dcterms:title "Collections Ontology (CO)" ;
+	pav:version "2.0" ;
+	schema1:inLanguage "en" ;
+	schema1:keywords "bag" , "collection" , "list" , "ordered list" , "set" ;
+	a linkml:SchemaDefinition ;
+	rdfs:seeAlso "https://doi.org/10.3233/SW-130121"^^xsd:anyURI , "https://lmodel.github.io/collections"^^xsd:anyURI ;
+	skos:editorialNote "CO's Item and size are named CoItem and co_size, as in lmodel/uco's uco_co module, because UCO defines an Item and a size of its own. CO's index is named co_index, because gen-doc writes the page of a slot named index over the schema's index page. Their IRIs are CO's." ;
+	skos:note "Items have no IRI here, so a slot that links to an item, such as firstItem or nextItem, holds a copy of that item. docs/index.md lists the rules of CO that no validator checks and the tests check instead." , "Renders CO 2.0 by Paolo Ciccarese and Silvio Peroni, whose ontology IRI is http://purl.org/co. The source is collections.owl at the commit the co_commit annotation names, copied unchanged to upstream/collections.owl." , "The exact, narrow and broad mappings to SWAN Collections 1.2, the ontologydesignpatterns.org patterns, the Music Ontology and OAI-ORE are those of CO's own alignment.owl, copied unchanged to upstream/alignment.owl. That file writes ORE's namespace as http://www.openarchives.org/ore/items/, where ORE defines its terms under http://www.openarchives.org/ore/terms/, which the mappings use. The mappings to schema.org are this project's own, after schema.org's ItemList and ListItem, which link list items the same way." , "The repository states no licence. The project's Google Code archive gives the Apache License 2.0 for its code, collections.owl among it, and CC BY 3.0 for its other content, such as its wiki, as the co_licence annotation says. The descriptions here are this project's own words." ;
+	sh:declare _:c14n0 , _:c14n1 , _:c14n12 , _:c14n13 , _:c14n14 , _:c14n15 , _:c14n18 , _:c14n20 , _:c14n22 , _:c14n24 , _:c14n5 , _:c14n6 ;
+	linkml:annotations _:c14n25 , _:c14n3 , _:c14n4 , _:c14n9 ;
+	linkml:classes <https://w3id.org/lmodel/collections/Bag> , <https://w3id.org/lmodel/collections/CoElement> , <https://w3id.org/lmodel/collections/CoItem> , <https://w3id.org/lmodel/collections/Collection> , <https://w3id.org/lmodel/collections/List> , <https://w3id.org/lmodel/collections/ListItem> , <https://w3id.org/lmodel/collections/Set> ;
+	linkml:default_prefix "collections" ;
+	linkml:default_range <https://w3id.org/lmodel/collections/string> ;
+	linkml:description "The Collections Ontology (CO) 2.0 in LinkML, with CO's own names and IRIs: collections that are sets, bags or lists, and the items through which a bag or a list holds its elements." ;
+	linkml:id "https://w3id.org/lmodel/collections"^^xsd:anyURI ;
+	linkml:imports "linkml:types"^^xsd:anyURI ;
+	linkml:metamodel_version "1.12.0" ;
+	linkml:slots <https://w3id.org/lmodel/collections/CoItem_itemContent> , <https://w3id.org/lmodel/collections/ListItem_co_index> , <https://w3id.org/lmodel/collections/List_item> , <https://w3id.org/lmodel/collections/Set_element> , <https://w3id.org/lmodel/collections/coElement__iri> , <https://w3id.org/lmodel/collections/co_index> , <https://w3id.org/lmodel/collections/co_size> , <https://w3id.org/lmodel/collections/element> , <https://w3id.org/lmodel/collections/elementOf> , <https://w3id.org/lmodel/collections/firstItem> , <https://w3id.org/lmodel/collections/firstItemOf> , <https://w3id.org/lmodel/collections/followedBy> , <https://w3id.org/lmodel/collections/item> , <https://w3id.org/lmodel/collections/itemContent> , <https://w3id.org/lmodel/collections/itemContentOf> , <https://w3id.org/lmodel/collections/itemOf> , <https://w3id.org/lmodel/collections/lastItem> , <https://w3id.org/lmodel/collections/lastItemOf> , <https://w3id.org/lmodel/collections/nextItem> , <https://w3id.org/lmodel/collections/precededBy> , <https://w3id.org/lmodel/collections/previousItem> ;
+	linkml:source_file "collections.yaml" ;
+	linkml:source_file_date "2026-11-07T02:03:56"^^xsd:dateTime ;
+	linkml:source_file_size 13573 ;
+	linkml:types <https://w3id.org/lmodel/collections/boolean> , <https://w3id.org/lmodel/collections/curie> , <https://w3id.org/lmodel/collections/date> , <https://w3id.org/lmodel/collections/date_or_datetime> , <https://w3id.org/lmodel/collections/datetime> , <https://w3id.org/lmodel/collections/decimal> , <https://w3id.org/lmodel/collections/double> , <https://w3id.org/lmodel/collections/float> , <https://w3id.org/lmodel/collections/integer> , <https://w3id.org/lmodel/collections/jsonpath> , <https://w3id.org/lmodel/collections/jsonpointer> , <https://w3id.org/lmodel/collections/ncname> , <https://w3id.org/lmodel/collections/nodeidentifier> , <https://w3id.org/lmodel/collections/objectidentifier> , <https://w3id.org/lmodel/collections/sparqlpath> , <https://w3id.org/lmodel/collections/string> , <https://w3id.org/lmodel/collections/time> , <https://w3id.org/lmodel/collections/uri> , <https://w3id.org/lmodel/collections/uriorcurie> .
+<https://w3id.org/lmodel/collections/curie> dcterms:conformsTo "https://www.w3.org/TR/curie/" ;
+	a linkml:TypeDefinition ;
+	skos:editorialNote "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"curie\"." ;
+	skos:inScheme "https://w3id.org/linkml/types"^^xsd:anyURI ;
+	skos:note "in RDF serializations this MUST be expanded to a URI" , "in non-RDF serializations MAY be serialized as the compact representation" ;
+	linkml:base "Curie" ;
+	linkml:definition_uri "https://w3id.org/linkml/Curie"^^xsd:anyURI ;
+	linkml:description "a compact URI" ;
+	linkml:imported_from "linkml:types" ;
+	linkml:repr "str" ;
+	linkml:uri "http://www.w3.org/2001/XMLSchema#string"^^xsd:anyURI .
+<https://w3id.org/lmodel/collections/date> a linkml:TypeDefinition ;
+	skos:editorialNote "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"date\"." , "URI is dateTime because OWL reasoners don't work with straight date or time" ;
+	skos:exactMatch "schema:Date"^^xsd:anyURI ;
+	skos:inScheme "https://w3id.org/linkml/types"^^xsd:anyURI ;
+	linkml:base "XSDDate" ;
+	linkml:definition_uri "https://w3id.org/linkml/Date"^^xsd:anyURI ;
+	linkml:description "a date (year, month and day) in an idealized calendar" ;
+	linkml:imported_from "linkml:types" ;
+	linkml:repr "str" ;
+	linkml:uri "http://www.w3.org/2001/XMLSchema#date"^^xsd:anyURI .
+<https://w3id.org/lmodel/collections/date_or_datetime> a linkml:TypeDefinition ;
+	skos:editorialNote "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"date_or_datetime\"." ;
+	skos:inScheme "https://w3id.org/linkml/types"^^xsd:anyURI ;
+	linkml:base "str" ;
+	linkml:definition_uri "https://w3id.org/linkml/DateOrDatetime"^^xsd:anyURI ;
+	linkml:description "Either a date or a datetime" ;
+	linkml:imported_from "linkml:types" ;
+	linkml:repr "str" ;
+	linkml:uri "https://w3id.org/linkml/DateOrDatetime"^^xsd:anyURI .
+<https://w3id.org/lmodel/collections/datetime> a linkml:TypeDefinition ;
+	skos:editorialNote "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"datetime\"." ;
+	skos:exactMatch "schema:DateTime"^^xsd:anyURI ;
+	skos:inScheme "https://w3id.org/linkml/types"^^xsd:anyURI ;
+	linkml:base "XSDDateTime" ;
+	linkml:definition_uri "https://w3id.org/linkml/Datetime"^^xsd:anyURI ;
+	linkml:description "The combination of a date and time" ;
+	linkml:imported_from "linkml:types" ;
+	linkml:repr "str" ;
+	linkml:uri "http://www.w3.org/2001/XMLSchema#dateTime"^^xsd:anyURI .
+<https://w3id.org/lmodel/collections/decimal> a linkml:TypeDefinition ;
+	skos:broadMatch "schema:Number"^^xsd:anyURI ;
+	skos:editorialNote "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"decimal\"." ;
+	skos:inScheme "https://w3id.org/linkml/types"^^xsd:anyURI ;
+	linkml:base "Decimal" ;
+	linkml:definition_uri "https://w3id.org/linkml/Decimal"^^xsd:anyURI ;
+	linkml:description "A real number with arbitrary precision that conforms to the xsd:decimal specification" ;
+	linkml:imported_from "linkml:types" ;
+	linkml:uri "http://www.w3.org/2001/XMLSchema#decimal"^^xsd:anyURI .
+<https://w3id.org/lmodel/collections/double> a linkml:TypeDefinition ;
+	skos:closeMatch "schema:Float"^^xsd:anyURI ;
+	skos:editorialNote "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"double\"." ;
+	skos:inScheme "https://w3id.org/linkml/types"^^xsd:anyURI ;
+	linkml:base "float" ;
+	linkml:definition_uri "https://w3id.org/linkml/Double"^^xsd:anyURI ;
+	linkml:description "A real number that conforms to the xsd:double specification" ;
+	linkml:imported_from "linkml:types" ;
+	linkml:uri "http://www.w3.org/2001/XMLSchema#double"^^xsd:anyURI .
+<https://w3id.org/lmodel/collections/element> a linkml:SlotDefinition ;
+	owl:inverseOf <https://w3id.org/lmodel/collections/elementOf> ;
+	skos:inScheme "https://w3id.org/lmodel/collections"^^xsd:anyURI ;
+	skos:mappingRelation "http://purl.org/co/element"^^xsd:anyURI ;
+	skos:narrowMatch "http://swan.mindinformatics.org/ontologies/1.2/collections/element"^^xsd:anyURI , "http://www.ontologydesignpatterns.org/cp/owl/collectionentity.owl#hasMember"^^xsd:anyURI , "http://www.openarchives.org/ore/terms/aggregates"^^xsd:anyURI ;
+	skos:note "In a bag, each item's itemContent is also an element, as the path rule states after CO's property chain." ;
+	linkml:definition_uri "https://w3id.org/lmodel/collections/element"^^xsd:anyURI ;
+	linkml:description "A thing the collection holds, named by its IRI." ;
+	linkml:domain <https://w3id.org/lmodel/collections/Collection> ;
+	linkml:domain_of <https://w3id.org/lmodel/collections/Collection> ;
+	linkml:multivalued true ;
+	linkml:owner <https://w3id.org/lmodel/collections/Collection> ;
+	linkml:path_rule _:c14n11 ;
+	linkml:range <https://w3id.org/lmodel/collections/CoElement> ;
+	linkml:slot_uri "http://purl.org/co/element"^^xsd:anyURI .
+<https://w3id.org/lmodel/collections/elementOf> a linkml:SlotDefinition ;
+	owl:inverseOf <https://w3id.org/lmodel/collections/element> ;
+	skos:inScheme "https://w3id.org/lmodel/collections"^^xsd:anyURI ;
+	skos:mappingRelation "http://purl.org/co/elementOf"^^xsd:anyURI ;
+	skos:narrowMatch "http://www.ontologydesignpatterns.org/cp/owl/collectionentity.owl#isMemberOf"^^xsd:anyURI ;
+	linkml:definition_uri "https://w3id.org/lmodel/collections/elementOf"^^xsd:anyURI ;
+	linkml:description "A collection that holds the thing as an element." ;
+	linkml:domain <https://w3id.org/lmodel/collections/CoElement> ;
+	linkml:inlined true ;
+	linkml:inlined_as_list true ;
+	linkml:multivalued true ;
+	linkml:owner <https://w3id.org/lmodel/collections/elementOf> ;
+	linkml:range <https://w3id.org/lmodel/collections/Collection> ;
+	linkml:slot_uri "http://purl.org/co/elementOf"^^xsd:anyURI .
+<https://w3id.org/lmodel/collections/firstItem> a linkml:SlotDefinition ;
+	owl:inverseOf <https://w3id.org/lmodel/collections/firstItemOf> ;
+	skos:editorialNote "CO makes it a narrower form of item, which is not stated here. LinkML's inheritance is monotonic, so a slot under item would be multivalued, as item is, and this one holds one item." ;
+	skos:inScheme "https://w3id.org/lmodel/collections"^^xsd:anyURI ;
+	skos:mappingRelation "http://purl.org/co/firstItem"^^xsd:anyURI ;
+	skos:narrowMatch "http://swan.mindinformatics.org/ontologies/1.2/collections/firstItem"^^xsd:anyURI ;
+	skos:note "It holds a copy of the item with index 1, which has no previous item." ;
+	linkml:definition_uri "https://w3id.org/lmodel/collections/firstItem"^^xsd:anyURI ;
+	linkml:description "The first item of the list." ;
+	linkml:domain <https://w3id.org/lmodel/collections/List> ;
+	linkml:domain_of <https://w3id.org/lmodel/collections/List> ;
+	linkml:inlined true ;
+	linkml:inlined_as_list true ;
+	linkml:owner <https://w3id.org/lmodel/collections/List> ;
+	linkml:range <https://w3id.org/lmodel/collections/ListItem> ;
+	linkml:slot_uri "http://purl.org/co/firstItem"^^xsd:anyURI .
+<https://w3id.org/lmodel/collections/firstItemOf> a linkml:SlotDefinition ;
+	owl:inverseOf <https://w3id.org/lmodel/collections/firstItem> ;
+	skos:inScheme "https://w3id.org/lmodel/collections"^^xsd:anyURI ;
+	skos:mappingRelation "http://purl.org/co/firstItemOf"^^xsd:anyURI ;
+	skos:narrowMatch "http://www.ontologydesignpatterns.org/cp/owl/list.owl#firstItemOf"^^xsd:anyURI ;
+	linkml:definition_uri "https://w3id.org/lmodel/collections/firstItemOf"^^xsd:anyURI ;
+	linkml:description "A list whose first item this is." ;
+	linkml:domain <https://w3id.org/lmodel/collections/ListItem> ;
+	linkml:inlined true ;
+	linkml:inlined_as_list true ;
+	linkml:is_a <https://w3id.org/lmodel/collections/itemOf> ;
+	linkml:multivalued true ;
+	linkml:owner <https://w3id.org/lmodel/collections/firstItemOf> ;
+	linkml:range <https://w3id.org/lmodel/collections/List> ;
+	linkml:slot_uri "http://purl.org/co/firstItemOf"^^xsd:anyURI .
+<https://w3id.org/lmodel/collections/float> a linkml:TypeDefinition ;
+	skos:editorialNote "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"float\"." ;
+	skos:exactMatch "schema:Float"^^xsd:anyURI ;
+	skos:inScheme "https://w3id.org/linkml/types"^^xsd:anyURI ;
+	linkml:base "float" ;
+	linkml:definition_uri "https://w3id.org/linkml/Float"^^xsd:anyURI ;
+	linkml:description "A real number that conforms to the xsd:float specification" ;
+	linkml:imported_from "linkml:types" ;
+	linkml:uri "http://www.w3.org/2001/XMLSchema#float"^^xsd:anyURI .
+<https://w3id.org/lmodel/collections/followedBy> a linkml:SlotDefinition ;
+	owl:inverseOf <https://w3id.org/lmodel/collections/precededBy> ;
+	skos:exactMatch "http://swan.mindinformatics.org/ontologies/1.2/collections/followedBy"^^xsd:anyURI ;
+	skos:inScheme "https://w3id.org/lmodel/collections"^^xsd:anyURI ;
+	skos:mappingRelation "http://purl.org/co/followedBy"^^xsd:anyURI ;
+	skos:note "It holds copies of items whose index is higher." ;
+	linkml:definition_uri "https://w3id.org/lmodel/collections/followedBy"^^xsd:anyURI ;
+	linkml:description "An item that comes somewhere after this one." ;
+	linkml:domain <https://w3id.org/lmodel/collections/ListItem> ;
+	linkml:domain_of <https://w3id.org/lmodel/collections/ListItem> ;
+	linkml:inlined true ;
+	linkml:inlined_as_list true ;
+	linkml:multivalued true ;
+	linkml:owner <https://w3id.org/lmodel/collections/ListItem> ;
+	linkml:range <https://w3id.org/lmodel/collections/ListItem> ;
+	linkml:slot_uri "http://purl.org/co/followedBy"^^xsd:anyURI ;
+	linkml:transitive true ;
+	linkml:transitive_form_of <https://w3id.org/lmodel/collections/nextItem> .
+<https://w3id.org/lmodel/collections/integer> a linkml:TypeDefinition ;
+	skos:editorialNote "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"integer\"." ;
+	skos:exactMatch "schema:Integer"^^xsd:anyURI ;
+	skos:inScheme "https://w3id.org/linkml/types"^^xsd:anyURI ;
+	linkml:base "int" ;
+	linkml:definition_uri "https://w3id.org/linkml/Integer"^^xsd:anyURI ;
+	linkml:description "An integer" ;
+	linkml:imported_from "linkml:types" ;
+	linkml:uri "http://www.w3.org/2001/XMLSchema#integer"^^xsd:anyURI .
+<https://w3id.org/lmodel/collections/iri> a linkml:SlotDefinition ;
+	linkml:description "The IRI of the thing." ;
+	linkml:identifier true ;
+	linkml:range <https://w3id.org/lmodel/collections/uriorcurie> .
+<https://w3id.org/lmodel/collections/item> a linkml:SlotDefinition ;
+	owl:inverseOf <https://w3id.org/lmodel/collections/itemOf> ;
+	skos:inScheme "https://w3id.org/lmodel/collections"^^xsd:anyURI ;
+	skos:mappingRelation "http://purl.org/co/item"^^xsd:anyURI ;
+	skos:narrowMatch "http://purl.org/ontology/mo/track"^^xsd:anyURI , "http://swan.mindinformatics.org/ontologies/1.2/collections/item"^^xsd:anyURI ;
+	skos:note "In a list, the item after an item of the list is also an item of it, as the path rule states after CO's property chain." ;
+	linkml:definition_uri "https://w3id.org/lmodel/collections/item"^^xsd:anyURI ;
+	linkml:description "An item of the bag, which holds one of its elements." ;
+	linkml:domain <https://w3id.org/lmodel/collections/Bag> ;
+	linkml:domain_of <https://w3id.org/lmodel/collections/Bag> ;
+	linkml:inlined true ;
+	linkml:inlined_as_list true ;
+	linkml:multivalued true ;
+	linkml:owner <https://w3id.org/lmodel/collections/Bag> ;
+	linkml:path_rule _:c14n7 ;
+	linkml:range <https://w3id.org/lmodel/collections/CoItem> ;
+	linkml:slot_uri "http://purl.org/co/item"^^xsd:anyURI .
+<https://w3id.org/lmodel/collections/itemContent> a linkml:SlotDefinition ;
+	rdfs:seeAlso "https://github.com/collections-ontology/collections-ontology/blob/58e55d956991878307d430eede7790d5e5da206f/StructureBag.md"^^xsd:anyURI ;
+	owl:inverseOf <https://w3id.org/lmodel/collections/itemContentOf> ;
+	skos:closeMatch "http://schema.org/item"^^xsd:anyURI ;
+	skos:editorialNote "CoItem requires it. CO's OWL file makes itemContent functional, so an item wraps at most one element, and CO's wiki page StructureBag says that an item links exactly one resource." ;
+	skos:exactMatch "http://swan.mindinformatics.org/ontologies/1.2/collections/itemContent"^^xsd:anyURI , "http://www.ontologydesignpatterns.org/cp/owl/bag.owl#itemContent"^^xsd:anyURI ;
+	skos:inScheme "https://w3id.org/lmodel/collections"^^xsd:anyURI ;
+	skos:mappingRelation "http://purl.org/co/itemContent"^^xsd:anyURI ;
+	skos:narrowMatch "http://purl.org/ontology/mo/publication_of"^^xsd:anyURI , "http://www.openarchives.org/ore/terms/proxyFor"^^xsd:anyURI ;
+	linkml:definition_uri "https://w3id.org/lmodel/collections/itemContent"^^xsd:anyURI ;
+	linkml:description "The element that the item wraps." ;
+	linkml:domain <https://w3id.org/lmodel/collections/CoItem> ;
+	linkml:domain_of <https://w3id.org/lmodel/collections/CoItem> ;
+	linkml:owner <https://w3id.org/lmodel/collections/CoItem> ;
+	linkml:range <https://w3id.org/lmodel/collections/CoElement> ;
+	linkml:slot_uri "http://purl.org/co/itemContent"^^xsd:anyURI .
+<https://w3id.org/lmodel/collections/itemContentOf> a linkml:SlotDefinition ;
+	owl:inverseOf <https://w3id.org/lmodel/collections/itemContent> ;
+	skos:inScheme "https://w3id.org/lmodel/collections"^^xsd:anyURI ;
+	skos:mappingRelation "http://purl.org/co/itemContentOf"^^xsd:anyURI ;
+	skos:narrowMatch "http://purl.org/ontology/mo/published_as"^^xsd:anyURI ;
+	linkml:definition_uri "https://w3id.org/lmodel/collections/itemContentOf"^^xsd:anyURI ;
+	linkml:description "An item that wraps the thing." ;
+	linkml:domain <https://w3id.org/lmodel/collections/CoElement> ;
+	linkml:inlined true ;
+	linkml:inlined_as_list true ;
+	linkml:multivalued true ;
+	linkml:owner <https://w3id.org/lmodel/collections/itemContentOf> ;
+	linkml:range <https://w3id.org/lmodel/collections/CoItem> ;
+	linkml:slot_uri "http://purl.org/co/itemContentOf"^^xsd:anyURI .
+<https://w3id.org/lmodel/collections/itemOf> a linkml:SlotDefinition ;
+	owl:inverseOf <https://w3id.org/lmodel/collections/item> ;
+	skos:inScheme "https://w3id.org/lmodel/collections"^^xsd:anyURI ;
+	skos:mappingRelation "http://purl.org/co/itemOf"^^xsd:anyURI ;
+	skos:narrowMatch "http://www.ontologydesignpatterns.org/cp/owl/bag.owl#itemOf"^^xsd:anyURI , "http://www.openarchives.org/ore/terms/proxyIn"^^xsd:anyURI ;
+	linkml:definition_uri "https://w3id.org/lmodel/collections/itemOf"^^xsd:anyURI ;
+	linkml:description "A bag that holds the item." ;
+	linkml:domain <https://w3id.org/lmodel/collections/CoItem> ;
+	linkml:inlined true ;
+	linkml:inlined_as_list true ;
+	linkml:multivalued true ;
+	linkml:owner <https://w3id.org/lmodel/collections/itemOf> ;
+	linkml:range <https://w3id.org/lmodel/collections/Bag> ;
+	linkml:slot_uri "http://purl.org/co/itemOf"^^xsd:anyURI .
+<https://w3id.org/lmodel/collections/jsonpath> dcterms:conformsTo "https://www.ietf.org/archive/id/draft-goessner-dispatch-jsonpath-00.html" ;
+	a linkml:TypeDefinition ;
+	skos:editorialNote "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"jsonpath\"." ;
+	skos:inScheme "https://w3id.org/linkml/types"^^xsd:anyURI ;
+	linkml:base "str" ;
+	linkml:definition_uri "https://w3id.org/linkml/Jsonpath"^^xsd:anyURI ;
+	linkml:description "A string encoding a JSON Path. The value of the string MUST conform to JSON Point syntax and SHOULD dereference to zero or more valid objects within the current instance document when encoded in tree form." ;
+	linkml:imported_from "linkml:types" ;
+	linkml:repr "str" ;
+	linkml:uri "http://www.w3.org/2001/XMLSchema#string"^^xsd:anyURI .
+<https://w3id.org/lmodel/collections/jsonpointer> dcterms:conformsTo "https://datatracker.ietf.org/doc/html/rfc6901" ;
+	a linkml:TypeDefinition ;
+	skos:editorialNote "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"jsonpointer\"." ;
+	skos:inScheme "https://w3id.org/linkml/types"^^xsd:anyURI ;
+	linkml:base "str" ;
+	linkml:definition_uri "https://w3id.org/linkml/Jsonpointer"^^xsd:anyURI ;
+	linkml:description "A string encoding a JSON Pointer. The value of the string MUST conform to JSON Point syntax and SHOULD dereference to a valid object within the current instance document when encoded in tree form." ;
+	linkml:imported_from "linkml:types" ;
+	linkml:repr "str" ;
+	linkml:uri "http://www.w3.org/2001/XMLSchema#string"^^xsd:anyURI .
+<https://w3id.org/lmodel/collections/lastItem> a linkml:SlotDefinition ;
+	owl:inverseOf <https://w3id.org/lmodel/collections/lastItemOf> ;
+	skos:editorialNote "CO makes it a narrower form of item, which is not stated here for the reason given on firstItem." ;
+	skos:inScheme "https://w3id.org/lmodel/collections"^^xsd:anyURI ;
+	skos:mappingRelation "http://purl.org/co/lastItem"^^xsd:anyURI ;
+	skos:narrowMatch "http://swan.mindinformatics.org/ontologies/1.2/collections/lastItem"^^xsd:anyURI ;
+	skos:note "It holds a copy of the item with the highest index, which has no next item." ;
+	linkml:definition_uri "https://w3id.org/lmodel/collections/lastItem"^^xsd:anyURI ;
+	linkml:description "The last item of the list." ;
+	linkml:domain <https://w3id.org/lmodel/collections/List> ;
+	linkml:domain_of <https://w3id.org/lmodel/collections/List> ;
+	linkml:inlined true ;
+	linkml:inlined_as_list true ;
+	linkml:owner <https://w3id.org/lmodel/collections/List> ;
+	linkml:range <https://w3id.org/lmodel/collections/ListItem> ;
+	linkml:slot_uri "http://purl.org/co/lastItem"^^xsd:anyURI .
+<https://w3id.org/lmodel/collections/lastItemOf> a linkml:SlotDefinition ;
+	owl:inverseOf <https://w3id.org/lmodel/collections/lastItem> ;
+	skos:inScheme "https://w3id.org/lmodel/collections"^^xsd:anyURI ;
+	skos:mappingRelation "http://purl.org/co/lastItemOf"^^xsd:anyURI ;
+	skos:narrowMatch "http://www.ontologydesignpatterns.org/cp/owl/list.owl#lastItemOf"^^xsd:anyURI ;
+	linkml:definition_uri "https://w3id.org/lmodel/collections/lastItemOf"^^xsd:anyURI ;
+	linkml:description "A list whose last item this is." ;
+	linkml:domain <https://w3id.org/lmodel/collections/ListItem> ;
+	linkml:inlined true ;
+	linkml:inlined_as_list true ;
+	linkml:is_a <https://w3id.org/lmodel/collections/itemOf> ;
+	linkml:multivalued true ;
+	linkml:owner <https://w3id.org/lmodel/collections/lastItemOf> ;
+	linkml:range <https://w3id.org/lmodel/collections/List> ;
+	linkml:slot_uri "http://purl.org/co/lastItemOf"^^xsd:anyURI .
+<https://w3id.org/lmodel/collections/ncname> a linkml:TypeDefinition ;
+	skos:editorialNote "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"ncname\"." ;
+	skos:inScheme "https://w3id.org/linkml/types"^^xsd:anyURI ;
+	linkml:base "NCName" ;
+	linkml:definition_uri "https://w3id.org/linkml/Ncname"^^xsd:anyURI ;
+	linkml:description "Prefix part of CURIE" ;
+	linkml:imported_from "linkml:types" ;
+	linkml:repr "str" ;
+	linkml:uri "http://www.w3.org/2001/XMLSchema#string"^^xsd:anyURI .
+<https://w3id.org/lmodel/collections/nextItem> a linkml:SlotDefinition ;
+	owl:inverseOf <https://w3id.org/lmodel/collections/previousItem> ;
+	skos:closeMatch "http://schema.org/nextItem"^^xsd:anyURI ;
+	skos:editorialNote "CO makes it a narrower form of followedBy. It is stated on followedBy, as transitive_form_of, not here as is_a: LinkML's inheritance is monotonic, so a slot under followedBy would be multivalued and transitive, as followedBy is, and this one is neither." ;
+	skos:exactMatch "http://swan.mindinformatics.org/ontologies/1.2/collections/nextItem"^^xsd:anyURI ;
+	skos:inScheme "https://w3id.org/lmodel/collections"^^xsd:anyURI ;
+	skos:mappingRelation "http://purl.org/co/nextItem"^^xsd:anyURI ;
+	skos:note "It holds a copy of the item whose index is one higher." ;
+	linkml:definition_uri "https://w3id.org/lmodel/collections/nextItem"^^xsd:anyURI ;
+	linkml:description "The item that comes straight after this one." ;
+	linkml:domain <https://w3id.org/lmodel/collections/ListItem> ;
+	linkml:domain_of <https://w3id.org/lmodel/collections/ListItem> ;
+	linkml:inlined true ;
+	linkml:inlined_as_list true ;
+	linkml:owner <https://w3id.org/lmodel/collections/ListItem> ;
+	linkml:range <https://w3id.org/lmodel/collections/ListItem> ;
+	linkml:slot_uri "http://purl.org/co/nextItem"^^xsd:anyURI .
+<https://w3id.org/lmodel/collections/nodeidentifier> a linkml:TypeDefinition ;
+	skos:editorialNote "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"nodeidentifier\"." ;
+	skos:inScheme "https://w3id.org/linkml/types"^^xsd:anyURI ;
+	linkml:base "NodeIdentifier" ;
+	linkml:definition_uri "https://w3id.org/linkml/Nodeidentifier"^^xsd:anyURI ;
+	linkml:description "A URI, CURIE or BNODE that represents a node in a model." ;
+	linkml:imported_from "linkml:types" ;
+	linkml:repr "str" ;
+	linkml:uri "http://www.w3.org/ns/shex#nonLiteral"^^xsd:anyURI .
+<https://w3id.org/lmodel/collections/objectidentifier> a linkml:TypeDefinition ;
+	skos:editorialNote "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"objectidentifier\"." ;
+	skos:inScheme "https://w3id.org/linkml/types"^^xsd:anyURI ;
+	skos:note "Used for inheritance and type checking" ;
+	linkml:base "ElementIdentifier" ;
+	linkml:definition_uri "https://w3id.org/linkml/Objectidentifier"^^xsd:anyURI ;
+	linkml:description "A URI or CURIE that represents an object in the model." ;
+	linkml:imported_from "linkml:types" ;
+	linkml:repr "str" ;
+	linkml:uri "http://www.w3.org/ns/shex#iri"^^xsd:anyURI .
+<https://w3id.org/lmodel/collections/precededBy> a linkml:SlotDefinition ;
+	owl:inverseOf <https://w3id.org/lmodel/collections/followedBy> ;
+	skos:exactMatch "http://swan.mindinformatics.org/ontologies/1.2/collections/preceededBy"^^xsd:anyURI ;
+	skos:inScheme "https://w3id.org/lmodel/collections"^^xsd:anyURI ;
+	skos:mappingRelation "http://purl.org/co/precededBy"^^xsd:anyURI ;
+	skos:note "It holds copies of items whose index is lower." ;
+	linkml:definition_uri "https://w3id.org/lmodel/collections/precededBy"^^xsd:anyURI ;
+	linkml:description "An item that comes somewhere before this one." ;
+	linkml:domain <https://w3id.org/lmodel/collections/ListItem> ;
+	linkml:domain_of <https://w3id.org/lmodel/collections/ListItem> ;
+	linkml:inlined true ;
+	linkml:inlined_as_list true ;
+	linkml:multivalued true ;
+	linkml:owner <https://w3id.org/lmodel/collections/ListItem> ;
+	linkml:range <https://w3id.org/lmodel/collections/ListItem> ;
+	linkml:slot_uri "http://purl.org/co/precededBy"^^xsd:anyURI ;
+	linkml:transitive true ;
+	linkml:transitive_form_of <https://w3id.org/lmodel/collections/previousItem> .
+<https://w3id.org/lmodel/collections/previousItem> a linkml:SlotDefinition ;
+	owl:inverseOf <https://w3id.org/lmodel/collections/nextItem> ;
+	skos:broadMatch "http://www.ontologydesignpatterns.org/cp/owl/sequence.owl#directlyFollows"^^xsd:anyURI ;
+	skos:closeMatch "http://schema.org/previousItem"^^xsd:anyURI ;
+	skos:editorialNote "CO makes it a narrower form of precededBy. It is stated on precededBy, as transitive_form_of, not here as is_a, for the reason given on nextItem." ;
+	skos:exactMatch "http://swan.mindinformatics.org/ontologies/1.2/collections/previousItem"^^xsd:anyURI ;
+	skos:inScheme "https://w3id.org/lmodel/collections"^^xsd:anyURI ;
+	skos:mappingRelation "http://purl.org/co/previousItem"^^xsd:anyURI ;
+	skos:note "It holds a copy of the item whose index is one lower." ;
+	linkml:definition_uri "https://w3id.org/lmodel/collections/previousItem"^^xsd:anyURI ;
+	linkml:description "The item that comes straight before this one." ;
+	linkml:domain <https://w3id.org/lmodel/collections/ListItem> ;
+	linkml:domain_of <https://w3id.org/lmodel/collections/ListItem> ;
+	linkml:inlined true ;
+	linkml:inlined_as_list true ;
+	linkml:owner <https://w3id.org/lmodel/collections/ListItem> ;
+	linkml:range <https://w3id.org/lmodel/collections/ListItem> ;
+	linkml:slot_uri "http://purl.org/co/previousItem"^^xsd:anyURI .
+<https://w3id.org/lmodel/collections/sparqlpath> dcterms:conformsTo "https://www.w3.org/TR/sparql11-query/#propertypaths" ;
+	a linkml:TypeDefinition ;
+	skos:editorialNote "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"sparqlpath\"." ;
+	skos:inScheme "https://w3id.org/linkml/types"^^xsd:anyURI ;
+	linkml:base "str" ;
+	linkml:definition_uri "https://w3id.org/linkml/Sparqlpath"^^xsd:anyURI ;
+	linkml:description "A string encoding a SPARQL Property Path. The value of the string MUST conform to SPARQL syntax and SHOULD dereference to zero or more valid objects within the current instance document when encoded as RDF." ;
+	linkml:imported_from "linkml:types" ;
+	linkml:repr "str" ;
+	linkml:uri "http://www.w3.org/2001/XMLSchema#string"^^xsd:anyURI .
+<https://w3id.org/lmodel/collections/string> a linkml:TypeDefinition ;
+	skos:editorialNote "In RDF serializations, a slot with range of string is treated as a literal or type xsd:string. If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"string\"." ;
+	skos:exactMatch "schema:Text"^^xsd:anyURI ;
+	skos:inScheme "https://w3id.org/linkml/types"^^xsd:anyURI ;
+	linkml:base "str" ;
+	linkml:definition_uri "https://w3id.org/linkml/String"^^xsd:anyURI ;
+	linkml:description "A character string" ;
+	linkml:imported_from "linkml:types" ;
+	linkml:uri "http://www.w3.org/2001/XMLSchema#string"^^xsd:anyURI .
+<https://w3id.org/lmodel/collections/time> a linkml:TypeDefinition ;
+	skos:editorialNote "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"time\"." , "URI is dateTime because OWL reasoners do not work with straight date or time" ;
+	skos:exactMatch "schema:Time"^^xsd:anyURI ;
+	skos:inScheme "https://w3id.org/linkml/types"^^xsd:anyURI ;
+	linkml:base "XSDTime" ;
+	linkml:definition_uri "https://w3id.org/linkml/Time"^^xsd:anyURI ;
+	linkml:description "A time object represents a (local) time of day, independent of any particular day" ;
+	linkml:imported_from "linkml:types" ;
+	linkml:repr "str" ;
+	linkml:uri "http://www.w3.org/2001/XMLSchema#time"^^xsd:anyURI .
+<https://w3id.org/lmodel/collections/uri> dcterms:conformsTo "https://www.ietf.org/rfc/rfc3987.txt" ;
+	a linkml:TypeDefinition ;
+	skos:closeMatch "schema:URL"^^xsd:anyURI ;
+	skos:editorialNote "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"uri\"." ;
+	skos:inScheme "https://w3id.org/linkml/types"^^xsd:anyURI ;
+	skos:note "in RDF serializations a slot with range of uri is treated as a literal or type xsd:anyURI unless it is an identifier or a reference to an identifier, in which case it is translated directly to a node" ;
+	linkml:base "URI" ;
+	linkml:definition_uri "https://w3id.org/linkml/Uri"^^xsd:anyURI ;
+	linkml:description "a complete URI" ;
+	linkml:imported_from "linkml:types" ;
+	linkml:repr "str" ;
+	linkml:uri "http://www.w3.org/2001/XMLSchema#anyURI"^^xsd:anyURI .
+<https://w3id.org/lmodel/collections/uriorcurie> a linkml:TypeDefinition ;
+	skos:editorialNote "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"uriorcurie\"." ;
+	skos:inScheme "https://w3id.org/linkml/types"^^xsd:anyURI ;
+	linkml:base "URIorCURIE" ;
+	linkml:definition_uri "https://w3id.org/linkml/Uriorcurie"^^xsd:anyURI ;
+	linkml:description "a URI or a CURIE" ;
+	linkml:imported_from "linkml:types" ;
+	linkml:repr "str" ;
+	linkml:uri "http://www.w3.org/2001/XMLSchema#anyURI"^^xsd:anyURI .
+_:c14n0 sh:namespace "http://www.openarchives.org/ore/terms/"^^xsd:anyURI ;
+	sh:prefix "ore" .
+_:c14n1 sh:namespace "http://www.ontologydesignpatterns.org/cp/owl/collectionentity.owl#"^^xsd:anyURI ;
+	sh:prefix "odpce" .
+_:c14n11 a linkml:PathExpression ;
+	linkml:followed_by _:c14n27 ;
+	linkml:traverse <https://w3id.org/lmodel/collections/item> .
+_:c14n12 sh:namespace "http://www.ontologydesignpatterns.org/cp/owl/sequence.owl#"^^xsd:anyURI ;
+	sh:prefix "seq" .
+_:c14n13 sh:namespace "http://schema.org/"^^xsd:anyURI ;
+	sh:prefix "schema" .
+_:c14n14 sh:namespace "http://purl.org/co/"^^xsd:anyURI ;
+	sh:prefix "coll" .
+_:c14n15 sh:namespace "https://w3id.org/lmodel/collections/"^^xsd:anyURI ;
+	sh:prefix "collections" .
+_:c14n16 a linkml:PathExpression ;
+	linkml:followed_by _:c14n28 ;
+	linkml:traverse <https://w3id.org/lmodel/collections/item> .
+_:c14n18 sh:namespace "http://purl.org/ontology/mo/"^^xsd:anyURI ;
+	sh:prefix "mo" .
+_:c14n2 a linkml:PathExpression ;
+	linkml:followed_by _:c14n29 ;
+	linkml:traverse <https://w3id.org/lmodel/collections/item> .
+_:c14n20 sh:namespace "http://swan.mindinformatics.org/ontologies/1.2/collections/"^^xsd:anyURI ;
+	sh:prefix "swan" .
+_:c14n22 sh:namespace "https://w3id.org/linkml/"^^xsd:anyURI ;
+	sh:prefix "linkml" .
+_:c14n24 sh:namespace "http://www.ontologydesignpatterns.org/cp/owl/set.owl#"^^xsd:anyURI ;
+	sh:prefix "odpset" .
+_:c14n25 skos:example "619e7b02646321174635fd04be658e338bf7d1d7" ;
+	linkml:tag "co_commit"^^xsd:anyURI .
+_:c14n27 a linkml:PathExpression ;
+	linkml:traverse <https://w3id.org/lmodel/collections/itemContent> .
+_:c14n28 a linkml:PathExpression ;
+	linkml:traverse <https://w3id.org/lmodel/collections/itemContent> .
+_:c14n29 a linkml:PathExpression ;
+	linkml:traverse <https://w3id.org/lmodel/collections/nextItem> .
+_:c14n3 skos:example "http://purl.org/co" ;
+	linkml:tag "co_ontology_iri"^^xsd:anyURI .
+_:c14n30 a linkml:PathExpression ;
+	linkml:traverse <https://w3id.org/lmodel/collections/nextItem> .
+_:c14n4 skos:example "4e19e4892212de2b1805923a7a69fa4ba8c1b424" ;
+	linkml:tag "co_git_object"^^xsd:anyURI .
+_:c14n5 sh:namespace "http://www.ontologydesignpatterns.org/cp/owl/list.owl#"^^xsd:anyURI ;
+	sh:prefix "odplist" .
+_:c14n6 sh:namespace "http://www.ontologydesignpatterns.org/cp/owl/bag.owl#"^^xsd:anyURI ;
+	sh:prefix "odpbag" .
+_:c14n7 a linkml:PathExpression ;
+	linkml:followed_by _:c14n30 ;
+	linkml:traverse <https://w3id.org/lmodel/collections/item> .
+_:c14n9 skos:example "Apache-2.0 for code, collections.owl among it, and CC-BY-3.0 for other content, per the Google Code archive" ;
+	linkml:tag "co_licence"^^xsd:anyURI .
+
