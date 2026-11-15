@@ -11,10 +11,10 @@ sources:
     title: every section
   - id: dependabot.yml
     resource: .github/dependabot.yml
-    title: the six update entries
+    title: the five update entries
 generated:
   by: process:ktl-librarian
-  at: "2026-10-31T18:10:16Z"
+  at: "2026-11-15T03:01:58Z"
 status: draft
 ---
 
@@ -31,9 +31,9 @@ The policy's table names each workflow and what holds it:
 - the Pages scopes on the website's deploy job alone;
 - a librarian whose agent holds no write token.
 
-Every workflow pins its actions to commit hashes, and Dependabot keeps them and the two uv locks and two npm locks current, each monthly.[^dependabot.yml]
+Every workflow pins its actions to commit hashes, and Dependabot keeps them, the three uv locks and the npm lock current, each monthly.[^dependabot.yml]
 
 A ruleset named `main` on the default branch blocks deletion and force-pushes and requires a linear history. Two settings are not yet in force: required reviewers on the `release` Environment, and secret scanning with push protection.
 
 [^security.md]: SECURITY.md, every section
-[^dependabot.yml]: .github/dependabot.yml, the six entries
+[^dependabot.yml]: .github/dependabot.yml, the five entries
