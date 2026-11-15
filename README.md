@@ -31,13 +31,13 @@ The schema renders the [Collections Ontology (CO)](https://github.com/collection
 
 ## Repository Structure
 
-* [docs/](docs/): the website's pages, with the generated schema pages in [elements/](docs/elements/)
+* [docs/](docs/): the website's pages, with the generated schema pages in `docs/elements/`
 * [project/](project/): generated project files (do not edit them)
 * [scripts/](scripts/): the upstream watch
 * [src/collections/schema/](src/collections/schema): the LinkML schema, `collections.yaml` (edit this), and CO's file in `upstream/`
 * [src/collections_linkml/datamodel/](src/collections_linkml/datamodel): the generated Python datamodel
 * [tests/](tests/): Python tests, with example data in [data/](tests/data) and the neighbours' adapt copies in [neighbours/](tests/neighbours)
-* [website/](website/): the Astro Starlight site built from the README, `docs/`, the schema's pages and the knowledge bundle
+* [website/](website/): the Hugo site built from the README, `docs/`, the schema's pages and the knowledge bundle
 
 ## Developer Tools
 
