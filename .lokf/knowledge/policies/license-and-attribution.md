@@ -13,10 +13,9 @@ sources:
     resource: README.md
     title: the License section
   - resource: LICENSE
-  - resource: website/NOTICE
 generated:
   by: process:ktl-librarian
-  at: "2026-11-01T00:01:52Z"
+  at: "2026-11-15T02:33:52Z"
 status: draft
 ---
 

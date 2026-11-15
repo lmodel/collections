@@ -98,7 +98,7 @@ exclusions:
     reason: The sidecar's git settings.
 generated:
   by: process:ktl-librarian
-  at: "2026-11-06T21:17:24Z"
+  at: "2026-11-15T02:33:52Z"
 status: draft
 ---
 
@@ -121,8 +121,8 @@ Each concept derived from a file or folder of this repository names it by its pa
 | `CONTRIBUTING.md`, the `lint`, `gen-project`, `gen-doc` and `test` recipes | `playbooks/regenerate-and-test` | confirm the setup, the checklist and the recipes |
 | `.releaserc.json`, `.github/scripts/changelog-release.mjs`, `CHANGELOG.md`, `.github/release/` | `playbooks/release`, `workflows/semantic-release` | re-read the release rules, the baseline paragraph and the pinned tools |
 | the nine files in `.github/workflows/`, `.github/PULL_REQUEST_TEMPLATE/` | the nine `workflows/` concepts | re-read each file's `on` keys, its jobs' permissions and Environments, and the variables it reads |
-| `website/` | `services/documentation-site` | re-read `site.config.mjs` and `website/README.md` |
-| `NOTICE`, `LICENSE`, `website/NOTICE`, the License section of `README.md` | `policies/license-and-attribution` | re-read each third-party entry |
+| `website/` | `services/documentation-site` | re-read `site.toml` and `website/README.md` |
+| `NOTICE`, `LICENSE`, the License section of `README.md` | `policies/license-and-attribution` | re-read each third-party entry |
 | `SECURITY.md`, `.github/dependabot.yml` | `policies/security-policy` | re-read the table of surfaces and the settings not yet in force |
 | `AI_COVENANT.md` | `policies/ai-covenant` | re-read the project note and the section on agent automation |
 | <https://github.com/collections-ontology/collections-ontology>, <https://doi.org/10.3233/SW-130121>, the Google Code archive's project record | `references/collections-ontology` | re-read them when the upstream watch reports a change |

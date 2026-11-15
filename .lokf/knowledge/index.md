@@ -18,7 +18,7 @@ A [LOKF](https://lokf.nolan-nichols.com) knowledge base for collections. Every M
 
 # Services
 
-* [Documentation website](services/documentation-site.md) - The knowledge website at `https://lmodel.github.io/collections`, an Astro Starlight site in `website/` built from the README, `docs/`, the schema's pages and the bundle, which redirects the 2023 mkdocs site's element pages and `/about` to their successors.
+* [Documentation website](services/documentation-site.md) - The knowledge website at `https://lmodel.github.io/collections`, a Hugo site in `website/` built from the README, `docs/`, the schema's pages and the bundle, which redirects the 2023 mkdocs site's element pages and `/about` to their successors.
 
 # Datasets
 
