@@ -21,7 +21,7 @@ sources:
   - resource: .github/scripts
   - resource: .github/workflows
   - resource: .github/dependabot.yml
-  - resource: .github/release
+  - resource: .release
   - resource: justfile
   - resource: config.public.mk
   - resource: .linkml/generators.yaml
@@ -98,7 +98,7 @@ exclusions:
     reason: The sidecar's git settings.
 generated:
   by: process:ktl-librarian
-  at: "2026-11-15T02:33:52Z"
+  at: "2026-11-15T20:56:10Z"
 status: draft
 ---
 
@@ -119,7 +119,7 @@ Each concept derived from a file or folder of this repository names it by its pa
 | `justfile`, `config.public.mk`, `.linkml/generators.yaml`, `project/`, `src/collections_linkml/datamodel/`, `docs/schema/`, `docs/elements/` | `datasets/generated-artefacts` | re-read the recipes, the variables and the settings; re-list `project/*/` |
 | `tests/` | `datasets/test-data` | re-count `valid/`, `invalid/` and `problem/invalid/`; re-read the tests and the neighbours' checksums |
 | `CONTRIBUTING.md`, the `lint`, `gen-project`, `gen-doc` and `test` recipes | `playbooks/regenerate-and-test` | confirm the setup, the checklist and the recipes |
-| `.releaserc.json`, `.github/scripts/changelog-release.mjs`, `CHANGELOG.md`, `.github/release/` | `playbooks/release`, `workflows/semantic-release` | re-read the release rules, the baseline paragraph and the pinned tools |
+| `.releaserc.json`, `.github/scripts/changelog-release.mjs`, `CHANGELOG.md`, `.release/` | `playbooks/release`, `workflows/semantic-release` | re-read the release rules, the baseline paragraph and the pinned tools |
 | the nine files in `.github/workflows/`, `.github/PULL_REQUEST_TEMPLATE/` | the nine `workflows/` concepts | re-read each file's `on` keys, its jobs' permissions and Environments, and the variables it reads |
 | `website/` | `services/documentation-site` | re-read `site.toml` and `website/README.md` |
 | `NOTICE`, `LICENSE`, the License section of `README.md` | `policies/license-and-attribution` | re-read each third-party entry |
