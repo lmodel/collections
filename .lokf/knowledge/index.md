@@ -61,7 +61,7 @@ A [LOKF](https://lokf.nolan-nichols.com) knowledge base for collections. Every M
 
 # Workflows
 
-* [Build and test (main.yaml)](workflows/main.md) - The Build and test workflow, `.github/workflows/main.yaml`: on a push to main and on every pull request, its test job runs `just test` on Python 3.10 to 3.14, and on 3.13 also `just lint` and `just lokf-adapt-check`.
+* [Build and test (main.yaml)](workflows/main.md) - The Build and test workflow, `.github/workflows/main.yaml`: on a push to main and on every pull request, its test job runs `just test` on Python 3.11 to 3.14, and on 3.13 also `just lint` and `just lokf-adapt-check`.
 * [Lint & docs (lint-and-docs.yaml)](workflows/lint-and-docs.md) - The Lint & docs workflow, `.github/workflows/lint-and-docs.yaml`: on a push to main, every pull request, Mondays at 06:00 UTC and by hand, it runs ShellCheck, actionlint, the word budgets of CONTRIBUTING.md and SECURITY.md, markdownlint, lychee and codespell.
 * [Upstream watch (upstream-watch.yaml)](workflows/upstream-watch.md) - The Upstream watch workflow, `.github/workflows/upstream-watch.yaml`: every Monday at 07:00 UTC and by hand, its co-copy job runs `scripts/check_upstream_release.py` against CO's GitHub repository, and on a finding opens or updates the issue titled Upstream watch: the Collections Ontology has changed.
 * [Semantic release (semantic-release.yml)](workflows/semantic-release.md) - The Semantic release workflow, `.github/workflows/semantic-release.yml`: on a pull request its plan job says what a merge would release, and on a push to main its release job, in the release Environment, tags the release and dispatches Knowledge Release.
