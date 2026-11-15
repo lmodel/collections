@@ -14,13 +14,13 @@ sources:
     title: the lint, gen-project, gen-doc and test recipes
 generated:
   by: process:ktl-librarian
-  at: "2026-10-31T12:56:19Z"
+  at: "2026-11-15T10:34:12Z"
 status: draft
 ---
 
 # Regenerate and test
 
-1. Install the tools: Python 3.10 or later, uv and just, then `uv sync --group dev`.[^contributing.md]
+1. Install the tools: Python 3.11 or later, uv and just, then `uv sync --group dev`.[^contributing.md]
 2. Edit `src/collections/schema/collections.yaml`, keeping CO's names and IRIs.
 3. Run `just lint`, which fails on a warning under `.linkmllint.yaml`.[^justfile]
 4. Run `just gen-project`, `just gen-doc` and `just lokf-adapt`, and commit what they write.

@@ -14,7 +14,7 @@ authors = [
 license = "Apache-2.0"
 license-files = ["LICENSE", "NOTICE"]
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 dynamic = ["version"]
 
 dependencies = [
@@ -56,7 +56,7 @@ exclude = [
     "src/collections_linkml/_version.py",
 ]
 # Set oldest supported Python version
-target-version = "py310"
+target-version = "py311"
 
 # Ref.: https://github.com/codespell-project/codespell
 [tool.codespell]
@@ -73,12 +73,12 @@ skip = [
   "src/collections/schema/upstream/*",
   "tests/neighbours/*",
   ".lokf/scripts/*",
-  "website/package-lock.json",
+  "website/uv.lock",
 ]
 
 # Reminder: words have to be lowercased for the ignore-words-list
 # ore is OAI-ORE's prefix, which the schema's mappings use.
-ignore-words-list = "linke,ore"
+ignore-words-list = "linke,ore,intoto"
 quiet-level = 3
 
 # Ref.: https://github.com/crate-ci/typos (spell checker)
@@ -98,5 +98,5 @@ extend-exclude = [
   "src/collections/schema/upstream/*",
   "tests/neighbours/*",
   ".lokf/scripts/*",
-  "website/package-lock.json",
+  "website/uv.lock",
 ]
