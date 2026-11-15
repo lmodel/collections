@@ -2,6 +2,11 @@
 
 # collections
 
+[![Build and test](https://github.com/lmodel/collections/actions/workflows/main.yaml/badge.svg)](https://github.com/lmodel/collections/actions/workflows/main.yaml)
+[![Licence](https://img.shields.io/github/license/lmodel/collections?label=licence)](LICENSE)
+[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/lmodel/collections/badge)](https://scorecard.dev/viewer/?uri=github.com/lmodel/collections)
+[![KTL scorecard](https://img.shields.io/endpoint?url=https://lmodel.github.io/collections/badge.json)](https://lmodel.github.io/collections/health/)
+
 Collections Ontology (CO) 2.0 (LinkML)
 
 > **Only want to ask?** Install `ktl-docent` into any agent you use, by a route from [the install page](https://w3id.org/ktl/docs/install/), and ask it about this project. It answers from the bundle and says how far each answer has been checked.
