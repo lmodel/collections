@@ -78,7 +78,7 @@ skip = [
 
 # Reminder: words have to be lowercased for the ignore-words-list
 # ore is OAI-ORE's prefix, which the schema's mappings use.
-ignore-words-list = "linke,ore"
+ignore-words-list = "linke,ore,intoto"
 quiet-level = 3
 
 # Ref.: https://github.com/crate-ci/typos (spell checker)
